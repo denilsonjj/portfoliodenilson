@@ -34,7 +34,7 @@ const Header = () => {
             onClick={() => scrollToSection("home")}
             className="text-2xl font-bold text-primary hover:opacity-80 transition-opacity"
           >
-            Portfolio
+            Denilson Junior
           </button>
 
           {/* Desktop Menu */}

@@ -47,7 +47,8 @@ const Hero = () => {
       </div>
       <button
         onClick={() => scrollToSection("about")}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white animate-bounce cursor-pointer"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white animate-bounce cursor-pointer flex items-center justify-center"
+        aria-label="Rolar para sobre mim"
       >
         <ArrowDown size={32} />
       </button>
