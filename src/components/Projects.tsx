@@ -1,29 +1,30 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, BarChart3, Code } from "lucide-react";
+import { ExternalLink, BarChart3, Code, Github } from "lucide-react";
 
 const Projects = () => {
   const projects = [
     {
-      title: "Dashboard de Vendas",
-      description: "Dashboard interativo para análise de vendas, com métricas de performance, tendências e KPIs estratégicos.",
+      title: "Dashboard de Empreendedores",
+      description: "Análise de empreendedores cadastrados em plataforma de cursos. Desenvolvido com modelo em estrela, fornece insights sobre cursos com maior e menor número de inscrições, análise por raça e nível de ensino.",
+      icon: <BarChart3 className="w-8 h-8 text-primary" />,
+      link: "https://app.powerbi.com/view?r=eyJrIjoiNWEyZmNmNTctODBiNS00OGY0LWE2OGYtNTk0N2E4MzE0ZWI2IiwidCI6IjM4MjNhYzRiLWY1MDEtNDBjOS1hYWNjLTU4M2NhNGVjNzk4MCJ9&pageName=1b8dd58ffb53b81adab6",
+      type: "Power BI",
+    },
+    {
+      title: "Dashboard Operacional de OEE",
+      description: "Dashboard operacional focado em análise de OEE (Overall Equipment Effectiveness), monitorando vida útil de máquinas, componentes com maior número de paradas e desempenho por linhas de produção.",
       icon: <BarChart3 className="w-8 h-8 text-primary" />,
       link: "#",
       type: "Power BI",
     },
     {
-      title: "Dashboard Financeiro",
-      description: "Análise financeira completa com visualizações de receita, despesas, fluxo de caixa e projeções.",
-      icon: <BarChart3 className="w-8 h-8 text-primary" />,
-      link: "#",
-      type: "Tableau",
-    },
-    {
-      title: "Sistema de Análise",
-      description: "Aplicação desenvolvida para automatizar processos de análise de dados e geração de relatórios.",
+      title: "Sistema de Avaliação",
+      description: "Sistema completo desenvolvido em Node.js com quadro de atividades (realizadas, a realizar e em andamento) e dashboard inicial com detalhes operacionais de fábrica. Acesso demo: admin@gmail.com / Admin",
       icon: <Code className="w-8 h-8 text-accent" />,
-      link: "#",
-      type: "Python",
+      link: "https://sistema-de-avalia-o-one.vercel.app/",
+      type: "Node.js",
+      githubLink: "https://github.com/denilsonjj/sistema-de-avalia-o",
     },
   ];
 
@@ -53,13 +54,25 @@ const Projects = () => {
                 <CardDescription className="text-base">{project.description}</CardDescription>
               </CardHeader>
               <CardContent>
-                <Button
-                  variant="outline"
-                  className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors"
-                  onClick={() => window.open(project.link, "_blank")}
-                >
-                  Ver Projeto <ExternalLink className="ml-2 w-4 h-4" />
-                </Button>
+                <div className="flex gap-2">
+                  <Button
+                    variant="outline"
+                    className="flex-1 group-hover:bg-primary group-hover:text-primary-foreground transition-colors"
+                    onClick={() => window.open(project.link, "_blank")}
+                  >
+                    Ver Projeto <ExternalLink className="ml-2 w-4 h-4" />
+                  </Button>
+                  {'githubLink' in project && (
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      className="group-hover:bg-primary group-hover:text-primary-foreground transition-colors"
+                      onClick={() => window.open(project.githubLink as string, "_blank")}
+                    >
+                      <Github className="w-4 h-4" />
+                    </Button>
+                  )}
+                </div>
               </CardContent>
             </Card>
           ))}
