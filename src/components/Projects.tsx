@@ -23,7 +23,7 @@ const Projects = () => {
       description: "Sistema completo desenvolvido em Node.js com quadro de atividades (realizadas, a realizar e em andamento) e dashboard inicial com detalhes operacionais de fábrica. Acesso demo: admin@gmail.com / Admin",
       icon: <Code className="w-8 h-8 text-accent" />,
       link: "https://sistema-de-avalia-o-one.vercel.app/",
-      type: "Node.js",
+      type: "Node.js + React.js",
       githubLink: "https://github.com/denilsonjj/sistema-de-avalia-o",
     },
   ];

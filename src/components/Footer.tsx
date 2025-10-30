@@ -14,7 +14,7 @@ const Footer = () => {
             <Button
               variant="secondary"
               size="lg"
-              onClick={() => window.open("https://www.linkedin.com/", "_blank")}
+              onClick={() => window.open("https://www.linkedin.com/in/denilsonjj", "_blank")}
               className="gap-2"
             >
               <Linkedin size={20} />
@@ -23,7 +23,7 @@ const Footer = () => {
             <Button
               variant="secondary"
               size="lg"
-              onClick={() => window.location.href = "mailto:seu.email@exemplo.com"}
+              onClick={() => window.location.href = "mailto:juniordenilson363@gmail.com"}
               className="gap-2"
             >
               <Mail size={20} />
