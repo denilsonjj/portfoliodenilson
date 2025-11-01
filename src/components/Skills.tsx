@@ -71,32 +71,40 @@ const Skills = () => {
   ];
 
   return (
-    <section id="skills" className="py-20 bg-secondary/30">
-      <div className="container mx-auto px-4">
-        <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-foreground">
+    <section id="skills" className="relative py-24 overflow-hidden bg-gradient-to-br from-[#0a0a0a] via-[#1a0a2e] to-[#0a0a0a]">
+      {/* Animated background elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-1/2 left-1/4 w-96 h-96 bg-violet-600/20 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-1/3 right-1/4 w-96 h-96 bg-fuchsia-600/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1s" }} />
+        <div className="absolute top-1/4 right-1/3 w-96 h-96 bg-purple-600/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "2s" }} />
+      </div>
+
+      <div className="container mx-auto px-4 relative z-10">
+        <h2 className="text-5xl md:text-6xl font-bold text-center mb-6 bg-gradient-to-r from-purple-400 via-violet-400 to-fuchsia-400 bg-clip-text text-transparent animate-fade-in">
           Minhas Habilidades
         </h2>
-        <p className="text-center text-muted-foreground mb-12 text-lg">
+        <p className="text-center text-white/80 mb-16 text-xl animate-fade-in" style={{ animationDelay: "0.1s" }}>
           Ferramentas e tecnologias que domino
         </p>
         
         {/* Análise de Dados / IA */}
         <div className="mb-16">
-          <h3 className="text-2xl font-semibold text-center mb-8 text-foreground">
+          <h3 className="text-3xl font-semibold text-center mb-12 text-white animate-fade-in" style={{ animationDelay: "0.2s" }}>
             Análise de Dados / IA
           </h3>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 max-w-7xl mx-auto">
             {dataSkills.map((skill, index) => (
               <Card
                 key={index}
-                className="group hover:shadow-lg transition-all duration-300 hover:scale-105 border-border hover:border-primary/50"
+                className="group bg-black/40 backdrop-blur-sm border-purple-500/30 hover:border-purple-400/60 transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(168,85,247,0.3)] animate-fade-in"
+                style={{ animationDelay: `${0.3 + index * 0.05}s` }}
               >
                 <CardContent className="flex flex-col items-center justify-center p-6 text-center">
-                  <div className="text-primary mb-3 group-hover:scale-110 transition-transform">
+                  <div className="text-purple-400 mb-3 group-hover:scale-110 group-hover:text-purple-300 transition-all">
                     {skill.icon}
                   </div>
-                  <h3 className="font-semibold text-card-foreground mb-1">{skill.name}</h3>
-                  <p className="text-sm text-muted-foreground">{skill.description}</p>
+                  <h3 className="font-semibold text-white mb-1">{skill.name}</h3>
+                  <p className="text-sm text-white/70">{skill.description}</p>
                 </CardContent>
               </Card>
             ))}
@@ -105,21 +113,22 @@ const Skills = () => {
 
         {/* Desenvolvimento */}
         <div>
-          <h3 className="text-2xl font-semibold text-center mb-8 text-foreground">
+          <h3 className="text-3xl font-semibold text-center mb-12 text-white animate-fade-in" style={{ animationDelay: "0.5s" }}>
             Desenvolvimento
           </h3>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 max-w-6xl mx-auto">
             {devSkills.map((skill, index) => (
               <Card
                 key={index}
-                className="group hover:shadow-lg transition-all duration-300 hover:scale-105 border-border hover:border-primary/50"
+                className="group bg-black/40 backdrop-blur-sm border-violet-500/30 hover:border-violet-400/60 transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(139,92,246,0.3)] animate-fade-in"
+                style={{ animationDelay: `${0.6 + index * 0.05}s` }}
               >
                 <CardContent className="flex flex-col items-center justify-center p-6 text-center">
-                  <div className="text-accent mb-3 group-hover:scale-110 transition-transform">
+                  <div className="text-violet-400 mb-3 group-hover:scale-110 group-hover:text-violet-300 transition-all">
                     {skill.icon}
                   </div>
-                  <h3 className="font-semibold text-card-foreground mb-1">{skill.name}</h3>
-                  <p className="text-sm text-muted-foreground">{skill.description}</p>
+                  <h3 className="font-semibold text-white mb-1">{skill.name}</h3>
+                  <p className="text-sm text-white/70">{skill.description}</p>
                 </CardContent>
               </Card>
             ))}
