@@ -1,6 +1,4 @@
 import { Button } from "@/components/ui/button";
-import { ArrowDown } from "lucide-react";
-import heroBg from "@/assets/hero-bg-dark.jpg";
 
 const Hero = () => {
   const scrollToSection = (id: string) => {
@@ -13,12 +11,7 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
-      style={{
-        backgroundImage: `linear-gradient(rgba(21, 47, 88, 0.85), rgba(21, 47, 88, 0.85)), url(${heroBg})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#0a0a0a] via-[#1a0a2e] to-[#0a0a0a] hero-animated-bg"
     >
       <div className="container mx-auto px-4 text-center z-10">
         <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 animate-fade-in">
@@ -45,13 +38,6 @@ const Hero = () => {
           </Button>
         </div>
       </div>
-      <button
-        onClick={() => scrollToSection("about")}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white animate-bounce cursor-pointer flex items-center justify-center"
-        aria-label="Rolar para sobre mim"
-      >
-        <ArrowDown size={32} />
-      </button>
     </section>
   );
 };

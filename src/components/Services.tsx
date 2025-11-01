@@ -1,0 +1,92 @@
+import { Code, Database, BarChart3, Cpu } from "lucide-react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+
+const services = [
+  {
+    icon: Database,
+    title: "Análise de Dados",
+    description: "Transformo dados brutos em insights estratégicos utilizando Python, SQL e ferramentas modernas de análise.",
+    highlights: ["Python & SQL", "ETL & Data Pipeline", "Análise Exploratória"]
+  },
+  {
+    icon: BarChart3,
+    title: "Business Intelligence",
+    description: "Desenvolvimento de dashboards interativos em Power BI para visualização clara e tomada de decisões informadas.",
+    highlights: ["Power BI", "Dashboards Interativos", "KPIs & Métricas"]
+  },
+  {
+    icon: Code,
+    title: "Desenvolvimento Web",
+    description: "Criação de aplicações web modernas e responsivas com React no frontend e Python no backend.",
+    highlights: ["React & TypeScript", "Python Backend", "APIs RESTful"]
+  },
+  {
+    icon: Cpu,
+    title: "Machine Learning",
+    description: "Implementação de modelos de ML supervisionados para predições e otimização de processos industriais.",
+    highlights: ["Scikit-learn", "Modelos Preditivos", "Otimização"]
+  }
+];
+
+const Services = () => {
+  return (
+    <section id="services" className="relative py-24 overflow-hidden bg-gradient-to-br from-[#0a0a0a] via-[#1a0a2e] to-[#0a0a0a]">
+      {/* Animated background elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-600/20 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-violet-600/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1s" }} />
+        <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-fuchsia-600/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "2s" }} />
+      </div>
+
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="text-center mb-16 animate-fade-in">
+          <h2 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-purple-400 via-violet-400 to-fuchsia-400 bg-clip-text text-transparent">
+            Meus Serviços
+          </h2>
+          <p className="text-xl text-white/80 max-w-2xl mx-auto">
+            Soluções completas em dados e desenvolvimento para impulsionar seu negócio
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+          {services.map((service, index) => {
+            const Icon = service.icon;
+            return (
+              <Card 
+                key={index} 
+                className="bg-black/40 border-purple-500/30 backdrop-blur-sm hover:border-purple-400/60 transition-all duration-300 hover:shadow-[0_0_30px_rgba(168,85,247,0.3)] group animate-fade-in"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                <CardHeader>
+                  <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-purple-500 to-violet-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-purple-500/50">
+                    <Icon className="w-8 h-8 text-white" />
+                  </div>
+                  <CardTitle className="text-2xl font-bold text-white group-hover:text-purple-300 transition-colors">
+                    {service.title}
+                  </CardTitle>
+                  <CardDescription className="text-white/70 text-base">
+                    {service.description}
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex flex-wrap gap-2">
+                    {service.highlights.map((highlight, idx) => (
+                      <span 
+                        key={idx}
+                        className="px-3 py-1 rounded-full text-sm bg-purple-500/20 text-purple-300 border border-purple-500/30"
+                      >
+                        {highlight}
+                      </span>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Services;
