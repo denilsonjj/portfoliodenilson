@@ -26,7 +26,7 @@ const MatrixBackground = () => {
     
     const draw = () => {
       // Semi-transparent black background for trail effect
-      ctx.fillStyle = 'rgba(10, 10, 10, 0.05)';
+      ctx.fillStyle = 'rgba(10, 10, 10, 0.08)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       // Set text properties
@@ -36,16 +36,16 @@ const MatrixBackground = () => {
         // Random character
         const text = characters[Math.floor(Math.random() * characters.length)];
         
-        // Different purple shades
+        // Different purple shades - mais escuras e sutis
         const shades = [
-          'rgba(168, 85, 247, 0.8)',   // purple-500
-          'rgba(139, 92, 246, 0.7)',   // violet-500
-          'rgba(192, 132, 252, 0.6)',  // purple-400
+          'rgba(168, 85, 247, 0.15)',   // purple-500 - muito mais sutil
+          'rgba(139, 92, 246, 0.12)',   // violet-500 - muito mais sutil
+          'rgba(192, 132, 252, 0.10)',  // purple-400 - muito mais sutil
         ];
         ctx.fillStyle = shades[i % shades.length];
         
-        // Add glow effect
-        ctx.shadowBlur = 10;
+        // Add glow effect - mais sutil
+        ctx.shadowBlur = 6;
         ctx.shadowColor = shades[i % shades.length];
 
         // Draw character
