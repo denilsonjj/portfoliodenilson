@@ -1,44 +1,89 @@
 import { useEffect, useRef } from 'react';
 
 const MatrixBackground = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    if (!containerRef.current) return;
+    const canvas = canvasRef.current;
+    if (!canvas) return;
 
-    const container = containerRef.current;
-    const columnCount = Math.floor(window.innerWidth / 20);
-    const characters = '01';
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
 
-    // Create matrix columns
-    for (let i = 0; i < columnCount; i++) {
-      const column = document.createElement('div');
-      column.className = 'matrix-column';
-      column.style.left = `${(i * 20)}px`;
-      
-      // Random animation duration and delay for variety
-      const duration = 8 + Math.random() * 12; // 8-20 seconds
-      const delay = Math.random() * 5; // 0-5 seconds delay
-      column.style.animationDuration = `${duration}s`;
-      column.style.animationDelay = `${delay}s`;
+    // Set canvas size
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 
-      // Create column text (binary numbers)
-      let text = '';
-      const height = 15 + Math.floor(Math.random() * 15); // 15-30 characters high
-      for (let j = 0; j < height; j++) {
-        text += characters[Math.floor(Math.random() * characters.length)] + '\n';
-      }
-      column.textContent = text;
+    const columns = Math.floor(canvas.width / 20);
+    const drops: number[] = [];
 
-      container.appendChild(column);
+    // Initialize drops
+    for (let i = 0; i < columns; i++) {
+      drops[i] = Math.random() * -100;
     }
 
+    const characters = '01';
+    
+    const draw = () => {
+      // Semi-transparent black background for trail effect
+      ctx.fillStyle = 'rgba(10, 10, 10, 0.05)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Set text properties
+      ctx.font = '14px monospace';
+
+      for (let i = 0; i < drops.length; i++) {
+        // Random character
+        const text = characters[Math.floor(Math.random() * characters.length)];
+        
+        // Different purple shades
+        const shades = [
+          'rgba(168, 85, 247, 0.8)',   // purple-500
+          'rgba(139, 92, 246, 0.7)',   // violet-500
+          'rgba(192, 132, 252, 0.6)',  // purple-400
+        ];
+        ctx.fillStyle = shades[i % shades.length];
+        
+        // Add glow effect
+        ctx.shadowBlur = 10;
+        ctx.shadowColor = shades[i % shades.length];
+
+        // Draw character
+        ctx.fillText(text, i * 20, drops[i] * 20);
+
+        // Reset drop to top randomly
+        if (drops[i] * 20 > canvas.height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+
+        drops[i]++;
+      }
+    };
+
+    // Animation loop
+    const interval = setInterval(draw, 50);
+
+    // Handle resize
+    const handleResize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+
+    window.addEventListener('resize', handleResize);
+
     return () => {
-      container.innerHTML = '';
+      clearInterval(interval);
+      window.removeEventListener('resize', handleResize);
     };
   }, []);
 
-  return <div ref={containerRef} className="matrix-bg" />;
+  return (
+    <canvas
+      ref={canvasRef}
+      className="fixed top-0 left-0 w-full h-full pointer-events-none"
+      style={{ zIndex: 0 }}
+    />
+  );
 };
 
 export default MatrixBackground;
