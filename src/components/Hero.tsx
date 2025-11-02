@@ -11,7 +11,7 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#0a0a0a] via-[#1a0a2e] to-[#0a0a0a] hero-animated-bg"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
       <div className="container mx-auto px-4 text-center z-10">
         <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 animate-fade-in">

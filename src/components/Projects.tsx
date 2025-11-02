@@ -92,13 +92,7 @@ const Projects = () => {
   ];
 
   return (
-    <section id="projects" className="relative py-24 overflow-hidden bg-gradient-to-br from-[#0a0a0a] via-[#1a0a2e] to-[#0a0a0a]">
-      {/* Animated background elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-1/4 right-1/3 w-96 h-96 bg-fuchsia-600/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "0.5s" }} />
-        <div className="absolute bottom-1/4 left-1/3 w-96 h-96 bg-purple-600/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "2s" }} />
-      </div>
-
+    <section id="projects" className="relative py-24 overflow-hidden">
       <div className="container mx-auto px-4 relative z-10">
         <h2 className="text-5xl md:text-6xl font-bold text-center mb-6 bg-gradient-to-r from-purple-400 via-violet-400 to-fuchsia-400 bg-clip-text text-transparent animate-fade-in">
           Meus Projetos
