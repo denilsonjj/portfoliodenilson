@@ -36,16 +36,16 @@ const MatrixBackground = () => {
         // Random character
         const text = characters[Math.floor(Math.random() * characters.length)];
         
-        // Different purple shades - mais escuras e sutis
+        // Different purple shades - extremamente sutis e escuras
         const shades = [
-          'rgba(168, 85, 247, 0.15)',   // purple-500 - muito mais sutil
-          'rgba(139, 92, 246, 0.12)',   // violet-500 - muito mais sutil
-          'rgba(192, 132, 252, 0.10)',  // purple-400 - muito mais sutil
+          'rgba(168, 85, 247, 0.04)',   // purple-500 - ultra sutil
+          'rgba(139, 92, 246, 0.03)',   // violet-500 - ultra sutil
+          'rgba(192, 132, 252, 0.03)',  // purple-400 - ultra sutil
         ];
         ctx.fillStyle = shades[i % shades.length];
         
-        // Add glow effect - mais sutil
-        ctx.shadowBlur = 6;
+        // Add glow effect - ultra sutil
+        ctx.shadowBlur = 3;
         ctx.shadowColor = shades[i % shades.length];
 
         // Draw character
