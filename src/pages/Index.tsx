@@ -6,11 +6,16 @@ import Projects from "@/components/Projects";
 import Skills from "@/components/Skills";
 import Footer from "@/components/Footer";
 import MatrixBackground from "@/components/MatrixBackground";
+import AIChat from "@/components/AIChat";
+import ContactForm from "@/components/ContactForm";
+import Analytics from "@/components/Analytics";
 
 const Index = () => {
   return (
     <div className="min-h-screen relative bg-gradient-to-b from-[#0a0a0a] via-[#1a0a2e] to-[#0a0a0a]">
       <MatrixBackground />
+      <Analytics />
+      <AIChat />
       <div className="relative z-10">
         <Header />
         <Hero />
@@ -18,6 +23,7 @@ const Index = () => {
         <About />
         <Projects />
         <Skills />
+        <ContactForm />
         <Footer />
       </div>
     </div>
