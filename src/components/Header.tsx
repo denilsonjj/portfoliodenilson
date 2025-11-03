@@ -53,7 +53,7 @@ const Header = () => {
             </button>
             <Button 
               onClick={() => scrollToSection("contact")} 
-              className="bg-gradient-to-r from-purple-500 to-violet-600 hover:from-purple-600 hover:to-violet-700 text-white shadow-lg shadow-purple-500/50 transition-all hover:scale-105"
+              className="bg-white/10 hover:bg-white/15 text-white border border-white/20 hover:border-white/40 transition-all hover:scale-105"
             >
               Fale Comigo
             </Button>
@@ -86,7 +86,7 @@ const Header = () => {
               </button>
               <Button 
                 onClick={() => scrollToSection("contact")} 
-                className="w-full mx-4 bg-gradient-to-r from-purple-500 to-violet-600 hover:from-purple-600 hover:to-violet-700 text-white"
+                className="w-full mx-4 bg-white/10 hover:bg-white/15 text-white border border-white/20 hover:border-white/40"
               >
                 Fale Comigo
               </Button>

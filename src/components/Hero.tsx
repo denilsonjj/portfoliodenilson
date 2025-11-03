@@ -24,7 +24,7 @@ const Hero = () => {
           <Button
             onClick={() => scrollToSection("projects")}
             size="lg"
-            className="bg-accent hover:bg-accent/90 text-accent-foreground"
+            className="bg-white/10 hover:bg-white/15 text-white border border-white/20 hover:border-white/40"
           >
             Ver Projetos
           </Button>
@@ -32,7 +32,7 @@ const Hero = () => {
             onClick={() => scrollToSection("contact")}
             size="lg"
             variant="outline"
-            className="border-white text-white hover:bg-white/10"
+            className="border-white/30 text-white hover:bg-white/10 hover:border-white/50"
           >
             Entre em Contato
           </Button>

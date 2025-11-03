@@ -16,7 +16,7 @@ const Footer = () => {
             <Button
               size="lg"
               onClick={() => window.open("https://www.linkedin.com/in/denilsonjj", "_blank")}
-              className="gap-2 bg-gradient-to-r from-purple-500 to-violet-600 hover:from-purple-600 hover:to-violet-700 text-white shadow-lg shadow-purple-500/50 transition-all hover:scale-105"
+              className="gap-2 bg-white/10 hover:bg-white/15 text-white border border-white/20 hover:border-white/40 transition-all hover:scale-105"
             >
               <Linkedin size={20} />
               LinkedIn
@@ -24,7 +24,7 @@ const Footer = () => {
             <Button
               size="lg"
               onClick={() => window.location.href = "mailto:juniordenilson363@gmail.com"}
-              className="gap-2 bg-gradient-to-r from-violet-500 to-fuchsia-600 hover:from-violet-600 hover:to-fuchsia-700 text-white shadow-lg shadow-violet-500/50 transition-all hover:scale-105"
+              className="gap-2 bg-white/10 hover:bg-white/15 text-white border border-white/20 hover:border-white/40 transition-all hover:scale-105"
             >
               <Mail size={20} />
               E-mail
