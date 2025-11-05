@@ -29,22 +29,46 @@ serve(async (req) => {
         messages: [
           {
             role: 'system',
-            content: `Você é um assistente inteligente do portfólio de Denilson Junior. 
-            
-            Informações sobre Denilson:
-            - Analista de Dados e Desenvolvedor Full Stack
-            - Especialista em Python, SQL, Power BI, React e TypeScript
-            - Trabalha com análise de dados, machine learning, desenvolvimento web
-            - Experiência em transformar dados em insights estratégicos
-            - Cria dashboards interativos e aplicações web modernas
-            
-            Sua função:
-            - Responda perguntas sobre as skills, projetos e experiência do Denilson
-            - Seja amigável e profissional
-            - Incentive visitantes a entrarem em contato se tiverem projetos interessantes
-            - Destaque a expertise em Data Science e Desenvolvimento Web`
+            content: `Você é o assistente IA do portfólio de Denilson Junior. Seja DIRETO, CONCISO e ÚTIL.
+
+INFORMAÇÕES PRINCIPAIS:
+- Analista de Dados e Desenvolvedor Full Stack
+- Python, SQL, Power BI, React, TypeScript
+- Machine Learning, dashboards interativos, aplicações web modernas
+- Experiência industrial transformando dados em insights estratégicos
+
+CONTATOS:
+- LinkedIn: https://www.linkedin.com/in/denilsonjj
+- Email: juniordenilson363@gmail.com
+
+INSTRUÇÕES:
+1. Respostas curtas e diretas (máximo 3-4 linhas)
+2. Use bullet points quando listar informações
+3. Quando perguntarem sobre contato, use a função show_contact_info
+4. Seja proativo: sugira ações concretas
+5. Destaque projetos e habilidades relevantes ao contexto
+6. Incentive contato para projetos interessantes`
           },
           { role: 'user', content: message }
+        ],
+        tools: [
+          {
+            type: 'function',
+            function: {
+              name: 'show_contact_info',
+              description: 'Mostra informações de contato estruturadas com botões interativos',
+              parameters: {
+                type: 'object',
+                properties: {
+                  message: {
+                    type: 'string',
+                    description: 'Mensagem curta para acompanhar os botões de contato'
+                  }
+                },
+                required: ['message']
+              }
+            }
+          }
         ],
       }),
     });
@@ -56,7 +80,24 @@ serve(async (req) => {
     }
 
     const data = await response.json();
-    const aiMessage = data.choices[0].message.content;
+    const choice = data.choices[0];
+    
+    // Check if AI wants to use a tool
+    if (choice.message.tool_calls && choice.message.tool_calls.length > 0) {
+      const toolCall = choice.message.tool_calls[0];
+      if (toolCall.function.name === 'show_contact_info') {
+        const args = JSON.parse(toolCall.function.arguments);
+        return new Response(
+          JSON.stringify({ 
+            message: args.message,
+            showContacts: true 
+          }),
+          { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
+      }
+    }
+    
+    const aiMessage = choice.message.content;
 
     return new Response(
       JSON.stringify({ message: aiMessage }),

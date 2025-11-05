@@ -2,19 +2,20 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { MessageCircle, X, Send } from "lucide-react";
+import { MessageCircle, X, Send, Linkedin, Mail } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 
 interface Message {
   role: "user" | "assistant";
   content: string;
+  showContacts?: boolean;
 }
 
 const AIChat = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
-    { role: "assistant", content: "Olá! Sou o assistente do Denilson. Como posso ajudar você a conhecer melhor o trabalho dele?" }
+    { role: "assistant", content: "Olá! 👋 Sou o assistente do Denilson. Pergunte sobre projetos, skills ou formas de contato!" }
   ]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -35,7 +36,11 @@ const AIChat = () => {
 
       if (error) throw error;
 
-      setMessages(prev => [...prev, { role: "assistant", content: data.message }]);
+      setMessages(prev => [...prev, { 
+        role: "assistant", 
+        content: data.message,
+        showContacts: data.showContacts 
+      }]);
     } catch (error) {
       console.error('Error:', error);
       toast({
@@ -94,7 +99,27 @@ const AIChat = () => {
                       : "bg-white/5 text-white/90 border border-white/10"
                   }`}
                 >
-                  {msg.content}
+                  <div className="whitespace-pre-wrap">{msg.content}</div>
+                  {msg.showContacts && (
+                    <div className="flex flex-col gap-2 mt-3 pt-3 border-t border-white/10">
+                      <Button
+                        size="sm"
+                        onClick={() => window.open("https://www.linkedin.com/in/denilsonjj", "_blank")}
+                        className="gap-2 bg-[#0A66C2] hover:bg-[#004182] text-white w-full"
+                      >
+                        <Linkedin size={16} />
+                        Conectar no LinkedIn
+                      </Button>
+                      <Button
+                        size="sm"
+                        onClick={() => window.location.href = "mailto:juniordenilson363@gmail.com"}
+                        className="gap-2 bg-white/10 hover:bg-white/20 text-white w-full"
+                      >
+                        <Mail size={16} />
+                        Enviar Email
+                      </Button>
+                    </div>
+                  )}
                 </div>
               </div>
             ))}
