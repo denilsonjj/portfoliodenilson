@@ -29,7 +29,7 @@ const Projects = () => {
       title: "Dashboard Operacional de OEE",
       description: "Dashboard operacional focado em análise de OEE (Overall Equipment Effectiveness), monitorando vida útil de máquinas, componentes com maior número de paradas e desempenho por linhas de produção.",
       icon: <BarChart3 className="w-8 h-8 text-primary" />,
-      link: "#",
+      link: "https://app.powerbi.com/view?r=eyJrIjoiYzdmNWJlYjYtMTAxZS00OTU1LTk4MDAtOTAxMGY3ZjkzODY4IiwidCI6IjM4MjNhYzRiLWY1MDEtNDBjOS1hYWNjLTU4M2NhNGVjNzk4MCJ9",
       type: "Power BI",
       caseStudy: {
         title: "Dashboard Operacional de OEE",

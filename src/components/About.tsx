@@ -8,22 +8,23 @@ const About = () => {
         <div className="max-w-4xl mx-auto">
           <div className="bg-black/40 backdrop-blur-sm rounded-2xl p-8 md:p-12 shadow-lg border border-purple-500/30 hover:border-purple-400/60 transition-all duration-300 hover:shadow-[0_0_30px_rgba(168,85,247,0.3)] animate-fade-in" style={{ animationDelay: "0.2s" }}>
             <p className="text-lg text-white/90 leading-relaxed mb-6">
-              Profissional proativo e organizado, com sólida base em Ciência de Dados e forte 
-              aptidão para análise e visualização de dados. Possuo experiência prática em Python 
-              (pandas, NumPy) para manipulação, limpeza e validação de dados, e em SQL para 
-              consulta e extração. Sou especializado na criação e manutenção de dashboards 
-              interativos em Power BI e na construção de análises exploratórias.
+              Sou apaixonado por transformar dados em insights que fazem a diferença. Com uma 
+              base sólida em Ciência de Dados, trabalho diariamente com Python (pandas, NumPy), 
+              SQL e Power BI para extrair, limpar e visualizar dados de forma clara e estratégica. 
+              Adoro criar dashboards interativos que realmente ajudam as pessoas a tomar decisões 
+              melhores e mais rápidas.
             </p>
             <p className="text-lg text-white/90 leading-relaxed mb-6">
-              Tenho conhecimento em fundamentos de estatística e Machine Learning supervisionado, 
-              e busco continuamente aprender novas técnicas e ferramentas de Data Science. Minha 
-              vivência em ambientes industriais me permitiu desenvolver soluções baseadas em dados 
-              que otimizaram a performance e apoiaram a tomada de decisão.
+              Estou sempre estudando e me aprimorando em estatística e Machine Learning, porque 
+              acredito que sempre há algo novo para aprender nesse mundo de dados. Minha experiência 
+              em ambientes industriais me ensinou a criar soluções práticas que otimizam processos 
+              e impactam diretamente nos resultados do negócio.
             </p>
             <p className="text-lg text-white/90 leading-relaxed">
-              Além da análise de dados, possuo experiência em Desenvolvimento Web, utilizando Python 
-              para backend e React para criação de interfaces modernas e responsivas, combinando 
-              minhas habilidades analíticas com desenvolvimento full-stack.
+              Além de trabalhar com análise de dados, também desenvolvo aplicações web usando Python 
+              no backend e React no frontend. Gosto de unir o melhor dos dois mundos: a precisão 
+              analítica dos dados com a criatividade do desenvolvimento web, criando soluções 
+              completas e modernas.
             </p>
           </div>
         </div>
