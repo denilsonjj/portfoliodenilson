@@ -12,7 +12,7 @@ import Analytics from "@/components/Analytics";
 
 const Index = () => {
   return (
-    <div className="min-h-screen relative bg-gradient-to-b from-[#0a0a0a] via-[#1a0a2e] to-[#0a0a0a]">
+    <div className="min-h-screen relative bg-background">
       <MatrixBackground />
       <Analytics />
       <AIChat />
