@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Sun, Moon } from "lucide-react";
+import { Switch } from "@/components/ui/switch";
+import { useTheme } from "next-themes";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { theme, setTheme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -57,6 +60,16 @@ const Header = () => {
             >
               Fale Comigo
             </Button>
+            
+            {/* Theme Toggle */}
+            <div className="flex items-center gap-2">
+              <Sun className="h-4 w-4 text-primary" />
+              <Switch
+                checked={theme === "dark"}
+                onCheckedChange={(checked) => setTheme(checked ? "dark" : "light")}
+              />
+              <Moon className="h-4 w-4 text-primary" />
+            </div>
           </div>
 
           {/* Mobile Menu Button */}
@@ -90,6 +103,16 @@ const Header = () => {
               >
                 Fale Comigo
               </Button>
+              
+              {/* Theme Toggle Mobile */}
+              <div className="flex items-center justify-center gap-2 px-4 mt-2">
+                <Sun className="h-4 w-4 text-primary" />
+                <Switch
+                  checked={theme === "dark"}
+                  onCheckedChange={(checked) => setTheme(checked ? "dark" : "light")}
+                />
+                <Moon className="h-4 w-4 text-primary" />
+              </div>
             </div>
           </div>
         )}

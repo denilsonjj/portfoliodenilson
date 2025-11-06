@@ -1,3 +1,6 @@
+import { Button } from "@/components/ui/button";
+import { Download } from "lucide-react";
+
 const About = () => {
   return (
     <section id="about" className="relative py-24 overflow-hidden">
@@ -20,12 +23,28 @@ const About = () => {
               em ambientes industriais me ensinou a criar soluções práticas que otimizam processos 
               e impactam diretamente nos resultados do negócio.
             </p>
-            <p className="text-lg text-white/90 leading-relaxed">
+            <p className="text-lg text-white/90 leading-relaxed mb-8">
               Além de trabalhar com análise de dados, também desenvolvo aplicações web usando Python 
               no backend e React no frontend. Gosto de unir o melhor dos dois mundos: a precisão 
               analítica dos dados com a criatividade do desenvolvimento web, criando soluções 
               completas e modernas.
             </p>
+            
+            <div className="flex justify-center">
+              <Button
+                size="lg"
+                onClick={() => {
+                  const link = document.createElement('a');
+                  link.href = '/cv-caio-cerqueira.pdf';
+                  link.download = 'CV-Caio-Cerqueira.pdf';
+                  link.click();
+                }}
+                className="bg-gradient-to-r from-purple-600 to-violet-600 hover:from-purple-700 hover:to-violet-700 text-white font-semibold"
+              >
+                <Download className="mr-2 h-5 w-5" />
+                Download CV
+              </Button>
+            </div>
           </div>
         </div>
       </div>
