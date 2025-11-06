@@ -36,7 +36,7 @@ const Services = () => {
           <h2 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-purple-400 via-violet-400 to-fuchsia-400 bg-clip-text text-transparent">
             Meus Serviços
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-xl text-white/80 max-w-2xl mx-auto">
             Soluções completas em dados e desenvolvimento para impulsionar seu negócio
           </p>
         </div>
@@ -47,17 +47,17 @@ const Services = () => {
             return (
               <Card 
                 key={index} 
-                className="bg-card border-border backdrop-blur-sm hover:border-primary/60 transition-all duration-300 hover:shadow-card group animate-fade-in"
+                className="bg-black/40 border-purple-500/30 backdrop-blur-sm hover:border-purple-400/60 transition-all duration-300 hover:shadow-[0_0_30px_rgba(168,85,247,0.3)] group animate-fade-in"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <CardHeader>
-                  <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-primary/50">
-                    <Icon className="w-8 h-8 text-primary-foreground" />
+                  <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-purple-500 to-violet-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-purple-500/50">
+                    <Icon className="w-8 h-8 text-white" />
                   </div>
-                  <CardTitle className="text-2xl font-bold text-foreground group-hover:text-primary transition-colors">
+                  <CardTitle className="text-2xl font-bold text-white group-hover:text-purple-300 transition-colors">
                     {service.title}
                   </CardTitle>
-                  <CardDescription className="text-muted-foreground text-base">
+                  <CardDescription className="text-white/70 text-base">
                     {service.description}
                   </CardDescription>
                 </CardHeader>
@@ -66,7 +66,7 @@ const Services = () => {
                     {service.highlights.map((highlight, idx) => (
                       <span 
                         key={idx}
-                        className="px-3 py-1 rounded-full text-sm bg-primary/10 text-primary border border-primary/30"
+                        className="px-3 py-1 rounded-full text-sm bg-purple-500/20 text-purple-300 border border-purple-500/30"
                       >
                         {highlight}
                       </span>
