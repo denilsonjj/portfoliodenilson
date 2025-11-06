@@ -97,34 +97,34 @@ const Projects = () => {
         <h2 className="text-5xl md:text-6xl font-bold text-center mb-6 bg-gradient-to-r from-purple-400 via-violet-400 to-fuchsia-400 bg-clip-text text-transparent animate-fade-in">
           Meus Projetos
         </h2>
-        <p className="text-center text-white/80 mb-16 text-xl animate-fade-in" style={{ animationDelay: "0.1s" }}>
+        <p className="text-center text-muted-foreground mb-16 text-xl animate-fade-in" style={{ animationDelay: "0.1s" }}>
           Algumas soluções que desenvolvi
         </p>
         <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
           {projects.map((project, index) => (
             <Card
               key={index}
-              className="group bg-black/40 backdrop-blur-sm border-purple-500/30 hover:border-purple-400/60 transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(168,85,247,0.3)] animate-fade-in"
+              className="group bg-card backdrop-blur-sm border-border hover:border-primary/60 transition-all duration-300 hover:scale-[1.02] hover:shadow-hover animate-fade-in"
               style={{ animationDelay: `${0.2 + index * 0.1}s` }}
             >
               <CardHeader>
                 <div className="mb-4 flex items-center justify-between">
-                  <div className="text-purple-400 group-hover:text-purple-300 transition-colors">
+                  <div className="text-primary group-hover:text-primary/80 transition-colors">
                     {project.icon}
                   </div>
-                  <span className="text-sm font-medium text-purple-300 px-3 py-1 bg-purple-500/20 rounded-full border border-purple-500/30">
+                  <span className="text-sm font-medium text-primary px-3 py-1 bg-primary/10 rounded-full border border-primary/30">
                     {project.type}
                   </span>
                 </div>
-                <CardTitle className="text-2xl text-white group-hover:text-purple-300 transition-colors">{project.title}</CardTitle>
-                <CardDescription className="text-base text-white/70">{project.description}</CardDescription>
+                <CardTitle className="text-2xl text-foreground group-hover:text-primary transition-colors">{project.title}</CardTitle>
+                <CardDescription className="text-base text-muted-foreground">{project.description}</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
                   <div className="flex gap-2">
                     <Button
                       variant="outline"
-                      className="flex-1 bg-purple-500/20 text-purple-300 border-purple-500/30 hover:bg-purple-500/30 hover:text-white transition-colors"
+                      className="flex-1"
                       onClick={() => window.open(project.link, "_blank")}
                     >
                       Ver Projeto <ExternalLink className="ml-2 w-4 h-4" />
@@ -133,7 +133,6 @@ const Projects = () => {
                       <Button
                         variant="outline"
                         size="icon"
-                        className="bg-purple-500/20 text-purple-300 border-purple-500/30 hover:bg-purple-500/30 hover:text-white transition-colors"
                         onClick={() => window.open(project.githubLink as string, "_blank")}
                       >
                         <Github className="w-4 h-4" />

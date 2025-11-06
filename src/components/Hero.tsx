@@ -14,17 +14,17 @@ const Hero = () => {
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
       <div className="container mx-auto px-4 text-center z-10">
-        <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 animate-fade-in">
+        <h1 className="text-5xl md:text-7xl font-bold text-foreground mb-6 animate-fade-in">
           Analista de Dados & Desenvolvedor
         </h1>
-        <p className="text-xl md:text-2xl text-white/90 mb-8 max-w-2xl mx-auto animate-fade-in-delay">
+        <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto animate-fade-in-delay">
           Transformando dados em insights estratégicos e desenvolvendo soluções completas para impulsionar decisões de negócio
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in-delay-2">
           <Button
             onClick={() => scrollToSection("projects")}
             size="lg"
-            className="bg-white/10 hover:bg-white/15 text-white border border-white/20 hover:border-white/40"
+            variant="secondary"
           >
             Ver Projetos
           </Button>
@@ -32,7 +32,6 @@ const Hero = () => {
             onClick={() => scrollToSection("contact")}
             size="lg"
             variant="outline"
-            className="border-white/30 text-white hover:bg-white/10 hover:border-white/50"
           >
             Entre em Contato
           </Button>

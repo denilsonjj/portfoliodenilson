@@ -76,28 +76,28 @@ const Skills = () => {
         <h2 className="text-5xl md:text-6xl font-bold text-center mb-6 bg-gradient-to-r from-purple-400 via-violet-400 to-fuchsia-400 bg-clip-text text-transparent animate-fade-in">
           Minhas Habilidades
         </h2>
-        <p className="text-center text-white/80 mb-16 text-xl animate-fade-in" style={{ animationDelay: "0.1s" }}>
+        <p className="text-center text-muted-foreground mb-16 text-xl animate-fade-in" style={{ animationDelay: "0.1s" }}>
           Ferramentas e tecnologias que domino
         </p>
         
         {/* Análise de Dados / IA */}
         <div className="mb-16">
-          <h3 className="text-3xl font-semibold text-center mb-12 text-white animate-fade-in" style={{ animationDelay: "0.2s" }}>
+          <h3 className="text-3xl font-semibold text-center mb-12 text-foreground animate-fade-in" style={{ animationDelay: "0.2s" }}>
             Análise de Dados / IA
           </h3>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 max-w-7xl mx-auto">
             {dataSkills.map((skill, index) => (
               <Card
                 key={index}
-                className="group bg-black/40 backdrop-blur-sm border-purple-500/30 hover:border-purple-400/60 transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(168,85,247,0.3)] animate-fade-in"
+                className="group bg-card backdrop-blur-sm border-border hover:border-primary/60 transition-all duration-300 hover:scale-105 hover:shadow-hover animate-fade-in"
                 style={{ animationDelay: `${0.3 + index * 0.05}s` }}
               >
                 <CardContent className="flex flex-col items-center justify-center p-6 text-center">
-                  <div className="text-purple-400 mb-3 group-hover:scale-110 group-hover:text-purple-300 transition-all">
+                  <div className="text-primary mb-3 group-hover:scale-110 group-hover:text-primary/80 transition-all">
                     {skill.icon}
                   </div>
-                  <h3 className="font-semibold text-white mb-1">{skill.name}</h3>
-                  <p className="text-sm text-white/70">{skill.description}</p>
+                  <h3 className="font-semibold text-foreground mb-1">{skill.name}</h3>
+                  <p className="text-sm text-muted-foreground">{skill.description}</p>
                 </CardContent>
               </Card>
             ))}
@@ -106,22 +106,22 @@ const Skills = () => {
 
         {/* Desenvolvimento */}
         <div>
-          <h3 className="text-3xl font-semibold text-center mb-12 text-white animate-fade-in" style={{ animationDelay: "0.5s" }}>
+          <h3 className="text-3xl font-semibold text-center mb-12 text-foreground animate-fade-in" style={{ animationDelay: "0.5s" }}>
             Desenvolvimento
           </h3>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 max-w-6xl mx-auto">
             {devSkills.map((skill, index) => (
               <Card
                 key={index}
-                className="group bg-black/40 backdrop-blur-sm border-violet-500/30 hover:border-violet-400/60 transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(139,92,246,0.3)] animate-fade-in"
+                className="group bg-card backdrop-blur-sm border-border hover:border-accent/60 transition-all duration-300 hover:scale-105 hover:shadow-hover animate-fade-in"
                 style={{ animationDelay: `${0.6 + index * 0.05}s` }}
               >
                 <CardContent className="flex flex-col items-center justify-center p-6 text-center">
-                  <div className="text-violet-400 mb-3 group-hover:scale-110 group-hover:text-violet-300 transition-all">
+                  <div className="text-accent mb-3 group-hover:scale-110 group-hover:text-accent/80 transition-all">
                     {skill.icon}
                   </div>
-                  <h3 className="font-semibold text-white mb-1">{skill.name}</h3>
-                  <p className="text-sm text-white/70">{skill.description}</p>
+                  <h3 className="font-semibold text-foreground mb-1">{skill.name}</h3>
+                  <p className="text-sm text-muted-foreground">{skill.description}</p>
                 </CardContent>
               </Card>
             ))}
