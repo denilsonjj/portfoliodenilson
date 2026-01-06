@@ -12,7 +12,11 @@ import Analytics from "@/components/Analytics";
 
 const Index = () => {
   return (
-    <div className="min-h-screen relative bg-gradient-to-b from-[#0a0a0a] via-[#1a0a2e] to-[#0a0a0a]">
+    <div className="min-h-screen relative bg-background">
+      {/* Dark theme gradient overlay */}
+      <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,hsl(270_25%_12%)_0%,transparent_50%)] dark:bg-[radial-gradient(ellipse_at_top,hsl(270_15%_95%)_0%,transparent_50%)] pointer-events-none" />
+      <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_bottom_right,hsl(280_30%_10%)_0%,transparent_40%)] dark:bg-[radial-gradient(ellipse_at_bottom_right,hsl(270_20%_92%)_0%,transparent_40%)] pointer-events-none" />
+      
       <MatrixBackground />
       <Analytics />
       <AIChat />
