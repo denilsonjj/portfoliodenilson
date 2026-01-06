@@ -56,19 +56,19 @@ const ContactForm = () => {
   };
 
   return (
-    <section id="contact-form" className="relative py-24 overflow-hidden">
+    <section id="contact" className="relative py-24 overflow-hidden">
       <div className="container mx-auto px-4 relative z-10 max-w-2xl">
-        <Card className="bg-black/40 border-purple-500/30 backdrop-blur-sm">
+        <Card className="bg-card border-border backdrop-blur-sm">
           <CardHeader className="text-center">
             <div className="flex justify-center mb-4">
-              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-purple-500 to-violet-600 flex items-center justify-center">
-                <Mail className="w-8 h-8 text-white" />
+              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center">
+                <Mail className="w-8 h-8 text-primary-foreground" />
               </div>
             </div>
-            <CardTitle className="text-3xl font-bold text-white">
-              Entre em Contato
+            <CardTitle className="text-3xl font-bold text-foreground">
+              Solicite um Orçamento
             </CardTitle>
-            <CardDescription className="text-white/70 text-lg">
+            <CardDescription className="text-muted-foreground text-lg">
               Tem um projeto em mente? Vamos conversar!
             </CardDescription>
           </CardHeader>
@@ -79,7 +79,7 @@ const ContactForm = () => {
                   placeholder="Seu nome"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="bg-white/5 border-white/10 text-white placeholder:text-white/50"
+                  className="bg-secondary border-border text-foreground placeholder:text-muted-foreground"
                   required
                 />
               </div>
@@ -89,23 +89,23 @@ const ContactForm = () => {
                   placeholder="Seu e-mail"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="bg-white/5 border-white/10 text-white placeholder:text-white/50"
+                  className="bg-secondary border-border text-foreground placeholder:text-muted-foreground"
                   required
                 />
               </div>
               <div>
                 <Textarea
-                  placeholder="Sua mensagem"
+                  placeholder="Descreva seu projeto..."
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  className="bg-white/5 border-white/10 text-white placeholder:text-white/50 min-h-[150px]"
+                  className="bg-secondary border-border text-foreground placeholder:text-muted-foreground min-h-[150px]"
                   required
                 />
               </div>
               <Button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-white/10 hover:bg-white/15 text-white border border-white/20 hover:border-white/40"
+                className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
               >
                 {isSubmitting ? "Enviando..." : "Enviar Mensagem"}
               </Button>

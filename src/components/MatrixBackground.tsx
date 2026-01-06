@@ -25,8 +25,8 @@ const MatrixBackground = () => {
     const characters = '01';
     
     const draw = () => {
-      // Semi-transparent black background for trail effect
-      ctx.fillStyle = 'rgba(10, 10, 10, 0.08)';
+      // Semi-transparent background for trail effect - adapts to theme
+      ctx.fillStyle = 'rgba(8, 6, 12, 0.08)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       // Set text properties
@@ -36,16 +36,16 @@ const MatrixBackground = () => {
         // Random character
         const text = characters[Math.floor(Math.random() * characters.length)];
         
-        // Different purple shades - extremamente sutis e escuras
+        // Purple shades matching the design system
         const shades = [
-          'rgba(168, 85, 247, 0.04)',   // purple-500 - ultra sutil
-          'rgba(139, 92, 246, 0.03)',   // violet-500 - ultra sutil
-          'rgba(192, 132, 252, 0.03)',  // purple-400 - ultra sutil
+          'rgba(168, 85, 247, 0.03)',   // primary purple - ultra subtle
+          'rgba(192, 132, 252, 0.02)',  // accent purple - ultra subtle
+          'rgba(139, 92, 246, 0.02)',   // violet - ultra subtle
         ];
         ctx.fillStyle = shades[i % shades.length];
         
-        // Add glow effect - ultra sutil
-        ctx.shadowBlur = 3;
+        // Add subtle glow effect
+        ctx.shadowBlur = 2;
         ctx.shadowColor = shades[i % shades.length];
 
         // Draw character
