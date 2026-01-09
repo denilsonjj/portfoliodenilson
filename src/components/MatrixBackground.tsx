@@ -1,7 +1,9 @@
 import { useEffect, useRef } from 'react';
+import { useTheme } from 'next-themes';
 
 const MatrixBackground = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const { theme } = useTheme();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -25,8 +27,9 @@ const MatrixBackground = () => {
     const characters = '01';
     
     const draw = () => {
-      // Semi-transparent background for trail effect - adapts to theme
-      ctx.fillStyle = 'rgba(8, 6, 12, 0.08)';
+      // Background fill - adapts to theme
+      const isDark = theme !== 'light';
+      ctx.fillStyle = isDark ? 'rgba(8, 6, 12, 0.08)' : 'rgba(250, 250, 252, 0.12)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       // Set text properties
@@ -36,11 +39,15 @@ const MatrixBackground = () => {
         // Random character
         const text = characters[Math.floor(Math.random() * characters.length)];
         
-        // Purple shades matching the design system
-        const shades = [
-          'rgba(168, 85, 247, 0.03)',   // primary purple - ultra subtle
-          'rgba(192, 132, 252, 0.02)',  // accent purple - ultra subtle
-          'rgba(139, 92, 246, 0.02)',   // violet - ultra subtle
+        // Purple shades - different opacity for light/dark themes
+        const shades = isDark ? [
+          'rgba(168, 85, 247, 0.03)',
+          'rgba(192, 132, 252, 0.02)',
+          'rgba(139, 92, 246, 0.02)',
+        ] : [
+          'rgba(168, 85, 247, 0.08)',
+          'rgba(192, 132, 252, 0.06)',
+          'rgba(139, 92, 246, 0.06)',
         ];
         ctx.fillStyle = shades[i % shades.length];
         
@@ -75,7 +82,7 @@ const MatrixBackground = () => {
       clearInterval(interval);
       window.removeEventListener('resize', handleResize);
     };
-  }, []);
+  }, [theme]);
 
   return (
     <canvas

@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Sun, Moon } from "lucide-react";
+import { Menu, Sun, Moon } from "lucide-react";
 import { useTheme } from "next-themes";
+import { Dropdown } from "@rewind-ui/core";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
@@ -25,7 +25,6 @@ const Header = () => {
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "start" });
-      setIsMobileMenuOpen(false);
     }
   };
 
@@ -109,48 +108,45 @@ const Header = () => {
                 )}
               </button>
             )}
-            <button
-              className="text-foreground"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            >
-              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-          </div>
-        </div>
-
-        {/* Mobile Menu */}
-        {isMobileMenuOpen && (
-          <div className="md:hidden mt-4 py-4 border-t border-border bg-card/90 backdrop-blur-sm rounded-lg">
-            <div className="flex flex-col gap-4">
-              <button
-                onClick={() => scrollToSection("services")}
-                className="text-muted-foreground hover:text-primary transition-colors text-left px-4"
-              >
-                Serviços
-              </button>
-              <button
-                onClick={() => scrollToSection("projects")}
-                className="text-muted-foreground hover:text-primary transition-colors text-left px-4"
-              >
-                Portfólio
-              </button>
-              <button
-                onClick={() => scrollToSection("skills")}
-                className="text-muted-foreground hover:text-primary transition-colors text-left px-4"
-              >
-                Tecnologias
-              </button>
-              <div className="px-4">
-                <Button 
-                  onClick={() => scrollToSection("contact")} 
-                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
+            
+            <Dropdown>
+              <Dropdown.Trigger>
+                <button className="p-2 rounded-lg bg-secondary hover:bg-secondary/80 transition-colors text-foreground">
+                  <Menu size={24} />
+                </button>
+              </Dropdown.Trigger>
+              <Dropdown.Content className="bg-card border border-border shadow-lg z-[100]">
+                <Dropdown.Label className="text-muted-foreground">Navegação</Dropdown.Label>
+                <Dropdown.Divider />
+                <Dropdown.Item 
+                  onClick={() => scrollToSection("services")}
+                  className="cursor-pointer hover:bg-secondary"
+                >
+                  Serviços
+                </Dropdown.Item>
+                <Dropdown.Item 
+                  onClick={() => scrollToSection("projects")}
+                  className="cursor-pointer hover:bg-secondary"
+                >
+                  Portfólio
+                </Dropdown.Item>
+                <Dropdown.Item 
+                  onClick={() => scrollToSection("skills")}
+                  className="cursor-pointer hover:bg-secondary"
+                >
+                  Tecnologias
+                </Dropdown.Item>
+                <Dropdown.Divider />
+                <Dropdown.Item 
+                  onClick={() => scrollToSection("contact")}
+                  className="cursor-pointer hover:bg-primary text-primary font-medium"
                 >
                   Fale Comigo
-                </Button>
-              </div>
-            </div>
+                </Dropdown.Item>
+              </Dropdown.Content>
+            </Dropdown>
           </div>
-        )}
+        </div>
       </nav>
     </header>
   );

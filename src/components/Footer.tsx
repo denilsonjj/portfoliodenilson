@@ -31,7 +31,7 @@ const Footer = () => {
             <Button
               size="sm"
               variant="ghost"
-              onClick={() => window.open("https://wa.me/5500000000000", "_blank")}
+              onClick={() => window.open("https://wa.me/5581973319128", "_blank")}
               className="text-muted-foreground hover:text-foreground hover:bg-secondary"
             >
               <MessageCircle size={18} />
