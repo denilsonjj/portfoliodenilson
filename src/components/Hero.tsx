@@ -47,9 +47,9 @@ const Hero = () => {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in-delay-2">
             <Button
-              onClick={() => scrollToSection("contact")}
+              onClick={() => window.open("https://wa.me/5581973319128?text=Olá! Gostaria de solicitar um orçamento.", "_blank")}
               size="lg"
-              className="gap-2 bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg shadow-primary/30 hover:shadow-primary/50 transition-all"
+              className="gap-2 bg-[#25D366] hover:bg-[#128C7E] text-white shadow-lg shadow-[#25D366]/30 hover:shadow-[#25D366]/50 transition-all"
             >
               Solicitar Orçamento
               <ArrowRight className="w-4 h-4" />
