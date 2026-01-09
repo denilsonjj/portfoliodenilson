@@ -12,10 +12,12 @@ import {
 const Skills = () => {
   const technologies = [
     { name: "Power BI", icon: BarChart, category: "BI" },
+    { name: "Looker", icon: TrendingUp, category: "BI" },
+    { name: "Tableau", icon: TrendingUp, category: "BI" },
     { name: "Python", icon: Code, category: "Dados" },
     { name: "SQL", icon: Database, category: "Dados" },
     { name: "Excel", icon: FileSpreadsheet, category: "Análise" },
-    { name: "Tableau", icon: TrendingUp, category: "BI" },
+    { name: "Google Sheets", icon: FileSpreadsheet, category: "Análise" },
     { name: "React", icon: Globe, category: "Web" },
     { name: "Machine Learning", icon: Cpu, category: "IA" },
     { name: "ETL", icon: Layers, category: "Dados" },
