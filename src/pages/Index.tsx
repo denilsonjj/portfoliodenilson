@@ -6,7 +6,7 @@ import Projects from "@/components/Projects";
 import Skills from "@/components/Skills";
 import Footer from "@/components/Footer";
 import MatrixBackground from "@/components/MatrixBackground";
-import AIChat from "@/components/AIChat";
+import WhatsAppButton from "@/components/WhatsAppButton";
 import ContactForm from "@/components/ContactForm";
 import Analytics from "@/components/Analytics";
 
@@ -19,7 +19,7 @@ const Index = () => {
       
       <MatrixBackground />
       <Analytics />
-      <AIChat />
+      <WhatsAppButton />
       <div className="relative z-10">
         <Header />
         <Hero />

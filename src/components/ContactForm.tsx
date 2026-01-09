@@ -29,11 +29,23 @@ const ContactForm = () => {
     setIsSubmitting(true);
 
     try {
-      const { error } = await supabase
+      // Save to database
+      const { error: dbError } = await supabase
         .from('contact_messages')
         .insert([{ name, email, message }]);
 
-      if (error) throw error;
+      if (dbError) {
+        console.error('DB Error:', dbError);
+      }
+
+      // Send email notification
+      const { error: emailError } = await supabase.functions.invoke('send-contact-email', {
+        body: { name, email, message }
+      });
+
+      if (emailError) {
+        console.error('Email Error:', emailError);
+      }
 
       toast({
         title: "Mensagem enviada!",
