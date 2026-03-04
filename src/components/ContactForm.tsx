@@ -1,11 +1,11 @@
-import { useState } from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+﻿import { useState } from "react";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
-import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
-import { Mail } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { trackEvent } from "@/lib/analytics";
+import { Linkedin, Mail, MessageCircle, Phone } from "lucide-react";
 
 const ContactForm = () => {
   const [name, setName] = useState("");
@@ -16,50 +16,49 @@ const ContactForm = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!name.trim() || !email.trim() || !message.trim()) {
       toast({
-        title: "Campos obrigatórios",
-        description: "Por favor, preencha todos os campos.",
+        title: "Campos obrigatorios",
+        description: "Preencha nome, e-mail e mensagem.",
         variant: "destructive",
       });
       return;
     }
 
+    trackEvent("lead_submit_attempt", { source: "contact_form" });
     setIsSubmitting(true);
 
     try {
-      // Save to database
-      const { error: dbError } = await supabase
-        .from('contact_messages')
-        .insert([{ name, email, message }]);
+      const { error: dbError } = await supabase.from("contact_messages").insert([{ name, email, message }]);
 
       if (dbError) {
-        console.error('DB Error:', dbError);
+        console.error("DB Error:", dbError);
       }
 
-      // Send email notification
-      const { error: emailError } = await supabase.functions.invoke('send-contact-email', {
-        body: { name, email, message }
+      const { error: emailError } = await supabase.functions.invoke("send-contact-email", {
+        body: { name, email, message },
       });
 
       if (emailError) {
-        console.error('Email Error:', emailError);
+        console.error("Email Error:", emailError);
       }
 
+      trackEvent("generate_lead", { source: "contact_form" });
       toast({
-        title: "Mensagem enviada!",
-        description: "Obrigado pelo contato. Responderei em breve!",
+        title: "Briefing recebido",
+        description: "Perfeito. Vou analisar e retornar com os proximos passos.",
       });
 
       setName("");
       setEmail("");
       setMessage("");
     } catch (error) {
-      console.error('Error:', error);
+      trackEvent("lead_submit_error", { source: "contact_form" });
+      console.error("Error:", error);
       toast({
-        title: "Erro",
-        description: "Não foi possível enviar a mensagem. Tente novamente.",
+        title: "Nao foi possivel enviar agora",
+        description: "Tente novamente ou me chame direto no WhatsApp.",
         variant: "destructive",
       });
     } finally {
@@ -68,62 +67,115 @@ const ContactForm = () => {
   };
 
   return (
-    <section id="contact" className="relative py-24 overflow-hidden">
-      <div className="container mx-auto px-4 relative z-10 max-w-2xl">
-        <Card className="bg-card border-border backdrop-blur-sm">
-          <CardHeader className="text-center">
-            <div className="flex justify-center mb-4">
-              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center">
-                <Mail className="w-8 h-8 text-primary-foreground" />
-              </div>
-            </div>
-            <CardTitle className="text-3xl font-bold text-foreground">
-              Solicite um Orçamento
-            </CardTitle>
-            <CardDescription className="text-muted-foreground text-lg">
-              Tem um projeto em mente? Vamos conversar!
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
+    <section id="contact" className="section-shell pb-24">
+      <div className="container">
+        <div className="section-head">
+          <span className="eyebrow">Contato</span>
+          <h2 className="section-title">Vamos tirar seu projeto do papel</h2>
+          <p className="section-subtitle">Preencha um briefing rapido e eu retorno com proposta e direcionamento tecnico.</p>
+        </div>
+
+        <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
+          <article className="glass-card p-6 md:p-8">
             <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <Input
-                  placeholder="Seu nome"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  className="bg-secondary border-border text-foreground placeholder:text-muted-foreground"
-                  required
-                />
+              <div className="grid gap-4 sm:grid-cols-2">
+                <div className="space-y-2">
+                  <label htmlFor="name" className="text-sm font-medium text-foreground">
+                    Nome
+                  </label>
+                  <Input
+                    id="name"
+                    placeholder="Seu nome"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    className="h-11 rounded-xl border-border/80 bg-background/60"
+                    required
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label htmlFor="email" className="text-sm font-medium text-foreground">
+                    E-mail
+                  </label>
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="voce@email.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="h-11 rounded-xl border-border/80 bg-background/60"
+                    required
+                  />
+                </div>
               </div>
-              <div>
-                <Input
-                  type="email"
-                  placeholder="Seu e-mail"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="bg-secondary border-border text-foreground placeholder:text-muted-foreground"
-                  required
-                />
-              </div>
-              <div>
+
+              <div className="space-y-2">
+                <label htmlFor="message" className="text-sm font-medium text-foreground">
+                  Briefing do projeto
+                </label>
                 <Textarea
-                  placeholder="Descreva seu projeto..."
+                  id="message"
+                  placeholder="Descreva objetivo, prazo, contexto e resultado esperado"
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  className="bg-secondary border-border text-foreground placeholder:text-muted-foreground min-h-[150px]"
+                  className="min-h-[180px] rounded-xl border-border/80 bg-background/60"
                   required
                 />
               </div>
+
               <Button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
+                className="h-11 w-full rounded-xl bg-primary text-sm font-semibold text-primary-foreground hover:bg-primary/90"
               >
-                {isSubmitting ? "Enviando..." : "Enviar Mensagem"}
+                {isSubmitting ? "Enviando briefing..." : "Enviar briefing"}
               </Button>
             </form>
-          </CardContent>
-        </Card>
+          </article>
+
+          <aside className="glass-card p-6 md:p-8">
+            <h3 className="text-2xl font-bold">Canais diretos</h3>
+            <p className="mt-3 text-sm text-muted-foreground">Se preferir, fale comigo agora por WhatsApp, e-mail ou LinkedIn.</p>
+
+            <div className="mt-6 space-y-4 text-sm">
+              <a
+                href="mailto:juniordenilson363@gmail.com"
+                onClick={() => trackEvent("contact_click", { channel: "email" })}
+                className="flex items-center gap-3 rounded-xl border border-border bg-background/50 p-3 transition-colors hover:border-primary/50"
+              >
+                <Mail className="h-4 w-4 text-primary" />
+                <span>juniordenilson363@gmail.com</span>
+              </a>
+              <a
+                href="tel:+5581973319128"
+                onClick={() => trackEvent("contact_click", { channel: "phone" })}
+                className="flex items-center gap-3 rounded-xl border border-border bg-background/50 p-3 transition-colors hover:border-primary/50"
+              >
+                <Phone className="h-4 w-4 text-primary" />
+                <span>(81) 97331-9128</span>
+              </a>
+              <a
+                href="https://wa.me/5581973319128"
+                target="_blank"
+                rel="noreferrer"
+                onClick={() => trackEvent("contact_click", { channel: "whatsapp" })}
+                className="flex items-center gap-3 rounded-xl border border-border bg-background/50 p-3 transition-colors hover:border-primary/50"
+              >
+                <MessageCircle className="h-4 w-4 text-primary" />
+                <span>WhatsApp (resposta rapida)</span>
+              </a>
+              <a
+                href="https://www.linkedin.com/in/denilsonjj"
+                target="_blank"
+                rel="noreferrer"
+                onClick={() => trackEvent("contact_click", { channel: "linkedin" })}
+                className="flex items-center gap-3 rounded-xl border border-border bg-background/50 p-3 transition-colors hover:border-primary/50"
+              >
+                <Linkedin className="h-4 w-4 text-primary" />
+                <span>linkedin.com/in/denilsonjj</span>
+              </a>
+            </div>
+          </aside>
+        </div>
       </div>
     </section>
   );

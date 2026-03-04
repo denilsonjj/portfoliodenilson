@@ -1,55 +1,70 @@
-import { 
-  Database, 
-  BarChart, 
-  Code, 
-  FileSpreadsheet, 
-  TrendingUp, 
-  Layers,
-  Cpu,
-  Globe
-} from "lucide-react";
+﻿import { BarChart4, Database, Globe, Layers3, Wrench } from "lucide-react";
+
+const skillTracks = [
+  {
+    icon: BarChart4,
+    title: "BI e Visualizacao",
+    focus: "Dashboards e leitura executiva",
+    tools: ["Power BI", "Looker Studio", "Tableau"],
+  },
+  {
+    icon: Database,
+    title: "Dados e modelagem",
+    focus: "Estruturacao e consulta de dados",
+    tools: ["SQL", "ETL", "Data Modeling"],
+  },
+  {
+    icon: Globe,
+    title: "Front-end",
+    focus: "Interfaces modernas e performaticas",
+    tools: ["React", "TypeScript", "Tailwind"],
+  },
+  {
+    icon: Wrench,
+    title: "Back-end",
+    focus: "APIs e regras de negocio",
+    tools: ["Node.js", "Python", "Supabase"],
+  },
+  {
+    icon: Layers3,
+    title: "Processo e operacao",
+    focus: "Melhoria continua e KPI operacional",
+    tools: ["Manutencao", "KPIs industriais", "Melhoria continua"],
+  },
+];
 
 const Skills = () => {
-  const technologies = [
-    { name: "Power BI", icon: BarChart, category: "BI" },
-    { name: "Looker", icon: TrendingUp, category: "BI" },
-    { name: "Tableau", icon: TrendingUp, category: "BI" },
-    { name: "Python", icon: Code, category: "Dados" },
-    { name: "SQL", icon: Database, category: "Dados" },
-    { name: "Excel", icon: FileSpreadsheet, category: "Análise" },
-    { name: "Google Sheets", icon: FileSpreadsheet, category: "Análise" },
-    { name: "React", icon: Globe, category: "Web" },
-    { name: "Machine Learning", icon: Cpu, category: "IA" },
-    { name: "ETL", icon: Layers, category: "Dados" },
-  ];
-
   return (
-    <section id="skills" className="relative py-24 overflow-hidden">
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="text-center mb-16">
-          <h2 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent animate-fade-in">
-            Tecnologias
-          </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto animate-fade-in" style={{ animationDelay: "0.1s" }}>
-            Ferramentas que utilizo para entregar soluções de qualidade
-          </p>
+    <section id="skills" className="section-shell">
+      <div className="container">
+        <div className="section-head">
+          <span className="eyebrow">Stack</span>
+          <h2 className="section-title">Tecnologias que sustentam as entregas</h2>
+          <p className="section-subtitle">Combino ferramentas de dados e produto para criar solucoes completas.</p>
         </div>
 
-        <div className="flex flex-wrap justify-center gap-4 max-w-4xl mx-auto">
-          {technologies.map((tech, index) => {
-            const Icon = tech.icon;
+        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+          {skillTracks.map((track) => {
+            const Icon = track.icon;
             return (
-              <div
-                key={index}
-                className="group flex items-center gap-3 px-5 py-3 bg-card backdrop-blur-sm rounded-full border border-border hover:border-primary/60 transition-all duration-300 hover:shadow-[0_0_20px_hsl(var(--primary)/0.2)] animate-fade-in"
-                style={{ animationDelay: `${0.2 + index * 0.05}s` }}
-              >
-                <Icon className="w-5 h-5 text-primary group-hover:text-accent transition-colors" />
-                <span className="text-foreground font-medium">{tech.name}</span>
-                <span className="text-xs text-primary/70 px-2 py-0.5 bg-primary/10 rounded-full">
-                  {tech.category}
-                </span>
-              </div>
+              <article key={track.title} className="glass-card panel-hover p-6">
+                <div className="flex items-start">
+                  <div className="inline-flex rounded-xl border border-primary/30 bg-primary/15 p-3 text-primary">
+                    <Icon className="h-5 w-5" />
+                  </div>
+                </div>
+
+                <h3 className="mt-4 text-xl font-bold">{track.title}</h3>
+                <p className="mt-2 text-sm text-muted-foreground">{track.focus}</p>
+
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {track.tools.map((tool) => (
+                    <span key={tool} className="rounded-full border border-border bg-background/70 px-3 py-1 text-xs text-muted-foreground">
+                      {tool}
+                    </span>
+                  ))}
+                </div>
+              </article>
             );
           })}
         </div>

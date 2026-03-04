@@ -1,79 +1,61 @@
-import { Code, Database, BarChart3, Cpu } from "lucide-react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+﻿import { BarChart3, Code, Database, Workflow } from "lucide-react";
 
 const services = [
   {
     icon: Database,
-    title: "Análise de Dados",
-    description: "Transformo dados brutos em insights estratégicos utilizando Python, SQL e ferramentas modernas de análise.",
-    highlights: ["Python & SQL", "ETL & Data Pipeline", "Análise Exploratória"]
+    title: "Consultoria de dados",
+    description: "Estruturo base, modelo e analise para voce tomar decisoes com mais seguranca.",
+    items: ["Mapeamento de indicadores", "Analise exploratoria", "Modelagem SQL e ETL"],
   },
   {
     icon: BarChart3,
-    title: "Business Intelligence",
-    description: "Desenvolvimento de dashboards interativos em Power BI para visualização clara e tomada de decisões informadas.",
-    highlights: ["Power BI", "Dashboards Interativos", "KPIs & Métricas"]
+    title: "Dashboards executivos",
+    description: "Paineis orientados a negocio, com foco em leitura rapida e acao.",
+    items: ["Power BI", "Storytelling com dados", "KPIs de operacao e vendas"],
   },
   {
     icon: Code,
-    title: "Desenvolvimento Web",
-    description: "Criação de aplicações web modernas e responsivas com React no frontend e Python no backend.",
-    highlights: ["React & TypeScript", "Python Backend", "APIs RESTful"]
+    title: "Aplicacoes web",
+    description: "Sistemas sob medida para digitalizar processos e reduzir atrito no trabalho diario.",
+    items: ["React + TypeScript", "Backend Node/Python", "Integracao com APIs"],
   },
   {
-    icon: Cpu,
-    title: "Machine Learning",
-    description: "Implementação de modelos de ML supervisionados para predições e otimização de processos industriais.",
-    highlights: ["Scikit-learn", "Modelos Preditivos", "Otimização"]
-  }
+    icon: Workflow,
+    title: "Automacao de processos",
+    description: "Fluxos inteligentes para diminuir retrabalho e acelerar entregas internas.",
+    items: ["Rotinas de dados", "Alertas e monitoramento", "Padronizacao operacional"],
+  },
 ];
 
 const Services = () => {
   return (
-    <section id="services" className="relative py-24 overflow-hidden">
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="text-center mb-16 animate-fade-in">
-          <h2 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
-            Meus Serviços
-          </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Soluções completas em dados e desenvolvimento para impulsionar seu negócio
-          </p>
+    <section id="services" className="section-shell">
+      <div className="container">
+        <div className="section-head">
+          <span className="eyebrow">Servicos</span>
+          <h2 className="section-title">Como eu posso ajudar seu negocio hoje</h2>
+          <p className="section-subtitle">Atuacao ponta a ponta, da identificacao do problema ate a entrega em producao.</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-          {services.map((service, index) => {
+        <div className="grid gap-5 md:grid-cols-2">
+          {services.map((service) => {
             const Icon = service.icon;
             return (
-              <Card 
-                key={index} 
-                className="bg-card border-border backdrop-blur-sm hover:border-primary/60 transition-all duration-300 hover:shadow-[0_0_30px_hsl(var(--primary)/0.2)] group animate-fade-in"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <CardHeader>
-                  <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-primary/30">
-                    <Icon className="w-8 h-8 text-primary-foreground" />
-                  </div>
-                  <CardTitle className="text-2xl font-bold text-foreground group-hover:text-primary transition-colors">
-                    {service.title}
-                  </CardTitle>
-                  <CardDescription className="text-muted-foreground text-base">
-                    {service.description}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex flex-wrap gap-2">
-                    {service.highlights.map((highlight, idx) => (
-                      <span 
-                        key={idx}
-                        className="px-3 py-1 rounded-full text-sm bg-primary/10 text-primary border border-primary/20"
-                      >
-                        {highlight}
-                      </span>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
+              <article key={service.title} className="glass-card panel-hover p-6 md:p-7">
+                <div className="inline-flex rounded-2xl border border-primary/30 bg-primary/15 p-3 text-primary">
+                  <Icon className="h-6 w-6" />
+                </div>
+                <h3 className="mt-5 text-2xl font-bold">{service.title}</h3>
+                <p className="mt-3 text-sm text-muted-foreground md:text-base">{service.description}</p>
+                <ul className="mt-5 space-y-2 text-sm text-foreground">
+                  {service.items.map((item) => (
+                    <li key={item} className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </article>
             );
           })}
         </div>

@@ -1,74 +1,85 @@
-import { Target, Users, Zap, Award } from "lucide-react";
+﻿import { BriefcaseBusiness, ChartNoAxesCombined, Handshake, Lightbulb } from "lucide-react";
+
+const values = [
+  {
+    icon: BriefcaseBusiness,
+    title: "Visao de negocio",
+    description: "Solucoes pensadas para gerar impacto em operacao, vendas e tomada de decisao.",
+  },
+  {
+    icon: ChartNoAxesCombined,
+    title: "Dados aplicados",
+    description: "Modelagem, indicadores e dashboards para transformar ruido em clareza.",
+  },
+  {
+    icon: Handshake,
+    title: "Parceria proxima",
+    description: "Comunicacao direta, checkpoints frequentes e ajuste rapido de rota.",
+  },
+  {
+    icon: Lightbulb,
+    title: "Execucao pratica",
+    description: "Projeto bonito, performatico e pronto para uso no dia a dia.",
+  },
+];
 
 const About = () => {
-  const values = [
-    {
-      icon: Target,
-      title: "Foco em Resultados",
-      description: "Cada projeto é desenvolvido com objetivos claros e mensuráveis."
-    },
-    {
-      icon: Users,
-      title: "Parceria",
-      description: "Trabalho lado a lado com você para entender suas necessidades."
-    },
-    {
-      icon: Zap,
-      title: "Agilidade",
-      description: "Entregas rápidas sem comprometer a qualidade."
-    },
-    {
-      icon: Award,
-      title: "Qualidade",
-      description: "Soluções robustas e bem documentadas."
-    }
-  ];
-
   return (
-    <section id="about" className="relative py-24 overflow-hidden">
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="text-center mb-16">
-          <h2 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent animate-fade-in">
-            Por Que Me Escolher?
-          </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto animate-fade-in" style={{ animationDelay: "0.1s" }}>
-            Com experiência em ambientes industriais e projetos reais, entrego soluções 
-            que fazem a diferença no seu negócio.
+    <section id="about" className="section-shell">
+      <div className="container">
+        <div className="section-head">
+          <span className="eyebrow">Sobre mim</span>
+          <h2 className="section-title">Combino experiencia industrial com produto digital.</h2>
+          <p className="section-subtitle">
+            Atuo entre negocio, dados e desenvolvimento para criar ferramentas que resolvem problemas reais com velocidade e qualidade.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto mb-16">
-          {values.map((value, index) => {
-            const Icon = value.icon;
-            return (
-              <div 
-                key={index}
-                className="bg-card backdrop-blur-sm rounded-2xl p-6 border border-border hover:border-primary/60 transition-all duration-300 hover:shadow-[0_0_30px_hsl(var(--primary)/0.2)] text-center animate-fade-in"
-                style={{ animationDelay: `${0.2 + index * 0.1}s` }}
-              >
-                <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center mx-auto mb-4 shadow-lg shadow-primary/30">
-                  <Icon className="w-7 h-7 text-primary-foreground" />
-                </div>
-                <h3 className="text-lg font-bold text-foreground mb-2">{value.title}</h3>
-                <p className="text-muted-foreground text-sm">{value.description}</p>
-              </div>
-            );
-          })}
-        </div>
+        <div className="grid gap-6 lg:grid-cols-2">
+          <article className="glass-card p-7 md:p-9">
+            <h3 className="text-2xl font-bold">Quem e Denilson Junior?</h3>
+            <p className="mt-4 text-muted-foreground">
+              Sou desenvolvedor focado em BI, analytics e aplicacoes web. Minha base em manutencao industrial me deu repertorio para entender operacoes complexas e construir solucoes objetivas.
+            </p>
+            <p className="mt-4 text-muted-foreground">
+              Trabalho com Power BI, Python, SQL, React e Node para entregar projetos completos, da analise inicial ao deploy.
+            </p>
 
-        <div className="max-w-3xl mx-auto">
-          <div className="bg-card backdrop-blur-sm rounded-2xl p-8 md:p-10 border border-border animate-fade-in" style={{ animationDelay: "0.6s" }}>
-            <h3 className="text-2xl font-bold text-foreground mb-4">Minha Abordagem</h3>
-            <p className="text-muted-foreground leading-relaxed mb-4">
-              Combino conhecimento técnico em <strong className="text-primary">Ciência de Dados</strong> e{" "}
-              <strong className="text-primary">Desenvolvimento Web</strong> para criar soluções completas. 
-              Utilizo Python, SQL, Power BI e React para entregar desde análises exploratórias 
-              até sistemas web completos.
-            </p>
-            <p className="text-muted-foreground leading-relaxed">
-              Minha experiência em ambientes industriais me ensinou a criar soluções 
-              práticas que realmente impactam os resultados do negócio.
-            </p>
+            <div className="mt-8 grid gap-4 text-sm sm:grid-cols-2">
+              <div className="rounded-2xl border border-border bg-background/60 p-4">
+                <p className="text-muted-foreground">Base</p>
+                <p className="mt-1 font-semibold text-foreground">Dados + Produto Digital</p>
+              </div>
+              <div className="rounded-2xl border border-border bg-background/60 p-4">
+                <p className="text-muted-foreground">Atuacao</p>
+                <p className="mt-1 font-semibold text-foreground">Freelance e consultoria</p>
+              </div>
+              <div className="rounded-2xl border border-border bg-background/60 p-4">
+                <p className="text-muted-foreground">Disponibilidade</p>
+                <p className="mt-1 font-semibold text-foreground">Projetos nacionais</p>
+              </div>
+              <div className="rounded-2xl border border-border bg-background/60 p-4">
+                <p className="text-muted-foreground">Contato</p>
+                <p className="mt-1 break-all text-xs font-semibold text-foreground sm:text-sm">juniordenilson363@gmail.com</p>
+              </div>
+            </div>
+          </article>
+
+          <div className="grid gap-4">
+            {values.map((value) => {
+              const Icon = value.icon;
+              return (
+                <article key={value.title} className="glass-card panel-hover flex items-start gap-4 p-6">
+                  <div className="rounded-2xl border border-primary/30 bg-primary/15 p-3 text-primary">
+                    <Icon className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold">{value.title}</h3>
+                    <p className="mt-2 text-sm text-muted-foreground">{value.description}</p>
+                  </div>
+                </article>
+              );
+            })}
           </div>
         </div>
       </div>

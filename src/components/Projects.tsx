@@ -1,159 +1,235 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { ExternalLink, BarChart3, Code, Github } from "lucide-react";
+﻿import { Button } from "@/components/ui/button";
+import { ExternalLink, Github, LineChart, MonitorSmartphone } from "lucide-react";
+import { openTrackedLink } from "@/lib/analytics";
 import { ProjectCaseStudy } from "./ProjectCaseStudy";
 
+type PortfolioProject = {
+  title: string;
+  year: string;
+  summary: string;
+  impact: string;
+  stack: string[];
+  projectUrl?: string;
+  githubUrl?: string;
+  caseStudy: {
+    title: string;
+    description: string;
+    challenge: string;
+    solution: string;
+    results: string[];
+    technologies: string[];
+  };
+};
+
+const projects: PortfolioProject[] = [
+  {
+    title: "Migracao de App para React + Supabase",
+    year: "2026",
+    summary: "Evolucao de um app prototipado no Google AI Studio para uma aplicacao real e escalavel.",
+    impact: "Entrega elogiada pela agilidade, suporte no pos-projeto e facilidade de negociacao.",
+    stack: ["React", "Supabase", "TypeScript", "UX"],
+    caseStudy: {
+      title: "Migracao de App para React + Supabase",
+      description: "Transicao de prototipo para produto funcional em stack moderna",
+      challenge:
+        "O app inicial em Google AI Studio precisava virar um produto real, com banco de dados, autenticacao e estrutura de manutencao.",
+      solution:
+        "Migrei o fluxo para React + Supabase, organizando telas, dados e logica de negocio para garantir estabilidade e evolucao continua.",
+      results: [
+        "Aplicacao pronta para uso real",
+        "Base tecnica escalavel para novas features",
+        "Suporte ao cliente mesmo apos entrega",
+      ],
+      technologies: ["React", "Supabase", "TypeScript", "Modelagem de dados"],
+    },
+  },
+  {
+    title: "CRUD em Python para Geracao de Etiquetas",
+    year: "2026",
+    summary: "Sistema de cadastro e geracao de etiquetas para operacao com padrao e consistencia.",
+    impact: "Projeto elogiado por organizacao e qualidade tecnica da entrega.",
+    stack: ["Python", "CRUD", "Automacao"],
+    caseStudy: {
+      title: "CRUD de Etiquetas",
+      description: "Aplicacao para padronizar geracao e controle de etiquetas",
+      challenge:
+        "O cliente precisava controlar dados de etiquetas sem depender de processos manuais dispersos.",
+      solution:
+        "Foi desenvolvido um CRUD em Python para cadastro, atualizacao e emissao de etiquetas com fluxo simples e seguro.",
+      results: [
+        "Padronizacao operacional no cadastro",
+        "Melhor controle do ciclo de etiquetagem",
+        "Entrega reconhecida por competencia e organizacao",
+      ],
+      technologies: ["Python", "CRUD", "Gestao de dados"],
+    },
+  },
+  {
+    title: "Dashboard em Excel para Rede de Supermercados",
+    year: "2026",
+    summary: "Painel de acompanhamento com foco em leitura rapida para apoiar decisoes comerciais.",
+    impact: "Cliente destacou entrega acima da expectativa e alto valor percebido.",
+    stack: ["Excel", "Dashboard", "Indicadores"],
+    caseStudy: {
+      title: "Dashboard Excel para Supermercados",
+      description: "Consolidacao de indicadores para tomada de decisao comercial",
+      challenge:
+        "A operacao precisava de visao consolidada para acompanhar desempenho sem depender de multiplas planilhas.",
+      solution:
+        "Foi desenvolvido um dashboard em Excel com estrutura de indicadores e visao clara para comparacao de resultados.",
+      results: [
+        "Decisao mais rapida no dia a dia",
+        "Melhor comunicacao entre areas",
+        "Entrega avaliada acima do esperado",
+      ],
+      technologies: ["Excel", "Dashboarding", "KPIs"],
+    },
+  },
+  {
+    title: "Sistema Financeiro para Escritorio de Advocacia",
+    year: "2026",
+    summary: "Solucao para organizar fluxo financeiro e reduzir gargalos de controle.",
+    impact: "Projeto recomendado pelo cliente por resolver dor critica de gestao financeira.",
+    stack: ["Excel VBA", "Financeiro", "Automacao"],
+    caseStudy: {
+      title: "Gestao Financeira para Advocacia",
+      description: "Sistema para controle e previsibilidade financeira",
+      challenge:
+        "O escritorio tinha dificuldade para controlar rotina financeira de forma simples e confiavel.",
+      solution:
+        "Foi criada uma ferramenta personalizada para entrada, consulta e consolidacao de informacoes financeiras.",
+      results: [
+        "Reducao de gargalos na operacao financeira",
+        "Controle mais claro para decisao",
+        "Cliente recomendou o trabalho publicamente",
+      ],
+      technologies: ["Excel VBA", "Automacao", "Processo financeiro"],
+    },
+  },
+  {
+    title: "Sistema de Avaliacao (Case autoral)",
+    year: "2025",
+    summary: "Plataforma full-stack com board de atividades e visao operacional para fabrica.",
+    impact: "Centralizou tarefas, melhorou acompanhamento e acelerou comunicacao entre equipes.",
+    stack: ["Node.js", "React", "Dashboard", "Kanban"],
+    projectUrl: "https://sistema-de-avalia-o-one.vercel.app/",
+    githubUrl: "https://github.com/denilsonjj/sistema-de-avalia-o",
+    caseStudy: {
+      title: "Sistema de Avaliacao",
+      description: "Gestao operacional em ambiente unico",
+      challenge:
+        "A operacao precisava de um fluxo unico para organizar atividades e acompanhar indicadores sem dependencia de planilhas isoladas.",
+      solution:
+        "Foi desenvolvido um sistema com board de tarefas e dashboard operacional para leitura rapida e acompanhamento continuo.",
+      results: [
+        "Mais previsibilidade de execucao",
+        "Visibilidade de status em tempo real",
+        "Padronizacao do processo operacional",
+      ],
+      technologies: ["Node.js", "React", "REST API", "Charts"],
+    },
+  },
+];
+
+const CASE_DETAILS_URL = "https://wa.me/5581973319128?text=Oi! Quero ver mais detalhes desse case do portfolio.";
+const PROPOSAL_URL = "https://wa.me/5581973319128?text=Ola! Quero conversar sobre um projeto parecido com esses cases.";
+
 const Projects = () => {
-  const projects = [
-    {
-      title: "Dashboard de Empreendedores",
-      description: "Análise de empreendedores cadastrados em plataforma de cursos. Desenvolvido com modelo em estrela, fornece insights sobre cursos com maior e menor número de inscrições, análise por raça e nível de ensino.",
-      icon: <BarChart3 className="w-8 h-8 text-primary" />,
-      link: "https://app.powerbi.com/view?r=eyJrIjoiNWEyZmNmNTctODBiNS00OGY0LWE2OGYtNTk0N2E4MzE0ZWI2IiwidCI6IjM4MjNhYzRiLWY1MDEtNDBjOS1hYWNjLTU4M2NhNGVjNzk4MCJ9&pageName=1b8dd58ffb53b81adab6",
-      type: "Power BI",
-      caseStudy: {
-        title: "Dashboard de Empreendedores",
-        description: "Análise completa de dados educacionais usando Power BI",
-        challenge: "A plataforma de cursos precisava entender melhor o perfil dos empreendedores cadastrados e identificar padrões de inscrição para otimizar a oferta de cursos.",
-        solution: "Desenvolvi um dashboard em Power BI utilizando modelo em estrela (star schema) para otimizar o desempenho e facilitar análises multidimensionais. O dashboard fornece visualizações interativas sobre cursos, demografia dos estudantes e padrões de inscrição.",
-        results: [
-          "Identificação dos cursos com maior e menor demanda",
-          "Análise demográfica por raça e nível de ensino",
-          "Insights para tomada de decisão estratégica na oferta de cursos",
-          "Melhoria na compreensão do perfil dos empreendedores"
-        ],
-        technologies: ["Power BI", "DAX", "Star Schema", "Data Modeling"]
-      }
-    },
-    {
-      title: "Dashboard Operacional de OEE",
-      description: "Dashboard operacional focado em análise de OEE (Overall Equipment Effectiveness), monitorando vida útil de máquinas, componentes com maior número de paradas e desempenho por linhas de produção.",
-      icon: <BarChart3 className="w-8 h-8 text-primary" />,
-      link: "https://app.powerbi.com/view?r=eyJrIjoiYzdmNWJlYjYtMTAxZS00OTU1LTk4MDAtOTAxMGY3ZjkzODY4IiwidCI6IjM4MjNhYzRiLWY1MDEtNDBjOS1hYWNjLTU4M2NhNGVjNzk4MCJ9",
-      type: "Power BI",
-      caseStudy: {
-        title: "Dashboard Operacional de OEE",
-        description: "Análise de eficiência operacional e manutenção industrial",
-        challenge: "A área de manutenção industrial precisava de visibilidade em tempo real sobre a eficiência dos equipamentos, identificar gargalos e prever necessidades de manutenção.",
-        solution: "Criei um dashboard operacional focado em OEE (Overall Equipment Effectiveness) que monitora indicadores-chave como disponibilidade, performance e qualidade. O sistema rastreia a vida útil de máquinas e identifica componentes críticos com maior frequência de paradas.",
-        results: [
-          "Monitoramento em tempo real do OEE por linha de produção",
-          "Redução do tempo de parada através da identificação proativa de componentes críticos",
-          "Melhoria na tomada de decisão sobre manutenção preventiva",
-          "Aumento da eficiência operacional geral"
-        ],
-        technologies: ["Power BI", "DAX", "KPI Monitoring", "Industrial Data Analysis"]
-      }
-    },
-    {
-      title: "GEMBA APP",
-      description: "Aplicação web desenvolvida para otimizar reuniões diárias de manutenção industrial. Permite registro em tempo real de problemas identificados durante caminhadas pela fábrica (GEMBA walks), categorizando questões de manutenção e facilitando o acompanhamento de ações.",
-      icon: <Code className="w-8 h-8 text-accent" />,
-      link: "https://github.com/denilsonjj/GEMBA-APP",
-      type: "React + Python",
-      githubLink: "https://github.com/denilsonjj/GEMBA-APP",
-      caseStudy: {
-        title: "GEMBA APP",
-        description: "Digitalização de reuniões diárias de manutenção industrial",
-        challenge: "As reuniões diárias (daily meetings) consumiam muito tempo com anotações manuais durante as caminhadas pela fábrica. Era difícil rastrear problemas identificados, categorizar adequadamente as questões de manutenção e garantir follow-up efetivo das ações.",
-        solution: "Desenvolvi uma aplicação web completa usando React no frontend e Python no backend. O app permite registro em tempo real durante as GEMBA walks, com categorização automática de problemas focados em manutenção industrial, sistema de priorização e dashboard de acompanhamento.",
-        results: [
-          "Redução significativa do tempo das reuniões diárias",
-          "Melhoria no rastreamento e follow-up de problemas",
-          "Categorização estruturada de questões de manutenção",
-          "Histórico completo de problemas e soluções implementadas",
-          "Maior eficiência na gestão de manutenção preventiva e corretiva"
-        ],
-        technologies: ["React.js", "Python", "REST API", "Industrial Maintenance Systems"]
-      }
-    },
-    {
-      title: "Sistema de Avaliação",
-      description: "Sistema completo desenvolvido em Node.js com quadro de atividades (realizadas, a realizar e em andamento) e dashboard inicial com detalhes operacionais de fábrica. Acesso demo: admin@gmail.com / Admin",
-      icon: <Code className="w-8 h-8 text-accent" />,
-      link: "https://sistema-de-avalia-o-one.vercel.app/",
-      type: "Node.js + React.js",
-      githubLink: "https://github.com/denilsonjj/sistema-de-avalia-o",
-      caseStudy: {
-        title: "Sistema de Avaliação",
-        description: "Plataforma de gestão de atividades e KPIs operacionais",
-        challenge: "A fábrica precisava de uma ferramenta centralizada para gerenciar atividades, acompanhar status de tarefas e visualizar indicadores operacionais em tempo real.",
-        solution: "Desenvolvi um sistema full-stack usando Node.js no backend e React.js no frontend. O sistema conta com um quadro Kanban para gestão de atividades (a fazer, em andamento, concluídas) e um dashboard com métricas operacionais relevantes para a gestão da fábrica.",
-        results: [
-          "Centralização do acompanhamento de atividades operacionais",
-          "Visibilidade em tempo real do status de tarefas",
-          "Dashboard com KPIs operacionais para tomada de decisão",
-          "Melhoria na comunicação entre equipes",
-          "Aumento da produtividade e accountability"
-        ],
-        technologies: ["Node.js", "React.js", "REST API", "Kanban Board", "Dashboard Analytics"]
-      }
-    },
-  ];
+  const openWhatsApp = () => {
+    openTrackedLink(PROPOSAL_URL, "cta_click", { cta: "projects_bottom_proposal" });
+  };
 
   return (
-    <section id="projects" className="relative py-24 overflow-hidden">
-      <div className="container mx-auto px-4 relative z-10">
-        <h2 className="text-5xl md:text-6xl font-bold text-center mb-6 bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent animate-fade-in">
-          Portfólio
-        </h2>
-        <p className="text-center text-muted-foreground mb-16 text-xl animate-fade-in" style={{ animationDelay: "0.1s" }}>
-          Algumas soluções que desenvolvi para clientes
-        </p>
-        <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-          {projects.map((project, index) => (
-            <Card
-              key={index}
-              className="group bg-card backdrop-blur-sm border-border hover:border-primary/60 transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_30px_hsl(var(--primary)/0.2)] animate-fade-in"
-              style={{ animationDelay: `${0.2 + index * 0.1}s` }}
-            >
-              <CardHeader>
-                <div className="mb-4 flex items-center justify-between">
-                  <div className="text-primary group-hover:text-accent transition-colors">
-                    {project.icon}
-                  </div>
-                  <span className="text-sm font-medium text-primary px-3 py-1 bg-primary/10 rounded-full border border-primary/20">
-                    {project.type}
-                  </span>
-                </div>
-                <CardTitle className="text-2xl text-foreground group-hover:text-primary transition-colors">{project.title}</CardTitle>
-                <CardDescription className="text-base text-muted-foreground">{project.description}</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  <div className="flex gap-2">
-                    <Button
-                      variant="outline"
-                      className="flex-1 bg-primary/10 text-primary border-primary/20 hover:bg-primary/20 hover:text-primary transition-colors"
-                      onClick={() => window.open(project.link, "_blank")}
-                    >
-                      Ver Projeto <ExternalLink className="ml-2 w-4 h-4" />
-                    </Button>
-                    {'githubLink' in project && (
-                      <Button
-                        variant="outline"
-                        size="icon"
-                        className="bg-primary/10 text-primary border-primary/20 hover:bg-primary/20 hover:text-primary transition-colors"
-                        onClick={() => window.open(project.githubLink as string, "_blank")}
-                      >
-                        <Github className="w-4 h-4" />
-                      </Button>
-                    )}
-                  </div>
-                  {'caseStudy' in project && (
-                    <ProjectCaseStudy
-                      title={project.caseStudy.title}
-                      description={project.caseStudy.description}
-                      challenge={project.caseStudy.challenge}
-                      solution={project.caseStudy.solution}
-                      results={project.caseStudy.results}
-                      technologies={project.caseStudy.technologies}
-                    />
+    <section id="projects" className="section-shell">
+      <div className="container">
+        <div className="section-head">
+          <span className="eyebrow">Projetos recentes</span>
+          <h2 className="section-title">Cases reais com foco em impacto, clareza e execucao.</h2>
+          <p className="section-subtitle">Veja como eu resolvi problemas parecidos com os que muitas empresas enfrentam no dia a dia.</p>
+        </div>
+
+        <div className="grid gap-6 md:grid-cols-2">
+          {projects.map((project) => (
+            <article key={project.title} className="glass-card panel-hover p-6 md:p-7">
+              <div className="flex items-start justify-between gap-3">
+                <div className="rounded-2xl border border-primary/30 bg-primary/15 p-3 text-primary">
+                  {project.stack.some((item) => item.includes("Dashboard") || item.includes("Excel")) ? (
+                    <LineChart className="h-5 w-5" />
+                  ) : (
+                    <MonitorSmartphone className="h-5 w-5" />
                   )}
                 </div>
-              </CardContent>
-            </Card>
+                <span className="rounded-full border border-border bg-background/60 px-2.5 py-1 text-xs font-semibold text-muted-foreground">
+                  {project.year}
+                </span>
+              </div>
+
+              <h3 className="mt-5 text-2xl font-bold">{project.title}</h3>
+              <p className="mt-3 text-sm text-muted-foreground md:text-base">{project.summary}</p>
+
+              <p className="mt-4 rounded-xl border border-border bg-background/40 px-4 py-3 text-sm text-foreground">{project.impact}</p>
+
+              <div className="mt-4 flex flex-wrap gap-2">
+                {project.stack.map((item) => (
+                  <span key={item} className="rounded-full border border-border bg-background/70 px-3 py-1 text-xs text-muted-foreground">
+                    {item}
+                  </span>
+                ))}
+              </div>
+
+              <div className="mt-6 flex flex-wrap items-center gap-3">
+                {project.projectUrl ? (
+                  <Button
+                    onClick={() => openTrackedLink(project.projectUrl!, "case_open", { project: project.title })}
+                    className="rounded-full bg-primary px-5 text-sm font-semibold text-primary-foreground hover:bg-primary/90"
+                  >
+                    Abrir case
+                    <ExternalLink className="h-4 w-4" />
+                  </Button>
+                ) : (
+                  <Button
+                    onClick={() => openTrackedLink(CASE_DETAILS_URL, "cta_click", { cta: "projects_case_details", project: project.title })}
+                    className="rounded-full bg-primary px-5 text-sm font-semibold text-primary-foreground hover:bg-primary/90"
+                  >
+                    Quero detalhes desse case
+                    <ExternalLink className="h-4 w-4" />
+                  </Button>
+                )}
+                {project.githubUrl && (
+                  <Button
+                    variant="outline"
+                    onClick={() => openTrackedLink(project.githubUrl!, "case_repo_open", { project: project.title })}
+                    className="rounded-full border-border bg-card/30 px-4"
+                    aria-label={`Abrir github do projeto ${project.title}`}
+                  >
+                    <Github className="h-4 w-4" />
+                  </Button>
+                )}
+                <ProjectCaseStudy
+                  title={project.caseStudy.title}
+                  description={project.caseStudy.description}
+                  challenge={project.caseStudy.challenge}
+                  solution={project.caseStudy.solution}
+                  results={project.caseStudy.results}
+                  technologies={project.caseStudy.technologies}
+                />
+              </div>
+            </article>
           ))}
+        </div>
+
+        <div className="mt-10 glass-card flex flex-col items-start justify-between gap-4 p-6 md:flex-row md:items-center md:p-8">
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.12em] text-primary">Proximo passo</p>
+            <h3 className="mt-2 text-2xl font-bold">Quer aplicar essa mesma logica no seu negocio?</h3>
+            <p className="mt-2 text-sm text-muted-foreground md:text-base">
+              Me passe contexto, objetivo e prazo. Eu retorno com uma proposta pratica e um caminho claro de execucao.
+            </p>
+          </div>
+          <Button onClick={openWhatsApp} className="rounded-full bg-primary px-6 text-primary-foreground hover:bg-primary/90">
+            Receber proposta
+            <ExternalLink className="h-4 w-4" />
+          </Button>
         </div>
       </div>
     </section>

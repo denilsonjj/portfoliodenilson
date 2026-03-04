@@ -1,18 +1,19 @@
-import { MessageCircle } from "lucide-react";
+﻿import { MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { openTrackedLink } from "@/lib/analytics";
 
 const WhatsAppButton = () => {
   const whatsappNumber = "5581973319128";
-  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=Olá! Gostaria de saber mais sobre seus serviços.`;
+  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=Ola! Vim pelo portfolio e quero conversar sobre um projeto.`;
 
   return (
     <Button
-      onClick={() => window.open(whatsappUrl, "_blank")}
-      className="fixed bottom-6 right-6 z-50 rounded-full w-14 h-14 shadow-lg bg-[#25D366] hover:bg-[#128C7E] transition-all hover:scale-110"
+      onClick={() => openTrackedLink(whatsappUrl, "cta_click", { cta: "floating_whatsapp_button" })}
+      className="fixed bottom-5 right-5 z-50 h-14 w-14 rounded-full border border-emerald-300/40 bg-emerald-500 text-white shadow-[0_12px_30px_-12px_rgba(16,185,129,0.9)] transition-all hover:scale-105 hover:bg-emerald-600"
       size="icon"
       aria-label="Conversar no WhatsApp"
     >
-      <MessageCircle className="w-6 h-6 text-white" />
+      <MessageCircle className="h-6 w-6" />
     </Button>
   );
 };

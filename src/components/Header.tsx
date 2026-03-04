@@ -1,152 +1,187 @@
-import { useState, useEffect } from "react";
+﻿import { useEffect, useState } from "react";
+import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Menu, Sun, Moon } from "lucide-react";
-import { useTheme } from "next-themes";
-import { Dropdown } from "@rewind-ui/core";
+import { openTrackedLink, trackEvent } from "@/lib/analytics";
+
+const navItems = [
+  { id: "about", label: "Sobre" },
+  { id: "services", label: "Servicos" },
+  { id: "projects", label: "Projetos" },
+  { id: "testimonials", label: "Avaliacoes" },
+  { id: "contact", label: "Contato" },
+];
+
+const MOBILE_MENU_ANIMATION_MS = 320;
+const WHATSAPP_PROPOSAL_URL = "https://wa.me/5581973319128?text=Ola! Quero conversar sobre um projeto.";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isMobileMenuVisible, setIsMobileMenuVisible] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
+    const onScroll = () => setIsScrolled(window.scrollY > 12);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+    if (isMobileMenuOpen) return;
+    if (!isMobileMenuVisible) return;
+
+    const timer = window.setTimeout(() => {
+      setIsMobileMenuVisible(false);
+    }, MOBILE_MENU_ANIMATION_MS);
+
+    return () => window.clearTimeout(timer);
+  }, [isMobileMenuOpen, isMobileMenuVisible]);
+
+  useEffect(() => {
+    const onResize = () => {
+      if (window.innerWidth >= 768) {
+        setIsMobileMenuOpen(false);
+        setIsMobileMenuVisible(false);
+      }
     };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
   }, []);
 
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
+  const openMobileMenu = () => {
+    setIsMobileMenuVisible(true);
+    window.requestAnimationFrame(() => {
+      setIsMobileMenuOpen(true);
+    });
   };
 
-  const toggleTheme = () => {
-    setTheme(theme === "dark" ? "light" : "dark");
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false);
+  };
+
+  const toggleMobileMenu = () => {
+    trackEvent("menu_toggle", { state: isMobileMenuOpen ? "close" : "open" });
+
+    if (isMobileMenuOpen) {
+      closeMobileMenu();
+      return;
+    }
+
+    openMobileMenu();
+  };
+
+  const scrollToSection = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) {
+      trackEvent("nav_click", { section: id });
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+      closeMobileMenu();
+    }
   };
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled 
-          ? "bg-background/95 backdrop-blur-md shadow-lg shadow-primary/5 border-b border-border" 
-          : "bg-transparent"
+      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
+        isScrolled ? "border-b border-border/70 bg-background/85 backdrop-blur-xl" : "bg-transparent"
       }`}
     >
-      <nav className="container mx-auto px-4 py-4">
-        <div className="flex items-center justify-between">
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[60] focus:rounded-md focus:bg-background focus:px-3 focus:py-2 focus:text-sm focus:text-foreground"
+      >
+        Pular para o conteudo
+      </a>
+
+      <nav className="container py-4" aria-label="Navegacao principal">
+        <div className="flex items-center justify-between gap-4">
           <button
             onClick={() => scrollToSection("home")}
-            className="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent hover:opacity-80 transition-all"
+            className="text-left transition-opacity hover:opacity-85"
+            aria-label="Ir para inicio"
           >
-            Denilson Junior
+            <span className="block font-heading text-xl font-bold">Denilson Junior</span>
+            <span className="block text-xs text-muted-foreground">Data + Web Specialist</span>
           </button>
 
-          {/* Desktop Menu */}
-          <div className="hidden md:flex items-center gap-6">
-            <button
-              onClick={() => scrollToSection("services")}
-              className="text-muted-foreground hover:text-primary transition-colors font-medium"
-            >
-              Serviços
-            </button>
-            <button
-              onClick={() => scrollToSection("projects")}
-              className="text-muted-foreground hover:text-primary transition-colors font-medium"
-            >
-              Portfólio
-            </button>
-            <button
-              onClick={() => scrollToSection("skills")}
-              className="text-muted-foreground hover:text-primary transition-colors font-medium"
-            >
-              Tecnologias
-            </button>
-            
-            {/* Theme Toggle */}
-            {mounted && (
+          <div className="hidden items-center gap-6 md:flex">
+            {navItems.map((item) => (
               <button
-                onClick={toggleTheme}
-                className="p-2 rounded-full bg-secondary hover:bg-secondary/80 transition-colors"
-                aria-label="Alternar tema"
+                key={item.id}
+                onClick={() => scrollToSection(item.id)}
+                className="relative text-sm font-medium text-muted-foreground transition-colors duration-300 hover:text-foreground after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-full after:origin-left after:scale-x-0 after:bg-primary after:transition-transform after:duration-300 after:ease-out hover:after:scale-x-100"
               >
-                {theme === "dark" ? (
-                  <Moon className="w-5 h-5 text-foreground" />
-                ) : (
-                  <Sun className="w-5 h-5 text-foreground" />
-                )}
+                {item.label}
               </button>
-            )}
-            
-            <Button 
-              onClick={() => scrollToSection("contact")} 
-              className="bg-primary hover:bg-primary/90 text-primary-foreground transition-all hover:scale-105"
+            ))}
+          </div>
+
+          <div className="hidden md:block">
+            <Button
+              onClick={() => openTrackedLink(WHATSAPP_PROPOSAL_URL, "cta_click", { cta: "header_proposal" })}
+              className="rounded-full bg-primary px-5 text-sm font-semibold text-primary-foreground transition-transform duration-300 hover:scale-[1.02] hover:bg-primary/90"
             >
-              Fale Comigo
+              Quero uma proposta
             </Button>
           </div>
 
-          {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center gap-3">
-            {mounted && (
-              <button
-                onClick={toggleTheme}
-                className="p-2 rounded-full bg-secondary hover:bg-secondary/80 transition-colors"
-                aria-label="Alternar tema"
-              >
-                {theme === "dark" ? (
-                  <Moon className="w-5 h-5 text-foreground" />
-                ) : (
-                  <Sun className="w-5 h-5 text-foreground" />
-                )}
-              </button>
-            )}
-            
-            <Dropdown>
-              <Dropdown.Trigger>
-                <button className="p-2 rounded-lg bg-secondary hover:bg-secondary/80 transition-colors text-foreground">
-                  <Menu size={24} />
-                </button>
-              </Dropdown.Trigger>
-              <Dropdown.Content className="bg-card border border-border shadow-lg z-[100]">
-                <Dropdown.Label className="text-muted-foreground">Navegação</Dropdown.Label>
-                <Dropdown.Divider />
-                <Dropdown.Item 
-                  onClick={() => scrollToSection("services")}
-                  className="cursor-pointer hover:bg-secondary"
-                >
-                  Serviços
-                </Dropdown.Item>
-                <Dropdown.Item 
-                  onClick={() => scrollToSection("projects")}
-                  className="cursor-pointer hover:bg-secondary"
-                >
-                  Portfólio
-                </Dropdown.Item>
-                <Dropdown.Item 
-                  onClick={() => scrollToSection("skills")}
-                  className="cursor-pointer hover:bg-secondary"
-                >
-                  Tecnologias
-                </Dropdown.Item>
-                <Dropdown.Divider />
-                <Dropdown.Item 
-                  onClick={() => scrollToSection("contact")}
-                  className="cursor-pointer hover:bg-primary text-primary font-medium"
-                >
-                  Fale Comigo
-                </Dropdown.Item>
-              </Dropdown.Content>
-            </Dropdown>
-          </div>
+          <button
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-card/80 text-foreground transition-colors duration-300 hover:border-primary/60 md:hidden"
+            onClick={toggleMobileMenu}
+            aria-label="Abrir menu"
+            aria-expanded={isMobileMenuOpen}
+          >
+            <span className="relative h-5 w-5">
+              <Menu
+                className={`absolute inset-0 h-5 w-5 transition-all duration-300 ${
+                  isMobileMenuOpen ? "rotate-90 scale-75 opacity-0" : "rotate-0 scale-100 opacity-100"
+                }`}
+              />
+              <X
+                className={`absolute inset-0 h-5 w-5 transition-all duration-300 ${
+                  isMobileMenuOpen ? "rotate-0 scale-100 opacity-100" : "-rotate-90 scale-75 opacity-0"
+                }`}
+              />
+            </span>
+          </button>
         </div>
+
+        {isMobileMenuVisible && (
+          <div
+            className={`mt-4 overflow-hidden rounded-2xl border border-border bg-card/95 p-4 shadow-xl transition-all duration-300 ease-out md:hidden ${
+              isMobileMenuOpen
+                ? "pointer-events-auto translate-y-0 opacity-100"
+                : "pointer-events-none -translate-y-2 opacity-0"
+            }`}
+          >
+            <div className="space-y-2">
+              {navItems.map((item, index) => (
+                <button
+                  key={item.id}
+                  onClick={() => scrollToSection(item.id)}
+                  style={{ transitionDelay: isMobileMenuOpen ? `${80 + index * 55}ms` : "0ms" }}
+                  className={`block w-full rounded-xl px-3 py-2 text-left text-sm font-medium text-foreground transition-all duration-300 hover:bg-secondary ${
+                    isMobileMenuOpen ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"
+                  }`}
+                >
+                  {item.label}
+                </button>
+              ))}
+
+              <Button
+                onClick={() => {
+                  openTrackedLink(WHATSAPP_PROPOSAL_URL, "cta_click", { cta: "mobile_menu_proposal" });
+                  closeMobileMenu();
+                }}
+                style={{ transitionDelay: isMobileMenuOpen ? `${100 + navItems.length * 55}ms` : "0ms" }}
+                className={`mt-2 w-full rounded-xl bg-primary text-primary-foreground transition-all duration-300 ${
+                  isMobileMenuOpen ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"
+                }`}
+              >
+                Pedir proposta
+              </Button>
+            </div>
+          </div>
+        )}
       </nav>
     </header>
   );

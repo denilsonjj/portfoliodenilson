@@ -1,67 +1,103 @@
+﻿import { ArrowRight, CheckCircle2, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, CheckCircle } from "lucide-react";
+import { openTrackedLink, trackEvent } from "@/lib/analytics";
+import heroBg from "@/assets/hero-bg-dark.jpg";
+
+const highlights = [
+  "Projetos orientados por resultado",
+  "Escopo claro e execucao pragmatica",
+  "Atendimento direto com o responsavel tecnico",
+];
+
+const HERO_WHATSAPP_URL = "https://wa.me/5581973319128?text=Ola! Quero solicitar um orcamento.";
 
 const Hero = () => {
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
+      trackEvent("cta_click", { cta: "hero_view_cases", section: id });
       element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
 
-  const benefits = [
-    "Dashboards que geram resultados",
-    "Automação de processos",
-    "Decisões baseadas em dados"
-  ];
-
   return (
-    <section
-      id="home"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
-    >
-      <div className="container mx-auto px-4 z-10">
-        <div className="max-w-4xl mx-auto text-center">
-          <span className="inline-block px-4 py-2 rounded-full bg-primary/20 text-primary text-sm font-medium mb-6 animate-fade-in border border-primary/30">
-            Soluções em Dados & Desenvolvimento
-          </span>
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-foreground mb-6 animate-fade-in leading-tight">
-            Transforme seus dados em{" "}
-            <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
-              resultados reais
-            </span>
-          </h1>
-          <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto animate-fade-in-delay">
-            Ajudo empresas a tomarem decisões mais inteligentes com análise de dados, 
-            dashboards interativos e soluções web personalizadas.
-          </p>
-          
-          <div className="flex flex-wrap justify-center gap-3 mb-10 animate-fade-in-delay">
-            {benefits.map((benefit, index) => (
-              <div key={index} className="flex items-center gap-2 text-muted-foreground text-sm">
-                <CheckCircle className="w-4 h-4 text-primary" />
-                <span>{benefit}</span>
-              </div>
-            ))}
+    <section id="home" className="section-shell overflow-hidden pt-36 md:pt-40">
+      <div
+        className="pointer-events-none absolute inset-0 z-0 opacity-40"
+        style={{ backgroundImage: `url(${heroBg})`, backgroundSize: "cover", backgroundPosition: "center" }}
+      />
+      <div className="pointer-events-none absolute inset-0 z-0 bg-[linear-gradient(120deg,hsl(var(--background)/0.85)_15%,hsl(var(--background)/0.55)_55%,hsl(var(--background)/0.88)_95%)]" />
+
+      <div className="container relative z-10">
+        <div className="grid items-center gap-10 lg:grid-cols-[1.1fr_0.9fr]">
+          <div className="animate-reveal">
+            <span className="eyebrow">Portfolio 2026</span>
+            <h1 className="mt-6 max-w-3xl text-4xl font-bold leading-tight md:text-6xl">
+              Transformo desafios de negocio em dashboards e sistemas que geram resultado.
+            </h1>
+            <p className="mt-6 max-w-2xl text-lg text-muted-foreground">
+              Sou Denilson Junior, freelancer em BI, dados e desenvolvimento web. Entrego solucoes sob medida para operacao, servicos e negocios digitais.
+            </p>
+
+            <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+              <Button
+                onClick={() => openTrackedLink(HERO_WHATSAPP_URL, "cta_click", { cta: "hero_primary_whatsapp" })}
+                size="lg"
+                className="rounded-full bg-primary px-8 font-semibold text-primary-foreground hover:bg-primary/90"
+              >
+                Quero meu orcamento
+                <ArrowRight className="h-4 w-4" />
+              </Button>
+              <Button
+                onClick={() => scrollToSection("projects")}
+                size="lg"
+                variant="outline"
+                className="rounded-full border-border bg-card/30 px-8"
+              >
+                Ver provas de resultado
+              </Button>
+            </div>
+
+            <p className="mt-4 text-sm text-muted-foreground">Conversa inicial sem compromisso e com foco no seu contexto.</p>
+
+            <div className="mt-8 grid gap-3 sm:grid-cols-2">
+              {highlights.map((highlight) => (
+                <div key={highlight} className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <CheckCircle2 className="h-4 w-4 text-primary" />
+                  <span>{highlight}</span>
+                </div>
+              ))}
+            </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in-delay-2">
-            <Button
-              onClick={() => window.open("https://wa.me/5581973319128?text=Olá! Gostaria de solicitar um orçamento.", "_blank")}
-              size="lg"
-              className="gap-2 bg-[#25D366] hover:bg-[#128C7E] text-white shadow-lg shadow-[#25D366]/30 hover:shadow-[#25D366]/50 transition-all"
-            >
-              Solicitar Orçamento
-              <ArrowRight className="w-4 h-4" />
-            </Button>
-            <Button
-              onClick={() => scrollToSection("projects")}
-              size="lg"
-              variant="outline"
-              className="border-border text-foreground hover:bg-secondary hover:border-primary/50"
-            >
-              Ver Portfólio
-            </Button>
+          <div className="glass-card panel-hover animate-float p-6 md:p-8">
+            <div className="flex items-center gap-2 text-sm text-primary">
+              <Star className="h-4 w-4" />
+              <span>Performance + Experiencia de usuario</span>
+            </div>
+
+            <div className="mt-6 grid grid-cols-2 gap-4">
+              <div className="rounded-2xl border border-border/80 bg-background/60 p-4">
+                <p className="text-3xl font-bold text-foreground">5.0/5</p>
+                <p className="mt-1 text-sm text-muted-foreground">Avaliacao media de clientes</p>
+              </div>
+              <div className="rounded-2xl border border-border/80 bg-background/60 p-4">
+                <p className="text-3xl font-bold text-foreground">20+</p>
+                <p className="mt-1 text-sm text-muted-foreground">Projetos entregues</p>
+              </div>
+              <div className="rounded-2xl border border-border/80 bg-background/60 p-4">
+                <p className="text-3xl font-bold text-foreground">13+</p>
+                <p className="mt-1 text-sm text-muted-foreground">Avaliacoes publicas</p>
+              </div>
+              <div className="rounded-2xl border border-border/80 bg-background/60 p-4">
+                <p className="text-3xl font-bold text-foreground">Desde 2025</p>
+                <p className="mt-1 text-sm text-muted-foreground">Inicio da atuacao como freelancer</p>
+              </div>
+            </div>
+
+            <div className="mt-6 rounded-2xl border border-primary/30 bg-primary/10 p-4 text-sm text-foreground">
+              "Meu foco e transformar necessidade de negocio em entrega funcional, com decisao orientada por dados e impacto real."
+            </div>
           </div>
         </div>
       </div>
