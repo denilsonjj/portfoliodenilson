@@ -44,24 +44,24 @@ const projects: PortfolioProject[] = [
     },
   },
   {
-    title: "CRUD em Python para Geração de Etiquetas",
+    title: "Sistema em Python para Geração de Etiquetas Médicas",
     year: "2026",
-    summary: "Sistema de cadastro e geração de etiquetas para operação com padrão e consistência.",
+    summary: "Sistema em Python para cadastro e geração de etiquetas médicas com padrão e consistência.",
     impact: "Projeto elogiado por organização e qualidade técnica da entrega.",
-    stack: ["Python", "CRUD", "Automação"],
+    stack: ["Python", "Sistema", "Automação"],
     caseStudy: {
-      title: "CRUD de Etiquetas",
-      description: "Aplicação para padronizar geração e controle de etiquetas",
+      title: "Sistema em Python para Geração de Etiquetas Médicas",
+      description: "Aplicação para padronizar geração e controle de etiquetas médicas",
       challenge:
-        "O cliente precisava controlar dados de etiquetas sem depender de processos manuais dispersos.",
+        "O cliente precisava controlar dados de etiquetas médicas sem depender de processos manuais dispersos.",
       solution:
-        "Foi desenvolvido um CRUD em Python para cadastro, atualização e emissão de etiquetas com fluxo simples e seguro.",
+        "Foi desenvolvido um sistema em Python para cadastro, atualização e emissão de etiquetas médicas com fluxo simples e seguro.",
       results: [
         "Padronização operacional no cadastro",
         "Melhor controle do ciclo de etiquetagem",
         "Entrega reconhecida por competência e organização",
       ],
-      technologies: ["Python", "CRUD", "Gestão de dados"],
+      technologies: ["Python", "Sistema", "Gestão de dados"],
     },
   },
   {
