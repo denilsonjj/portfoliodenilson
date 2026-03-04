@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -36,10 +36,10 @@ const AIChat = () => {
 
       if (error) throw error;
 
-      setMessages(prev => [...prev, { 
-        role: "assistant", 
+      setMessages(prev => [...prev, {
+        role: "assistant",
         content: data.message,
-        showContacts: data.showContacts 
+        showContacts: data.showContacts
       }]);
     } catch (error) {
       console.error('Error:', error);

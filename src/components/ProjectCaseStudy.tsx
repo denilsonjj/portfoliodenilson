@@ -48,7 +48,7 @@ export const ProjectCaseStudy = ({
           )}
           {solution && (
             <div>
-              <h3 className="mb-2 text-lg font-semibold text-foreground">Solucao</h3>
+              <h3 className="mb-2 text-lg font-semibold text-foreground">Solução</h3>
               <p className="text-muted-foreground">{solution}</p>
             </div>
           )}

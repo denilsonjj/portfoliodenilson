@@ -4,26 +4,26 @@ const services = [
   {
     icon: Database,
     title: "Consultoria de dados",
-    description: "Estruturo base, modelo e analise para voce tomar decisoes com mais seguranca.",
-    items: ["Mapeamento de indicadores", "Analise exploratoria", "Modelagem SQL e ETL"],
+    description: "Estruturo base, modelo e análise para você tomar decisões com mais segurança.",
+    items: ["Mapeamento de indicadores", "Análise exploratória", "Modelagem SQL e ETL"],
   },
   {
     icon: BarChart3,
     title: "Dashboards executivos",
-    description: "Paineis orientados a negocio, com foco em leitura rapida e acao.",
-    items: ["Power BI", "Storytelling com dados", "KPIs de operacao e vendas"],
+    description: "Painéis orientados a negócio, com foco em leitura rápida e ação.",
+    items: ["Power BI", "Storytelling com dados", "KPIs de operação e vendas"],
   },
   {
     icon: Code,
-    title: "Aplicacoes web",
-    description: "Sistemas sob medida para digitalizar processos e reduzir atrito no trabalho diario.",
-    items: ["React + TypeScript", "Backend Node/Python", "Integracao com APIs"],
+    title: "Aplicações web",
+    description: "Sistemas sob medida para digitalizar processos e reduzir atrito no trabalho diário.",
+    items: ["React + TypeScript", "Backend Node/Python", "Integração com APIs"],
   },
   {
     icon: Workflow,
-    title: "Automacao de processos",
+    title: "Automação de processos",
     description: "Fluxos inteligentes para diminuir retrabalho e acelerar entregas internas.",
-    items: ["Rotinas de dados", "Alertas e monitoramento", "Padronizacao operacional"],
+    items: ["Rotinas de dados", "Alertas e monitoramento", "Padronização operacional"],
   },
 ];
 
@@ -32,9 +32,9 @@ const Services = () => {
     <section id="services" className="section-shell">
       <div className="container">
         <div className="section-head">
-          <span className="eyebrow">Servicos</span>
-          <h2 className="section-title">Como eu posso ajudar seu negocio hoje</h2>
-          <p className="section-subtitle">Atuacao ponta a ponta, da identificacao do problema ate a entrega em producao.</p>
+          <span className="eyebrow">Serviços</span>
+          <h2 className="section-title">Como eu posso ajudar seu negócio hoje</h2>
+          <p className="section-subtitle">Atuação ponta a ponta, da identificação do problema até a entrega em produção.</p>
         </div>
 
         <div className="grid gap-5 md:grid-cols-2">

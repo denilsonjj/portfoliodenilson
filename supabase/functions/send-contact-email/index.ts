@@ -1,10 +1,8 @@
-﻿import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
-import { Resend } from "https://esm.sh/resend@2.0.0";
-
-const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
+import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "POST, OPTIONS",
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
@@ -15,37 +13,63 @@ interface ContactEmailRequest {
 }
 
 const getErrorMessage = (error: unknown) => {
-  if (error instanceof Error) {
-    return error.message;
-  }
+  if (error instanceof Error) return error.message;
   return "Unexpected error";
 };
 
-const handler = async (req: Request): Promise<Response> => {
+const sendEmail = async (payload: ContactEmailRequest, apiKey: string) => {
+  const response = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      from: "Portfolio <onboarding@resend.dev>",
+      to: ["juniordenilson363@gmail.com"],
+      subject: `Nova mensagem de contato: ${payload.name}`,
+      html: `
+        <h1>Nova mensagem de contato</h1>
+        <p><strong>Nome:</strong> ${payload.name}</p>
+        <p><strong>Email:</strong> ${payload.email}</p>
+        <p><strong>Mensagem:</strong></p>
+        <p>${payload.message.replace(/\n/g, "<br>")}</p>
+        <hr>
+        <p style="color: #666; font-size: 12px;">Enviado através do formulário de contato do portfólio.</p>
+      `,
+    }),
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(`Resend API error (${response.status}): ${errorText}`);
+  }
+
+  return response.json();
+};
+
+serve(async (req: Request): Promise<Response> => {
   if (req.method === "OPTIONS") {
-    return new Response(null, { headers: corsHeaders });
+    return new Response(null, { status: 200, headers: corsHeaders });
+  }
+
+  if (req.method !== "POST") {
+    return new Response(JSON.stringify({ error: "Method not allowed" }), {
+      status: 405,
+      headers: { "Content-Type": "application/json", ...corsHeaders },
+    });
   }
 
   try {
     const { name, email, message }: ContactEmailRequest = await req.json();
+    const resendApiKey = Deno.env.get("RESEND_API_KEY");
+
+    if (!resendApiKey) {
+      throw new Error("RESEND_API_KEY is not configured");
+    }
 
     console.log("Sending contact email from:", name, email);
-
-    const emailResponse = await resend.emails.send({
-      from: "Portfolio <onboarding@resend.dev>",
-      to: ["juniordenilson363@gmail.com"],
-      subject: `Nova mensagem de contato: ${name}`,
-      html: `
-        <h1>Nova mensagem de contato</h1>
-        <p><strong>Nome:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Mensagem:</strong></p>
-        <p>${message.replace(/\n/g, "<br>")}</p>
-        <hr>
-        <p style="color: #666; font-size: 12px;">Enviado atraves do formulario de contato do portfolio.</p>
-      `,
-    });
-
+    const emailResponse = await sendEmail({ name, email, message }, resendApiKey);
     console.log("Email sent successfully:", emailResponse);
 
     return new Response(JSON.stringify({ success: true }), {
@@ -64,6 +88,4 @@ const handler = async (req: Request): Promise<Response> => {
       headers: { "Content-Type": "application/json", ...corsHeaders },
     });
   }
-};
-
-serve(handler);
+});

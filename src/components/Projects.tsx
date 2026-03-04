@@ -23,116 +23,116 @@ type PortfolioProject = {
 
 const projects: PortfolioProject[] = [
   {
-    title: "Migracao de App para React + Supabase",
+    title: "Migração de App para React + Supabase",
     year: "2026",
-    summary: "Evolucao de um app prototipado no Google AI Studio para uma aplicacao real e escalavel.",
-    impact: "Entrega elogiada pela agilidade, suporte no pos-projeto e facilidade de negociacao.",
+    summary: "Evolução de um app prototipado no Google AI Studio para uma aplicação real e escalável.",
+    impact: "Entrega elogiada pela agilidade, suporte no pós-projeto e facilidade de negociação.",
     stack: ["React", "Supabase", "TypeScript", "UX"],
     caseStudy: {
-      title: "Migracao de App para React + Supabase",
-      description: "Transicao de prototipo para produto funcional em stack moderna",
+      title: "Migração de App para React + Supabase",
+      description: "Transição de protótipo para produto funcional em stack moderna",
       challenge:
-        "O app inicial em Google AI Studio precisava virar um produto real, com banco de dados, autenticacao e estrutura de manutencao.",
+        "O app inicial em Google AI Studio precisava virar um produto real, com banco de dados, autenticação e estrutura de manutenção.",
       solution:
-        "Migrei o fluxo para React + Supabase, organizando telas, dados e logica de negocio para garantir estabilidade e evolucao continua.",
+        "Migrei o fluxo para React + Supabase, organizando telas, dados e lógica de negócio para garantir estabilidade e evolução contínua.",
       results: [
-        "Aplicacao pronta para uso real",
-        "Base tecnica escalavel para novas features",
-        "Suporte ao cliente mesmo apos entrega",
+        "Aplicação pronta para uso real",
+        "Base técnica escalável para novas features",
+        "Suporte ao cliente mesmo após entrega",
       ],
       technologies: ["React", "Supabase", "TypeScript", "Modelagem de dados"],
     },
   },
   {
-    title: "CRUD em Python para Geracao de Etiquetas",
+    title: "CRUD em Python para Geração de Etiquetas",
     year: "2026",
-    summary: "Sistema de cadastro e geracao de etiquetas para operacao com padrao e consistencia.",
-    impact: "Projeto elogiado por organizacao e qualidade tecnica da entrega.",
-    stack: ["Python", "CRUD", "Automacao"],
+    summary: "Sistema de cadastro e geração de etiquetas para operação com padrão e consistência.",
+    impact: "Projeto elogiado por organização e qualidade técnica da entrega.",
+    stack: ["Python", "CRUD", "Automação"],
     caseStudy: {
       title: "CRUD de Etiquetas",
-      description: "Aplicacao para padronizar geracao e controle de etiquetas",
+      description: "Aplicação para padronizar geração e controle de etiquetas",
       challenge:
         "O cliente precisava controlar dados de etiquetas sem depender de processos manuais dispersos.",
       solution:
-        "Foi desenvolvido um CRUD em Python para cadastro, atualizacao e emissao de etiquetas com fluxo simples e seguro.",
+        "Foi desenvolvido um CRUD em Python para cadastro, atualização e emissão de etiquetas com fluxo simples e seguro.",
       results: [
-        "Padronizacao operacional no cadastro",
+        "Padronização operacional no cadastro",
         "Melhor controle do ciclo de etiquetagem",
-        "Entrega reconhecida por competencia e organizacao",
+        "Entrega reconhecida por competência e organização",
       ],
-      technologies: ["Python", "CRUD", "Gestao de dados"],
+      technologies: ["Python", "CRUD", "Gestão de dados"],
     },
   },
   {
     title: "Dashboard em Excel para Rede de Supermercados",
     year: "2026",
-    summary: "Painel de acompanhamento com foco em leitura rapida para apoiar decisoes comerciais.",
+    summary: "Painel de acompanhamento com foco em leitura rápida para apoiar decisões comerciais.",
     impact: "Cliente destacou entrega acima da expectativa e alto valor percebido.",
     stack: ["Excel", "Dashboard", "Indicadores"],
     caseStudy: {
       title: "Dashboard Excel para Supermercados",
-      description: "Consolidacao de indicadores para tomada de decisao comercial",
+      description: "Consolidação de indicadores para tomada de decisão comercial",
       challenge:
-        "A operacao precisava de visao consolidada para acompanhar desempenho sem depender de multiplas planilhas.",
+        "A operação precisava de visão consolidada para acompanhar desempenho sem depender de múltiplas planilhas.",
       solution:
-        "Foi desenvolvido um dashboard em Excel com estrutura de indicadores e visao clara para comparacao de resultados.",
+        "Foi desenvolvido um dashboard em Excel com estrutura de indicadores e visão clara para comparação de resultados.",
       results: [
-        "Decisao mais rapida no dia a dia",
-        "Melhor comunicacao entre areas",
+        "Decisão mais rápida no dia a dia",
+        "Melhor comunicação entre áreas",
         "Entrega avaliada acima do esperado",
       ],
       technologies: ["Excel", "Dashboarding", "KPIs"],
     },
   },
   {
-    title: "Sistema Financeiro para Escritorio de Advocacia",
+    title: "Sistema Financeiro para Escritório de Advocacia",
     year: "2026",
-    summary: "Solucao para organizar fluxo financeiro e reduzir gargalos de controle.",
-    impact: "Projeto recomendado pelo cliente por resolver dor critica de gestao financeira.",
-    stack: ["Excel VBA", "Financeiro", "Automacao"],
+    summary: "Solução para organizar fluxo financeiro e reduzir gargalos de controle.",
+    impact: "Projeto recomendado pelo cliente por resolver dor crítica de gestão financeira.",
+    stack: ["Excel VBA", "Financeiro", "Automação"],
     caseStudy: {
-      title: "Gestao Financeira para Advocacia",
+      title: "Gestão Financeira para Advocacia",
       description: "Sistema para controle e previsibilidade financeira",
       challenge:
-        "O escritorio tinha dificuldade para controlar rotina financeira de forma simples e confiavel.",
+        "O escritório tinha dificuldade para controlar rotina financeira de forma simples e confiável.",
       solution:
-        "Foi criada uma ferramenta personalizada para entrada, consulta e consolidacao de informacoes financeiras.",
+        "Foi criada uma ferramenta personalizada para entrada, consulta e consolidação de informações financeiras.",
       results: [
-        "Reducao de gargalos na operacao financeira",
-        "Controle mais claro para decisao",
+        "Redução de gargalos na operação financeira",
+        "Controle mais claro para decisão",
         "Cliente recomendou o trabalho publicamente",
       ],
-      technologies: ["Excel VBA", "Automacao", "Processo financeiro"],
+      technologies: ["Excel VBA", "Automação", "Processo financeiro"],
     },
   },
   {
-    title: "Sistema de Avaliacao (Case autoral)",
+    title: "Sistema de Avaliação (Case autoral)",
     year: "2025",
-    summary: "Plataforma full-stack com board de atividades e visao operacional para fabrica.",
-    impact: "Centralizou tarefas, melhorou acompanhamento e acelerou comunicacao entre equipes.",
+    summary: "Plataforma full-stack com board de atividades e visão operacional para fábrica.",
+    impact: "Centralizou tarefas, melhorou acompanhamento e acelerou comunicação entre equipes.",
     stack: ["Node.js", "React", "Dashboard", "Kanban"],
     projectUrl: "https://sistema-de-avalia-o-one.vercel.app/",
     githubUrl: "https://github.com/denilsonjj/sistema-de-avalia-o",
     caseStudy: {
-      title: "Sistema de Avaliacao",
-      description: "Gestao operacional em ambiente unico",
+      title: "Sistema de Avaliação",
+      description: "Gestão operacional em ambiente único",
       challenge:
-        "A operacao precisava de um fluxo unico para organizar atividades e acompanhar indicadores sem dependencia de planilhas isoladas.",
+        "A operação precisava de um fluxo único para organizar atividades e acompanhar indicadores sem dependência de planilhas isoladas.",
       solution:
-        "Foi desenvolvido um sistema com board de tarefas e dashboard operacional para leitura rapida e acompanhamento continuo.",
+        "Foi desenvolvido um sistema com board de tarefas e dashboard operacional para leitura rápida e acompanhamento contínuo.",
       results: [
-        "Mais previsibilidade de execucao",
+        "Mais previsibilidade de execução",
         "Visibilidade de status em tempo real",
-        "Padronizacao do processo operacional",
+        "Padronização do processo operacional",
       ],
       technologies: ["Node.js", "React", "REST API", "Charts"],
     },
   },
 ];
 
-const CASE_DETAILS_URL = "https://wa.me/5581973319128?text=Oi! Quero ver mais detalhes desse case do portfolio.";
-const PROPOSAL_URL = "https://wa.me/5581973319128?text=Ola! Quero conversar sobre um projeto parecido com esses cases.";
+const CASE_DETAILS_URL = "https://wa.me/5581973319128?text=Oi! Quero ver mais detalhes desse case do portfólio.";
+const PROPOSAL_URL = "https://wa.me/5581973319128?text=Olá! Quero conversar sobre um projeto parecido com esses cases.";
 
 const Projects = () => {
   const openWhatsApp = () => {
@@ -144,7 +144,7 @@ const Projects = () => {
       <div className="container">
         <div className="section-head">
           <span className="eyebrow">Projetos recentes</span>
-          <h2 className="section-title">Cases reais com foco em impacto, clareza e execucao.</h2>
+          <h2 className="section-title">Cases reais com foco em impacto, clareza e execução.</h2>
           <p className="section-subtitle">Veja como eu resolvi problemas parecidos com os que muitas empresas enfrentam no dia a dia.</p>
         </div>
 
@@ -220,10 +220,10 @@ const Projects = () => {
 
         <div className="mt-10 glass-card flex flex-col items-start justify-between gap-4 p-6 md:flex-row md:items-center md:p-8">
           <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.12em] text-primary">Proximo passo</p>
-            <h3 className="mt-2 text-2xl font-bold">Quer aplicar essa mesma logica no seu negocio?</h3>
+            <p className="text-sm font-semibold uppercase tracking-[0.12em] text-primary">Próximo passo</p>
+            <h3 className="mt-2 text-2xl font-bold">Quer aplicar essa mesma lógica no seu negócio?</h3>
             <p className="mt-2 text-sm text-muted-foreground md:text-base">
-              Me passe contexto, objetivo e prazo. Eu retorno com uma proposta pratica e um caminho claro de execucao.
+              Me passe contexto, objetivo e prazo. Eu retorno com uma proposta prática e um caminho claro de execução.
             </p>
           </div>
           <Button onClick={openWhatsApp} className="rounded-full bg-primary px-6 text-primary-foreground hover:bg-primary/90">

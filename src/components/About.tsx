@@ -3,23 +3,23 @@
 const values = [
   {
     icon: BriefcaseBusiness,
-    title: "Visao de negocio",
-    description: "Solucoes pensadas para gerar impacto em operacao, vendas e tomada de decisao.",
+    title: "Visão de negócio",
+    description: "Soluções pensadas para gerar impacto em operação, vendas e tomada de decisão.",
   },
   {
     icon: ChartNoAxesCombined,
     title: "Dados aplicados",
-    description: "Modelagem, indicadores e dashboards para transformar ruido em clareza.",
+    description: "Modelagem, indicadores e dashboards para transformar ruído em clareza.",
   },
   {
     icon: Handshake,
-    title: "Parceria proxima",
-    description: "Comunicacao direta, checkpoints frequentes e ajuste rapido de rota.",
+    title: "Parceria próxima",
+    description: "Comunicação direta, checkpoints frequentes e ajuste rápido de rota.",
   },
   {
     icon: Lightbulb,
-    title: "Execucao pratica",
-    description: "Projeto bonito, performatico e pronto para uso no dia a dia.",
+    title: "Execução prática",
+    description: "Projeto bonito, performático e pronto para uso no dia a dia.",
   },
 ];
 
@@ -29,20 +29,20 @@ const About = () => {
       <div className="container">
         <div className="section-head">
           <span className="eyebrow">Sobre mim</span>
-          <h2 className="section-title">Combino experiencia industrial com produto digital.</h2>
+          <h2 className="section-title">Combino experiência industrial com produto digital.</h2>
           <p className="section-subtitle">
-            Atuo entre negocio, dados e desenvolvimento para criar ferramentas que resolvem problemas reais com velocidade e qualidade.
+            Atuo entre negócio, dados e desenvolvimento para criar ferramentas que resolvem problemas reais com velocidade e qualidade.
           </p>
         </div>
 
         <div className="grid gap-6 lg:grid-cols-2">
           <article className="glass-card p-7 md:p-9">
-            <h3 className="text-2xl font-bold">Quem e Denilson Junior?</h3>
+            <h3 className="text-2xl font-bold">Quem é Denilson Junior?</h3>
             <p className="mt-4 text-muted-foreground">
-              Sou desenvolvedor focado em BI, analytics e aplicacoes web. Minha base em manutencao industrial me deu repertorio para entender operacoes complexas e construir solucoes objetivas.
+              Sou desenvolvedor focado em BI, analytics e aplicações web. Minha base em manutenção industrial me deu repertório para entender operações complexas e construir soluções objetivas.
             </p>
             <p className="mt-4 text-muted-foreground">
-              Trabalho com Power BI, Python, SQL, React e Node para entregar projetos completos, da analise inicial ao deploy.
+              Trabalho com Power BI, Python, SQL, React e Node para entregar projetos completos, da análise inicial ao deploy.
             </p>
 
             <div className="mt-8 grid gap-4 text-sm sm:grid-cols-2">
@@ -51,7 +51,7 @@ const About = () => {
                 <p className="mt-1 font-semibold text-foreground">Dados + Produto Digital</p>
               </div>
               <div className="rounded-2xl border border-border bg-background/60 p-4">
-                <p className="text-muted-foreground">Atuacao</p>
+                <p className="text-muted-foreground">Atuação</p>
                 <p className="mt-1 font-semibold text-foreground">Freelance e consultoria</p>
               </div>
               <div className="rounded-2xl border border-border bg-background/60 p-4">

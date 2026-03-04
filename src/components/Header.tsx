@@ -5,14 +5,14 @@ import { openTrackedLink, trackEvent } from "@/lib/analytics";
 
 const navItems = [
   { id: "about", label: "Sobre" },
-  { id: "services", label: "Servicos" },
+  { id: "services", label: "Serviços" },
   { id: "projects", label: "Projetos" },
-  { id: "testimonials", label: "Avaliacoes" },
+  { id: "testimonials", label: "Avaliações" },
   { id: "contact", label: "Contato" },
 ];
 
 const MOBILE_MENU_ANIMATION_MS = 320;
-const WHATSAPP_PROPOSAL_URL = "https://wa.me/5581973319128?text=Ola! Quero conversar sobre um projeto.";
+const WHATSAPP_PROPOSAL_URL = "https://wa.me/5581973319128?text=Olá! Quero conversar sobre um projeto.";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -89,15 +89,15 @@ const Header = () => {
         href="#main-content"
         className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[60] focus:rounded-md focus:bg-background focus:px-3 focus:py-2 focus:text-sm focus:text-foreground"
       >
-        Pular para o conteudo
+        Pular para o conteúdo
       </a>
 
-      <nav className="container py-4" aria-label="Navegacao principal">
+      <nav className="container py-4" aria-label="Navegação principal">
         <div className="flex items-center justify-between gap-4">
           <button
             onClick={() => scrollToSection("home")}
             className="text-left transition-opacity hover:opacity-85"
-            aria-label="Ir para inicio"
+            aria-label="Ir para início"
           >
             <span className="block font-heading text-xl font-bold">Denilson Junior</span>
             <span className="block text-xs text-muted-foreground">Data + Web Specialist</span>

@@ -5,8 +5,8 @@ import { openTrackedLink } from "@/lib/analytics";
 const testimonials = [
   {
     name: "Cliente",
-    role: "Migracao de app para React + Supabase",
-    text: "Denilson foi agil, facil de negociar e deu suporte mesmo apos a finalizacao do projeto.",
+    role: "Migração de app para React + Supabase",
+    text: "Denilson foi ágil, fácil de negociar e deu suporte mesmo após a finalização do projeto.",
     rating: 5,
   },
   {
@@ -17,31 +17,31 @@ const testimonials = [
   },
   {
     name: "Cliente",
-    role: "Sistema para assistencia tecnica",
-    text: "Atendeu expectativas, fez todas as mudancas solicitadas e entregou um otimo trabalho.",
+    role: "Sistema para assistência técnica",
+    text: "Atendeu expectativas, fez todas as mudanças solicitadas e entregou um ótimo trabalho.",
     rating: 5,
   },
   {
     name: "Cliente",
-    role: "Automacao com Microsoft Lists",
-    text: "Fantastico. Recomendo a todos.",
+    role: "Automação com Microsoft Lists",
+    text: "Fantástico. Recomendo a todos.",
     rating: 5,
   },
   {
     name: "Cliente",
-    role: "Gestao financeira para advocacia",
-    text: "Resolveu meu gargalo de gestao financeira. Recomendo para quem busca expertise.",
+    role: "Gestão financeira para advocacia",
+    text: "Resolveu meu gargalo de gestão financeira. Recomendo para quem busca expertise.",
     rating: 5,
   },
   {
     name: "Cliente",
     role: "Dashboard Excel para supermercados",
-    text: "Entregou muito alem do que eu pedi e esperava. Valeu a pena.",
+    text: "Entregou muito além do que eu pedi e esperava. Valeu a pena.",
     rating: 5,
   },
 ];
 
-const TESTIMONIALS_WHATSAPP_URL = "https://wa.me/5581973319128?text=Ola! Vi os depoimentos no portfolio e quero conversar sobre um projeto.";
+const TESTIMONIALS_WHATSAPP_URL = "https://wa.me/5581973319128?text=Olá! Vi os depoimentos no portfólio e quero conversar sobre um projeto.";
 
 const Testimonials = () => {
   const openWhatsApp = () => {
@@ -52,9 +52,9 @@ const Testimonials = () => {
     <section id="testimonials" className="section-shell">
       <div className="container">
         <div className="section-head">
-          <span className="eyebrow">Avaliacoes</span>
-          <h2 className="section-title">Prova social de quem ja contratou</h2>
-          <p className="section-subtitle">Feedback real de clientes sobre entrega, comunicacao e qualidade tecnica.</p>
+          <span className="eyebrow">Avaliações</span>
+          <h2 className="section-title">Prova social de quem já contratou</h2>
+          <p className="section-subtitle">Feedback real de clientes sobre entrega, comunicação e qualidade técnica.</p>
         </div>
 
         <div className="mb-6 grid gap-4 md:grid-cols-3">
@@ -68,7 +68,7 @@ const Testimonials = () => {
           </article>
           <article className="glass-card p-4 text-center">
             <p className="text-3xl font-bold text-foreground">13+</p>
-            <p className="text-sm text-muted-foreground">Avaliacoes publicas</p>
+            <p className="text-sm text-muted-foreground">Avaliações públicas</p>
           </article>
         </div>
 
@@ -94,7 +94,7 @@ const Testimonials = () => {
 
         <div className="mt-8 flex justify-center">
           <Button onClick={openWhatsApp} variant="outline" className="rounded-full border-border bg-card/30 px-6">
-            Quero um projeto com esse nivel
+            Quero um projeto com esse nível
             <MessageCircle className="h-4 w-4" />
           </Button>
         </div>

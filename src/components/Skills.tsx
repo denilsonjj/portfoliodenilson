@@ -3,33 +3,33 @@
 const skillTracks = [
   {
     icon: BarChart4,
-    title: "BI e Visualizacao",
+    title: "BI e Visualização",
     focus: "Dashboards e leitura executiva",
     tools: ["Power BI", "Looker Studio", "Tableau"],
   },
   {
     icon: Database,
     title: "Dados e modelagem",
-    focus: "Estruturacao e consulta de dados",
+    focus: "Estruturação e consulta de dados",
     tools: ["SQL", "ETL", "Data Modeling"],
   },
   {
     icon: Globe,
     title: "Front-end",
-    focus: "Interfaces modernas e performaticas",
+    focus: "Interfaces modernas e performáticas",
     tools: ["React", "TypeScript", "Tailwind"],
   },
   {
     icon: Wrench,
     title: "Back-end",
-    focus: "APIs e regras de negocio",
+    focus: "APIs e regras de negócio",
     tools: ["Node.js", "Python", "Supabase"],
   },
   {
     icon: Layers3,
-    title: "Processo e operacao",
-    focus: "Melhoria continua e KPI operacional",
-    tools: ["Manutencao", "KPIs industriais", "Melhoria continua"],
+    title: "Processo e operação",
+    focus: "Melhoria contínua e KPI operacional",
+    tools: ["Manutenção", "KPIs industriais", "Melhoria contínua"],
   },
 ];
 
@@ -40,7 +40,7 @@ const Skills = () => {
         <div className="section-head">
           <span className="eyebrow">Stack</span>
           <h2 className="section-title">Tecnologias que sustentam as entregas</h2>
-          <p className="section-subtitle">Combino ferramentas de dados e produto para criar solucoes completas.</p>
+          <p className="section-subtitle">Combino ferramentas de dados e produto para criar soluções completas.</p>
         </div>
 
         <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">

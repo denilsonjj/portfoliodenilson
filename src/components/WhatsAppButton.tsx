@@ -4,7 +4,7 @@ import { openTrackedLink } from "@/lib/analytics";
 
 const WhatsAppButton = () => {
   const whatsappNumber = "5581973319128";
-  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=Ola! Vim pelo portfolio e quero conversar sobre um projeto.`;
+  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=Olá! Vim pelo portfólio e quero conversar sobre um projeto.`;
 
   return (
     <Button
