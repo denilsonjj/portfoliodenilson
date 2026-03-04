@@ -1,4 +1,6 @@
-project_id = "smcvsceanvhpnmadkesx"
+﻿# Supabase local CLI config
+# Replace with your own Supabase project ref (Project Settings > Reference ID)
+project_id = "pbtieopsfewyycwrugcw"
 
-[functions.ai-chat]
+[functions.send-contact-email]
 verify_jwt = false

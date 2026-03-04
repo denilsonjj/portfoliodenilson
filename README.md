@@ -1,73 +1,66 @@
-# Welcome to your Lovable project
+﻿# Portfolio Denilson Junior
 
-## Project info
+Portfolio em React + Vite com foco em BI, dados e desenvolvimento web.
 
-**URL**: https://lovable.dev/projects/9fd16167-bc03-48ed-abfd-c716fbd3af0a
+## Rodar local
 
-## How can I edit this code?
-
-There are several ways of editing your application.
-
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/9fd16167-bc03-48ed-abfd-c716fbd3af0a) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+```bash
+npm install
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+## Variaveis de ambiente
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+Crie um arquivo `.env` com:
 
-**Use GitHub Codespaces**
+```bash
+VITE_SUPABASE_URL=...
+VITE_SUPABASE_PUBLISHABLE_KEY=...
+VITE_SUPABASE_PROJECT_ID=...
+VITE_GA_MEASUREMENT_ID=G-XXXXXXXXXX
+```
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+`VITE_GA_MEASUREMENT_ID` e opcional. Sem ele, o site funciona normalmente, mas sem GA4.
 
-## What technologies are used for this project?
+## Google Analytics (GA4)
 
-This project is built with:
+A integracao ja esta pronta no codigo:
+- pageview em SPA
+- eventos de CTA e contatos
+- eventos de envio de briefing
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+Eventos principais enviados:
+- `page_view`
+- `cta_click`
+- `case_open`
+- `case_repo_open`
+- `contact_click`
+- `lead_submit_attempt`
+- `generate_lead`
+- `lead_submit_error`
 
-## How can I deploy this project?
+## Deploy na Vercel
 
-Simply open [Lovable](https://lovable.dev/projects/9fd16167-bc03-48ed-abfd-c716fbd3af0a) and click on Share -> Publish.
+1. Conecte este repositório na Vercel.
+2. Em `Project Settings > Environment Variables`, adicione as variaveis do `.env`.
+3. Garanta `VITE_GA_MEASUREMENT_ID` com seu ID GA4 (ex.: `G-AB12CD34EF`).
+4. Deploy.
 
-## Can I connect a custom domain to my Lovable project?
+Comandos usados pela Vercel:
+- Build: `npm run build`
+- Output: `dist`
 
-Yes, you can!
+## Scripts
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+```bash
+npm run dev
+npm run build
+npm run lint
+npm run preview
+```
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+## Supabase proprio
+
+Para migrar do Supabase da Lovable para o seu projeto proprio, siga:
+
+- [SUPABASE_SETUP.md](./SUPABASE_SETUP.md)

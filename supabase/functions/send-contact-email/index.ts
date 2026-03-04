@@ -1,12 +1,11 @@
-import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
+﻿import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { Resend } from "https://esm.sh/resend@2.0.0";
 
 const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers":
-    "authorization, x-client-info, apikey, content-type",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
 interface ContactEmailRequest {
@@ -15,8 +14,14 @@ interface ContactEmailRequest {
   message: string;
 }
 
+const getErrorMessage = (error: unknown) => {
+  if (error instanceof Error) {
+    return error.message;
+  }
+  return "Unexpected error";
+};
+
 const handler = async (req: Request): Promise<Response> => {
-  // Handle CORS preflight requests
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
@@ -26,9 +31,8 @@ const handler = async (req: Request): Promise<Response> => {
 
     console.log("Sending contact email from:", name, email);
 
-    // Send notification email to the owner
     const emailResponse = await resend.emails.send({
-      from: "Portfólio <onboarding@resend.dev>",
+      from: "Portfolio <onboarding@resend.dev>",
       to: ["juniordenilson363@gmail.com"],
       subject: `Nova mensagem de contato: ${name}`,
       html: `
@@ -36,9 +40,9 @@ const handler = async (req: Request): Promise<Response> => {
         <p><strong>Nome:</strong> ${name}</p>
         <p><strong>Email:</strong> ${email}</p>
         <p><strong>Mensagem:</strong></p>
-        <p>${message.replace(/\n/g, '<br>')}</p>
+        <p>${message.replace(/\n/g, "<br>")}</p>
         <hr>
-        <p style="color: #666; font-size: 12px;">Enviado através do formulário de contato do portfólio.</p>
+        <p style="color: #666; font-size: 12px;">Enviado atraves do formulario de contato do portfolio.</p>
       `,
     });
 
@@ -51,15 +55,14 @@ const handler = async (req: Request): Promise<Response> => {
         ...corsHeaders,
       },
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const message = getErrorMessage(error);
     console.error("Error in send-contact-email function:", error);
-    return new Response(
-      JSON.stringify({ error: error.message }),
-      {
-        status: 500,
-        headers: { "Content-Type": "application/json", ...corsHeaders },
-      }
-    );
+
+    return new Response(JSON.stringify({ error: message }), {
+      status: 500,
+      headers: { "Content-Type": "application/json", ...corsHeaders },
+    });
   }
 };
 
