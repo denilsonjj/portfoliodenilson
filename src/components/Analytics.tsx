@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { initAnalytics, trackPageView } from "@/lib/analytics";
+import { Analytics as VercelAnalytics } from "@vercel/analytics/react";
 
 const Analytics = () => {
   const location = useLocation();
@@ -14,7 +15,7 @@ const Analytics = () => {
     trackPageView(path);
   }, [location.pathname, location.search, location.hash]);
 
-  return null;
+  return <VercelAnalytics />;
 };
 
 export default Analytics;
