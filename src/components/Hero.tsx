@@ -1,4 +1,4 @@
-﻿import { ArrowRight, CheckCircle2, Star } from "lucide-react";
+import { ArrowRight, CheckCircle2, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { openTrackedLink, trackEvent } from "@/lib/analytics";
 import heroBg from "@/assets/hero-bg-dark.jpg";
@@ -22,6 +22,11 @@ const Hero = () => {
 
   return (
     <section id="home" className="section-shell overflow-hidden pt-36 md:pt-40">
+      <div className="hero-grid pointer-events-none absolute inset-0 z-0" />
+      <div className="hero-flow pointer-events-none absolute inset-0 z-0" />
+      <div className="hero-orb hero-orb-left pointer-events-none absolute z-0" />
+      <div className="hero-orb hero-orb-right pointer-events-none absolute z-0" />
+      <div className="hero-scanline pointer-events-none absolute inset-x-0 z-0" />
       <div
         className="pointer-events-none absolute inset-0 z-0 opacity-40"
         style={{ backgroundImage: `url(${heroBg})`, backgroundSize: "cover", backgroundPosition: "center" }}
