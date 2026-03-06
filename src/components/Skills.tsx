@@ -43,11 +43,14 @@ const Skills = () => {
           <p className="section-subtitle">Combino ferramentas de dados e produto para criar soluções completas.</p>
         </div>
 
-        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-          {skillTracks.map((track) => {
+        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-6">
+          {skillTracks.map((track, index) => {
             const Icon = track.icon;
+            const centeredBottomRowClass =
+              index === 3 ? "xl:col-span-2 xl:col-start-2" : index === 4 ? "xl:col-span-2 xl:col-start-4" : "xl:col-span-2";
+
             return (
-              <article key={track.title} className="glass-card panel-hover p-6">
+              <article key={track.title} className={`glass-card panel-hover p-6 ${centeredBottomRowClass}`}>
                 <div className="flex items-start">
                   <div className="inline-flex rounded-xl border border-primary/30 bg-primary/15 p-3 text-primary">
                     <Icon className="h-5 w-5" />

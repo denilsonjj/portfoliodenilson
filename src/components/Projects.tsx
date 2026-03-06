@@ -149,8 +149,16 @@ const Projects = () => {
         </div>
 
         <div className="grid gap-6 md:grid-cols-2">
-          {projects.map((project) => (
-            <article key={project.title} className="glass-card panel-hover p-6 md:p-7">
+          {projects.map((project, index) => {
+            const isLastOddCard = projects.length % 2 !== 0 && index === projects.length - 1;
+
+            return (
+            <article
+              key={project.title}
+              className={`glass-card panel-hover p-6 md:p-7 ${
+                isLastOddCard ? "md:col-span-2 md:mx-auto md:w-[calc(50%-0.75rem)]" : ""
+              }`}
+            >
               <div className="flex items-start justify-between gap-3">
                 <div className="rounded-2xl border border-primary/30 bg-primary/15 p-3 text-primary">
                   {project.stack.some((item) => item.includes("Dashboard") || item.includes("Excel")) ? (
@@ -215,7 +223,7 @@ const Projects = () => {
                 />
               </div>
             </article>
-          ))}
+          )})}
         </div>
 
         <div className="mt-10 glass-card flex flex-col items-start justify-between gap-4 p-6 md:flex-row md:items-center md:p-8">
