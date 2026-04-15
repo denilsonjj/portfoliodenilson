@@ -15,6 +15,14 @@ export default {
     },
     extend: {
       colors: {
+        brand: "rgb(var(--brand-rgb) / <alpha-value>)",
+        "brand-strong": "rgb(var(--brand-strong-rgb) / <alpha-value>)",
+        page: "rgb(var(--page-rgb) / <alpha-value>)",
+        panel: "rgb(var(--panel-rgb) / <alpha-value>)",
+        "panel-strong": "rgb(var(--panel-strong-rgb) / <alpha-value>)",
+        ink: "rgb(var(--ink-rgb) / <alpha-value>)",
+        "muted-ink": "rgb(var(--muted-ink-rgb) / <alpha-value>)",
+        line: "rgb(var(--line-rgb) / <alpha-value>)",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

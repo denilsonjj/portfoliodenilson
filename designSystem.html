@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+
+<html class="dark scroll-smooth" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Aether Lab | Sistemas que respiram eficiência absoluta</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Manrope:wght@200;300;400;500;600&amp;family=Inter:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container": "#171a1e",
+                        "secondary-fixed-dim": "#ced5db",
+                        "error": "#ff716c",
+                        "secondary-fixed": "#dce4e9",
+                        "primary": "#99f7ff",
+                        "surface-bright": "#282c32",
+                        "outline-variant": "#46484c",
+                        "on-tertiary-container": "#002746",
+                        "on-primary-fixed-variant": "#006065",
+                        "on-secondary-container": "#c9d1d7",
+                        "surface-container-low": "#111417",
+                        "on-tertiary-fixed-variant": "#003b66",
+                        "error-dim": "#d7383b",
+                        "tertiary": "#6fb5ff",
+                        "on-primary-container": "#00555a",
+                        "on-surface-variant": "#a9abb0",
+                        "tertiary-fixed-dim": "#4da8fe",
+                        "surface": "#0c0e12",
+                        "on-secondary-fixed-variant": "#555d61",
+                        "on-surface": "#f8f9fe",
+                        "primary-fixed": "#00f1fe",
+                        "secondary-dim": "#ced5db",
+                        "secondary": "#dce4e9",
+                        "surface-variant": "#22262b",
+                        "surface-tint": "#99f7ff",
+                        "on-tertiary-fixed": "#001930",
+                        "on-secondary-fixed": "#394045",
+                        "on-primary-fixed": "#004145",
+                        "inverse-on-surface": "#535559",
+                        "primary-container": "#00f1fe",
+                        "tertiary-container": "#4da8fe",
+                        "on-primary": "#005f64",
+                        "primary-fixed-dim": "#00e2ee",
+                        "surface-container-lowest": "#000000",
+                        "on-background": "#f8f9fe",
+                        "on-secondary": "#4b5358",
+                        "secondary-container": "#40484c",
+                        "primary-dim": "#00e2ee",
+                        "inverse-surface": "#f8f9fe",
+                        "surface-container-highest": "#22262b",
+                        "outline": "#73757a",
+                        "surface-dim": "#0c0e12",
+                        "background": "#0c0e12",
+                        "surface-container-high": "#1c2025",
+                        "inverse-primary": "#006a70",
+                        "tertiary-fixed": "#6fb5ff",
+                        "on-tertiary": "#003258",
+                        "on-error-container": "#ffa8a3",
+                        "tertiary-dim": "#47a2f8",
+                        "on-error": "#490006",
+                        "error-container": "#9f0519"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Manrope"],
+                        "label": ["Inter"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(1deg); }
+        }
+        @keyframes meshFlow {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 100% 100%; }
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(28, 32, 37, 0.4);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(153, 247, 255, 0.05);
+            transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .glass-card:hover {
+            border-color: rgba(153, 247, 255, 0.4);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(153, 247, 255, 0.1);
+        }
+        .text-glow {
+            text-shadow: 0 0 15px rgba(153, 247, 255, 0.3);
+        }
+        .ambient-glow {
+            box-shadow: 0 0 40px rgba(0, 242, 255, 0.06);
+        }
+        .grid-mesh {
+            background-image: linear-gradient(rgba(153, 247, 255, 0.05) 1px, transparent 1px), 
+                              linear-gradient(90deg, rgba(153, 247, 255, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: meshFlow 60s linear infinite;
+        }
+        .parallax-hero {
+            transform: translateZ(0);
+            will-change: transform;
+        }
+        .reveal-step {
+            opacity: 0.1;
+            transform: translateX(20px);
+            transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .reveal-step.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .reveal-dot {
+            transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .reveal-step.active .reveal-dot {
+            background-color: #99f7ff;
+            box-shadow: 0 0 15px #99f7ff;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-primary/30 overflow-x-hidden">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-[#0c0e12]/60 backdrop-blur-2xl border-b border-white/5">
+<div class="flex justify-between items-center px-8 py-4 max-w-[1440px] mx-auto">
+<div class="text-2xl font-semibold tracking-tighter text-[#f8f9fe] font-headline">
+            Aether Lab
+        </div>
+<div class="hidden md:flex space-x-10 font-headline tracking-tight">
+<a class="text-[#a9abb0] hover:text-[#99f7ff] transition-all duration-300 relative group" href="#">
+                Solutions
+                <span class="absolute -bottom-1 left-0 w-0 h-[1px] bg-primary transition-all duration-300 group-hover:w-full"></span>
+</a>
+<a class="text-[#a9abb0] hover:text-[#99f7ff] transition-all duration-300 relative group" href="#">
+                Cases
+                <span class="absolute -bottom-1 left-0 w-0 h-[1px] bg-primary transition-all duration-300 group-hover:w-full"></span>
+</a>
+<a class="text-[#a9abb0] hover:text-[#99f7ff] transition-all duration-300 relative group" href="#">
+                Process
+                <span class="absolute -bottom-1 left-0 w-0 h-[1px] bg-primary transition-all duration-300 group-hover:w-full"></span>
+</a>
+<a class="text-[#a9abb0] hover:text-[#99f7ff] transition-all duration-300 relative group" href="#">
+                FAQ
+                <span class="absolute -bottom-1 left-0 w-0 h-[1px] bg-primary transition-all duration-300 group-hover:w-full"></span>
+</a>
+</div>
+<button class="bg-primary-container text-on-primary px-6 py-2 rounded-md font-headline font-bold scale-95 hover:scale-100 active:opacity-80 transition-all shadow-[0_0_20px_rgba(0,241,254,0.2)]">
+            Connect
+        </button>
+</div>
+</nav>
+<!-- Section 1: Hero -->
+<section class="relative min-h-screen flex items-center pt-24 overflow-hidden bg-surface">
+<!-- Living System Background -->
+<div class="absolute inset-0 z-0 overflow-hidden">
+<div class="absolute inset-0 grid-mesh opacity-30"></div>
+<div class="absolute top-1/4 right-[-10%] w-[800px] h-[800px] bg-primary/10 rounded-full blur-[150px] animate-pulse"></div>
+<div class="absolute bottom-1/4 left-[-10%] w-[600px] h-[600px] bg-tertiary/10 rounded-full blur-[120px] animate-pulse" style="animation-delay: 2s;"></div>
+<img class="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-screen scale-110 parallax-hero" data-alt="Futuristic digital network visualization" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtEzFXS0zLRSkq1N8Bog6mvkesdae238_vNF6vWI_W7ysFx7UsKLsvNWHjCAtKW6B4SrLPwZ4l2qgQCYLZn5lH6VlNLZroBF5o94LiwL9oSEcyQ5Ah-qg4JnSRpb4V9x8CBCeDbjuDbv1JztcvCT98xjXyCbxDkpwsKpKpQ5-Ay3YBOToodKq6FV2CaP7UsxhIsxCJlefsBkxBm-7bN1eYS_0TONzfttQ8XypT7PaVgkGcwjjwywGMyuPE6IyCqmkcwW0d-dACy3o"/>
+</div>
+<div class="relative z-10 w-full max-w-7xl mx-auto px-8">
+<div class="max-w-4xl space-y-8">
+<span class="inline-block px-4 py-1 text-xs font-bold tracking-[0.2em] text-primary border border-primary/20 bg-primary/5 font-label uppercase animate-fade-in">Engineered for Kinetic Depth</span>
+<h1 class="text-display-lg md:text-[5.5rem] font-headline font-semibold leading-[0.95] tracking-tighter text-on-surface transform transition-transform duration-1000">
+                Sistemas que respiram <br/>
+<span class="text-primary italic inline-block hover:translate-x-4 transition-transform duration-500 cursor-default">eficiência absoluta</span>
+</h1>
+<p class="text-xl md:text-2xl text-on-surface-variant font-body font-light max-w-2xl leading-relaxed">
+                Elevamos a arquitetura do seu negócio através de automação inteligente e visualização de dados de alta precisão.
+            </p>
+<div class="flex flex-col sm:flex-row gap-6 pt-8">
+<button class="px-10 py-5 bg-primary-container text-on-primary font-headline font-bold text-lg rounded-md hover:scale-[1.05] hover:shadow-[0_0_30px_rgba(0,241,254,0.4)] transition-all duration-300">
+                    Iniciar Consultoria
+                </button>
+<button class="px-10 py-5 border border-outline-variant text-on-surface font-headline font-medium text-lg rounded-md hover:bg-surface-bright hover:border-primary/40 transition-all flex items-center gap-3 group">
+                    Ver Portfólio
+                    <span class="material-symbols-outlined group-hover:translate-x-2 transition-transform">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 2: Immediate Proof -->
+<section class="w-full bg-surface-container-lowest py-20 border-y border-outline-variant/10 relative z-20">
+<div class="max-w-7xl mx-auto px-8 grid grid-cols-2 md:grid-cols-4 gap-12 text-center">
+<div class="space-y-2 group">
+<div class="text-4xl md:text-5xl font-headline font-bold text-primary text-glow group-hover:scale-110 transition-transform">20+</div>
+<div class="text-xs font-label uppercase tracking-widest text-on-surface-variant group-hover:text-on-surface transition-colors">Projetos Entregues</div>
+</div>
+<div class="space-y-2 group">
+<div class="text-4xl md:text-5xl font-headline font-bold text-primary text-glow group-hover:scale-110 transition-transform">5.0/5</div>
+<div class="text-xs font-label uppercase tracking-widest text-on-surface-variant group-hover:text-on-surface transition-colors">Avaliação Média</div>
+</div>
+<div class="space-y-2 group">
+<div class="text-4xl md:text-5xl font-headline font-bold text-primary text-glow group-hover:scale-110 transition-transform">8+</div>
+<div class="text-xs font-label uppercase tracking-widest text-on-surface-variant group-hover:text-on-surface transition-colors">Anos de Expertise</div>
+</div>
+<div class="space-y-2 group">
+<div class="text-4xl md:text-5xl font-headline font-bold text-primary text-glow group-hover:scale-110 transition-transform">R$ 50M+</div>
+<div class="text-xs font-label uppercase tracking-widest text-on-surface-variant group-hover:text-on-surface transition-colors">Impacto Gerado</div>
+</div>
+</div>
+</section>
+<!-- Section 3: Client Pain Points -->
+<section class="py-32 bg-surface-container-low overflow-hidden relative" id="pain-points">
+<div class="max-w-7xl mx-auto px-8 grid md:grid-cols-2 gap-20 items-center">
+<div class="space-y-6 md:sticky md:top-40 h-fit">
+<span class="text-primary font-label text-sm uppercase tracking-widest">O Custo da Inércia</span>
+<h2 class="text-4xl md:text-5xl font-headline font-semibold text-on-surface">Bottlenecks que matam sua escala operacional.</h2>
+<p class="text-on-surface-variant text-lg font-body">Processos arcaicos não são apenas lentos; eles são furos no seu balanço financeiro.</p>
+<div class="relative mt-12 overflow-hidden rounded-xl bg-black/40 border border-white/5">
+<img class="w-full h-auto opacity-50 transform hover:scale-110 transition-transform duration-1000" data-alt="Technical schematic drawing" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJJatHmpExHKbcjG8rLoarwN6G9k2WVU215y3yJAdeikMUTJKYUoegFftg2OyRREIgDWaefDPT5F2vO_X0AyH284W3R-40Dyl1w_RIlrrnMCk0aI89A7w7DVBInrUQ1wrMRNT4Z6jAzFhWFACf21kBYBXvoxcU-cV9TBRgKnWJEIO3NgZ1x5sn7xULYehnUUzEsDpT8l8-HQmdY_3G-0SBOgzbncq6xG3nFb0_3Oi06UZbthFVJlgQW48fBNdoUDyFhpDQSyDESRI"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-low to-transparent"></div>
+</div>
+</div>
+<div class="grid gap-6 py-12">
+<div class="glass-card p-8 rounded-lg group reveal-step">
+<div class="flex items-start gap-6">
+<div class="bg-primary/10 p-3 rounded text-primary transition-transform group-hover:rotate-12">
+<span class="material-symbols-outlined">sync_disabled</span>
+</div>
+<div>
+<h4 class="text-xl font-headline font-medium mb-2 group-hover:text-primary transition-colors">Processos Manuais</h4>
+<p class="text-on-surface-variant font-body">Capital humano desperdiçado em tarefas repetitivas e sujeitas a falhas catastróficas.</p>
+</div>
+</div>
+</div>
+<div class="glass-card p-8 rounded-lg group md:ml-12 reveal-step">
+<div class="flex items-start gap-6">
+<div class="bg-primary/10 p-3 rounded text-primary transition-transform group-hover:rotate-12">
+<span class="material-symbols-outlined">speed</span>
+</div>
+<div>
+<h4 class="text-xl font-headline font-medium mb-2 group-hover:text-primary transition-colors">Lentidão Operacional</h4>
+<p class="text-on-surface-variant font-body">Tomada de decisão baseada em dados de ontem, enquanto o mercado exige agora.</p>
+</div>
+</div>
+</div>
+<div class="glass-card p-8 rounded-lg group reveal-step">
+<div class="flex items-start gap-6">
+<div class="bg-primary/10 p-3 rounded text-primary transition-transform group-hover:rotate-12">
+<span class="material-symbols-outlined">visibility_off</span>
+</div>
+<div>
+<h4 class="text-xl font-headline font-medium mb-2 group-hover:text-primary transition-colors">Falta de Visibilidade</h4>
+<p class="text-on-surface-variant font-body">Navegação às cegas sem indicadores de performance integrados e em tempo real.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 4: Solutions/Services -->
+<section class="py-32 bg-surface relative">
+<div class="max-w-7xl mx-auto px-8 mb-20 text-center">
+<h2 class="text-4xl md:text-6xl font-headline font-bold text-on-surface mb-6">Arquitetura de Soluções</h2>
+<div class="h-1 w-24 bg-primary mx-auto transition-all duration-700 hover:w-48"></div>
+</div>
+<div class="max-w-7xl mx-auto px-8 grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+<!-- Card 1 -->
+<div class="bg-surface-container-high p-10 rounded-lg border-t-2 border-transparent hover:border-primary transition-all duration-500 flex flex-col justify-between glass-card group">
+<div class="space-y-6">
+<span class="material-symbols-outlined text-4xl text-primary transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6">dashboard_customize</span>
+<h3 class="text-2xl font-headline font-semibold">Dashboards Executivos</h3>
+<p class="text-on-surface-variant font-body font-light">Controle total da operação em uma única tela. Deixe os dados contarem a história real do seu negócio.</p>
+</div>
+<div class="mt-8 pt-6 border-t border-outline-variant/20 flex justify-between items-center">
+<span class="text-primary font-bold font-label text-xs uppercase">Visão 360º</span>
+<span class="material-symbols-outlined opacity-0 group-hover:opacity-100 transition-opacity">arrow_right_alt</span>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-high p-10 rounded-lg border-t-2 border-transparent hover:border-primary transition-all duration-500 flex flex-col justify-between glass-card group">
+<div class="space-y-6">
+<span class="material-symbols-outlined text-4xl text-primary transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6">precision_manufacturing</span>
+<h3 class="text-2xl font-headline font-semibold">Automação de Processos</h3>
+<p class="text-on-surface-variant font-body font-light">Elimine o erro humano. Criamos workflows autonômos que operam 24/7 com precisão matemática.</p>
+</div>
+<div class="mt-8 pt-6 border-t border-outline-variant/20 flex justify-between items-center">
+<span class="text-primary font-bold font-label text-xs uppercase">Zero Latência</span>
+<span class="material-symbols-outlined opacity-0 group-hover:opacity-100 transition-opacity">arrow_right_alt</span>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container-high p-10 rounded-lg border-t-2 border-transparent hover:border-primary transition-all duration-500 flex flex-col justify-between glass-card group">
+<div class="space-y-6">
+<span class="material-symbols-outlined text-4xl text-primary transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6">code_blocks</span>
+<h3 class="text-2xl font-headline font-semibold">Sistemas Customizados</h3>
+<p class="text-on-surface-variant font-body font-light">Sistemas proprietários desenhados para resolver dores específicas que softwares de prateleira não alcançam.</p>
+</div>
+<div class="mt-8 pt-6 border-t border-outline-variant/20 flex justify-between items-center">
+<span class="text-primary font-bold font-label text-xs uppercase">Puro DNA Técnico</span>
+<span class="material-symbols-outlined opacity-0 group-hover:opacity-100 transition-opacity">arrow_right_alt</span>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="bg-surface-container-high p-10 rounded-lg border-t-2 border-transparent hover:border-primary transition-all duration-500 flex flex-col justify-between glass-card group">
+<div class="space-y-6">
+<span class="material-symbols-outlined text-4xl text-primary transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6">analytics</span>
+<h3 class="text-2xl font-headline font-semibold">Consultoria de Dados</h3>
+<p class="text-on-surface-variant font-body font-light">Modelagem preditiva e inteligência analítica para antecipar movimentos de mercado e riscos internos.</p>
+</div>
+<div class="mt-8 pt-6 border-t border-outline-variant/20 flex justify-between items-center">
+<span class="text-primary font-bold font-label text-xs uppercase">ROI Estratégico</span>
+<span class="material-symbols-outlined opacity-0 group-hover:opacity-100 transition-opacity">arrow_right_alt</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 5: Cases -->
+<section class="py-32 bg-surface-container-lowest overflow-hidden">
+<div class="max-w-7xl mx-auto px-8">
+<h2 class="text-4xl font-headline font-bold mb-16 text-on-surface flex items-center gap-4 group">
+<span class="w-12 h-[1px] bg-primary group-hover:w-24 transition-all duration-500"></span>
+            Showcase de Engenharia
+        </h2>
+<div class="grid lg:grid-cols-12 gap-8">
+<!-- Main Case -->
+<div class="lg:col-span-8 group relative overflow-hidden rounded-lg bg-surface-container-high aspect-[16/9] glass-card !p-0">
+<img class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-1000 ease-out" data-alt="Logistics data visualization" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBYiEM1izlB6iNV5crm_wJTsSh1UQAsy5PSB-WBBJ6EBD3AcOmPIuG67CnE3CZdDuEJhAZ1rBRWmXKdRUMarRUa5gMo9tE_EI4dwp2AT62vE3H6XT2YmlIHghGMXJsF1hew3_5oM9KDNLCeLFbjDbVu7LYQ7m0Nxaqyok0TaeIc4t60jMDrc6n9gwlMgDnQgPe6fLqgXTeyQNNCf3vck0nR-VZFg9q-SS82MdJ5G27fHCZcCTak1OxBJM6DNMc57WTvu0Rp0NzlUko"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-surface-container-lowest/40 to-transparent p-12 flex flex-col justify-end">
+<div class="space-y-4 max-w-xl translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+<span class="text-primary font-bold tracking-widest text-xs uppercase font-label">Estudo de Caso Principal</span>
+<h3 class="text-3xl font-headline font-bold">Otimização Global de Cadeia de Suprimentos</h3>
+<p class="text-on-surface-variant font-body">Reestruturação completa do fluxo logístico para gigante do varejo, integrando IA preditiva e automação de inventário.</p>
+<div class="flex gap-12 pt-4">
+<div>
+<div class="text-3xl font-headline font-bold text-primary">4x</div>
+<div class="text-xs text-on-surface-variant uppercase font-label">ROI Anual</div>
+</div>
+<div>
+<div class="text-3xl font-headline font-bold text-primary">-30%</div>
+<div class="text-xs text-on-surface-variant uppercase font-label">Custo Operacional</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Side Cases Stack -->
+<div class="lg:col-span-4 flex flex-col gap-8">
+<div class="bg-surface-container-high p-8 rounded-lg flex-1 group hover:bg-surface-container-highest transition-all duration-500 border border-white/5 hover:border-primary/20">
+<span class="text-primary text-xs font-bold uppercase tracking-widest mb-4 block font-label">Fintech Core</span>
+<h4 class="text-xl font-headline font-semibold mb-4">Automação de Conciliação Bancária</h4>
+<p class="text-sm text-on-surface-variant mb-6 leading-relaxed font-body">Redução de erro humano de 12% para 0.1% em transações críticas.</p>
+<a class="text-primary flex items-center gap-2 font-headline font-bold text-sm group/link" href="#">Case Study <span class="material-symbols-outlined text-sm group-hover/link:translate-x-1 transition-transform">arrow_forward</span></a>
+</div>
+<div class="bg-surface-container-high p-8 rounded-lg flex-1 group hover:bg-surface-container-highest transition-all duration-500 border border-white/5 hover:border-primary/20">
+<span class="text-primary text-xs font-bold uppercase tracking-widest mb-4 block font-label">E-commerce Scalability</span>
+<h4 class="text-xl font-headline font-semibold mb-4">Engine de Recomendação Real-time</h4>
+<p class="text-sm text-on-surface-variant mb-6 leading-relaxed font-body">Aumento de 22% no Ticket Médio através de análise comportamental.</p>
+<a class="text-primary flex items-center gap-2 font-headline font-bold text-sm group/link" href="#">Case Study <span class="material-symbols-outlined text-sm group-hover/link:translate-x-1 transition-transform">arrow_forward</span></a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 6: Process/Methodology -->
+<section class="py-32 bg-surface" id="methodology">
+<div class="max-w-7xl mx-auto px-8">
+<div class="grid lg:grid-cols-2 gap-20">
+<div class="lg:sticky lg:top-32 h-fit space-y-8">
+<span class="text-primary font-label text-sm uppercase tracking-widest">Metodologia Aether</span>
+<h2 class="text-5xl font-headline font-bold leading-tight">O Caminho para a Eficiência Absoluta.</h2>
+<p class="text-xl text-on-surface-variant max-w-md font-body font-light">Uma jornada linear focada em transformar caos operacional em estrutura de alta performance.</p>
+<div class="hidden lg:block w-full max-w-sm aspect-square bg-surface-container-low rounded-full border border-primary/10 relative overflow-hidden group">
+<div class="absolute inset-4 rounded-full border border-primary/5 animate-pulse"></div>
+<img class="absolute inset-12 w-3/4 h-3/4 object-contain opacity-50 group-hover:opacity-100 group-hover:scale-110 transition-all duration-1000" data-alt="Futuristic core" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAngDTSzArReLnZBQb7wC8gt26QXfsuvT8DlhpbPVnjAOEss5yN3AwoxNDE4vZ8Bfci_qEVvGpxz_c2tvlZDSG1sg0NbkvL6DujKPNhB9crckazBfMWtzDzTE3_2-s5RudoI1nhYaZ6Q-el8RzIvJOa4g4v3yR7coxpc4fVtsYStAw0sbaUnc5LPcVV0tlggAHzxjQXS9ovF6ogMwqxWfvIkncy8YwON4kc1FQxQuiBj_oyMcxC6t2AZ7foU3eG375uGhZzhQr5dro"/>
+<div class="absolute inset-0 bg-primary/5 mix-blend-overlay"></div>
+</div>
+</div>
+<div class="space-y-24 py-12">
+<div class="relative pl-16 border-l border-outline-variant/30 pb-4 reveal-step">
+<div class="absolute left-[-9px] top-0 w-4 h-4 bg-outline-variant rounded-full reveal-dot"></div>
+<h3 class="text-2xl font-headline font-bold mb-4 text-on-surface">01. Diagnóstico</h3>
+<p class="text-on-surface-variant leading-relaxed font-body">Mapeamento profundo de fluxos atuais, gargalos técnicos e vazamentos de produtividade.</p>
+</div>
+<div class="relative pl-16 border-l border-outline-variant/30 pb-4 reveal-step">
+<div class="absolute left-[-9px] top-0 w-4 h-4 bg-outline-variant rounded-full reveal-dot"></div>
+<h3 class="text-2xl font-headline font-bold mb-4 text-on-surface">02. Blueprint</h3>
+<p class="text-on-surface-variant leading-relaxed font-body">Desenho da arquitetura ideal, seleção de stack tecnológica e definição de KPIs de sucesso.</p>
+</div>
+<div class="relative pl-16 border-l border-outline-variant/30 pb-4 reveal-step">
+<div class="absolute left-[-9px] top-0 w-4 h-4 bg-outline-variant rounded-full reveal-dot"></div>
+<h3 class="text-2xl font-headline font-bold mb-4 text-on-surface">03. Execução</h3>
+<p class="text-on-surface-variant leading-relaxed font-body">Desenvolvimento ágil com entregas incrementais. Você vê o sistema ganhando vida semanalmente.</p>
+</div>
+<div class="relative pl-16 border-l border-outline-variant/30 pb-4 reveal-step">
+<div class="absolute left-[-9px] top-0 w-4 h-4 bg-outline-variant rounded-full reveal-dot"></div>
+<h3 class="text-2xl font-headline font-bold mb-4 text-on-surface">04. Refinamento</h3>
+<p class="text-on-surface-variant leading-relaxed font-body">Fase de testes de estresse, otimização de UX e ajustes finos baseados em uso real.</p>
+</div>
+<div class="relative pl-16 border-l border-outline-variant/30 pb-4 reveal-step">
+<div class="absolute left-[-9px] top-0 w-4 h-4 bg-outline-variant rounded-full reveal-dot"></div>
+<h3 class="text-2xl font-headline font-bold mb-4 text-on-surface">05. Entrega</h3>
+<p class="text-on-surface-variant leading-relaxed font-body">Onboarding da equipe, documentação completa e suporte pós-implementação.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 7: Testimonial -->
+<section class="py-32 bg-surface-container-low overflow-hidden">
+<div class="max-w-7xl mx-auto px-8 relative">
+<div class="absolute -top-20 -left-20 w-64 h-64 bg-primary/5 rounded-full blur-[100px]"></div>
+<div class="max-w-5xl relative z-10">
+<span class="material-symbols-outlined text-primary text-6xl mb-8 animate-bounce" style="animation-duration: 3s;">format_quote</span>
+<blockquote class="text-3xl md:text-5xl font-headline font-light italic leading-tight text-on-surface mb-12 transform transition-all duration-700 hover:scale-[1.01]">
+                "A Aether Lab não apenas entregou um sistema; eles redesenharam a forma como enxergamos nossa própria eficiência. O ROI foi atingido em menos de 4 meses."
+            </blockquote>
+<div class="flex items-center gap-6 group">
+<div class="relative">
+<img class="w-20 h-20 rounded-full object-cover grayscale transition-all duration-500 group-hover:grayscale-0 group-hover:scale-110" data-alt="Roberto Fontes" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqwC_7FQSX_KmpzBY9bN7Mn6DNp7yRvxMzFSHG-Ljk0NxTwdJWUF9sD92n2jqTXTahe4vSe8LAJ77LupjWKi0yys4TxMJ4SUiZlILNlMaYHcNo0e4xwPA_jQ1nRF-Ndut27IxyylUrniuSHPydQzVZzm1ZN-SexC6PJSlfrTL_p5OzMfzpj0OeN_GrdRA5WfdoIFejKfqzOqqdWTojooPEB1AaFaD5epeB184YiKLPJKs__EbINQ0Ezyq1EfA6wcr-nOxE4fwFX4Y"/>
+<div class="absolute inset-0 rounded-full border border-primary opacity-0 group-hover:opacity-100 group-hover:scale-125 transition-all duration-500"></div>
+</div>
+<div>
+<div class="text-xl font-headline font-bold text-on-surface">Roberto Fontes</div>
+<div class="text-on-surface-variant font-body">CTO, Global Logística S.A.</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 8: FAQ -->
+<section class="py-32 bg-surface">
+<div class="max-w-3xl mx-auto px-8">
+<h2 class="text-4xl font-headline font-bold mb-16 text-center text-on-surface">Respostas para Estrategistas</h2>
+<div class="space-y-4">
+<details class="group bg-surface-container-high rounded-lg p-6 border border-white/5 hover:border-primary/20 transition-all duration-300">
+<summary class="list-none flex justify-between items-center cursor-pointer">
+<span class="text-lg font-headline font-medium">Qual o tempo médio de implementação?</span>
+<span class="material-symbols-outlined transition-transform duration-500 group-open:rotate-180 text-primary">expand_more</span>
+</summary>
+<p class="pt-6 text-on-surface-variant leading-relaxed font-body border-t border-white/5 mt-4">A depender da complexidade, projetos variam de 4 a 12 semanas. Focamos em MVPs (Minimum Viable Products) funcionais em até 30 dias.</p>
+</details>
+<details class="group bg-surface-container-high rounded-lg p-6 border border-white/5 hover:border-primary/20 transition-all duration-300">
+<summary class="list-none flex justify-between items-center cursor-pointer">
+<span class="text-lg font-headline font-medium">Vocês trabalham com stacks específicas?</span>
+<span class="material-symbols-outlined transition-transform duration-500 group-open:rotate-180 text-primary">expand_more</span>
+</summary>
+<p class="pt-6 text-on-surface-variant leading-relaxed font-body border-t border-white/5 mt-4">Nossa expertise é agnóstica a tecnologia. Selecionamos a stack que melhor atende à escala e segurança exigidas pelo seu negócio.</p>
+</details>
+<details class="group bg-surface-container-high rounded-lg p-6 border border-white/5 hover:border-primary/20 transition-all duration-300">
+<summary class="list-none flex justify-between items-center cursor-pointer">
+<span class="text-lg font-headline font-medium">Existe suporte após a entrega?</span>
+<span class="material-symbols-outlined transition-transform duration-500 group-open:rotate-180 text-primary">expand_more</span>
+</summary>
+<p class="pt-6 text-on-surface-variant leading-relaxed font-body border-t border-white/5 mt-4">Sim. Oferecemos pacotes de monitoramento de performance e manutenção preventiva para garantir que os sistemas respirem eficiência continuamente.</p>
+</details>
+</div>
+</div>
+</section>
+<!-- Section 9: Final CTA & Form -->
+<section class="py-32 bg-surface overflow-hidden relative">
+<div class="absolute inset-0 z-0">
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-primary/5 rounded-full blur-[200px] animate-pulse"></div>
+<div class="absolute inset-0 grid-mesh opacity-10"></div>
+</div>
+<div class="max-w-7xl mx-auto px-8 relative z-10">
+<div class="grid lg:grid-cols-2 gap-20 items-center">
+<div class="space-y-8">
+<h2 class="text-4xl md:text-6xl font-headline font-bold leading-tight">Seu negócio não precisa de mais complexidade. <br/><span class="text-primary italic">Precisa de estrutura e execução.</span></h2>
+<p class="text-xl text-on-surface-variant font-body">Agende uma análise diagnóstica gratuita e entenda onde sua operação está perdendo dinheiro.</p>
+<ul class="space-y-4">
+<li class="flex items-center gap-3 text-on-surface-variant font-body group">
+<span class="material-symbols-outlined text-primary group-hover:scale-125 transition-transform">check_circle</span> Resposta técnica em até 24h
+                    </li>
+<li class="flex items-center gap-3 text-on-surface-variant font-body group">
+<span class="material-symbols-outlined text-primary group-hover:scale-125 transition-transform">check_circle</span> Consultoria direta com engenheiros
+                    </li>
+</ul>
+</div>
+<div class="bg-surface-container-high p-8 md:p-12 rounded-xl glass-card relative overflow-hidden">
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-2xl"></div>
+<form class="space-y-6 relative z-10">
+<div class="grid md:grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="text-xs font-label uppercase tracking-widest text-on-surface-variant">Nome Completo</label>
+<input class="w-full bg-surface-container-lowest border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary text-on-surface rounded py-3 px-4 font-body transition-all" placeholder="Ex: Lucas Silva" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="text-xs font-label uppercase tracking-widest text-on-surface-variant">E-mail Corporativo</label>
+<input class="w-full bg-surface-container-lowest border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary text-on-surface rounded py-3 px-4 font-body transition-all" placeholder="lucas@empresa.com" type="email"/>
+</div>
+</div>
+<div class="space-y-2">
+<label class="text-xs font-label uppercase tracking-widest text-on-surface-variant">Desafio Principal</label>
+<textarea class="w-full bg-surface-container-lowest border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary text-on-surface rounded py-3 px-4 font-body transition-all" placeholder="Descreva brevemente o gargalo que deseja resolver..." rows="4"></textarea>
+</div>
+<button class="w-full py-5 bg-primary-container text-on-primary font-headline font-bold text-lg rounded-md hover:scale-[1.02] transition-all shadow-[0_0_20px_rgba(0,241,254,0.3)] hover:shadow-[0_0_40px_rgba(0,241,254,0.5)]">
+                        Solicitar Diagnóstico Técnico
+                    </button>
+</form>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="w-full bg-[#000000] py-16 px-8 border-t border-white/5">
+<div class="flex flex-col md:flex-row justify-between items-center w-full max-w-7xl mx-auto space-y-12 md:space-y-0">
+<div class="flex flex-col items-center md:items-start gap-4">
+<div class="text-2xl font-bold font-headline text-[#99f7ff]">Aether Lab</div>
+<div class="font-body font-light text-[#a9abb0] text-sm text-center md:text-left max-w-xs">
+                © 2024 Aether Lab. Engineered for Kinetic Depth. High-performance digital environments.
+            </div>
+</div>
+<div class="flex flex-wrap justify-center gap-8 font-body font-light">
+<a class="text-[#a9abb0] hover:text-[#f8f9fe] transition-all relative group" href="#">
+                Privacy Policy
+                <span class="absolute -bottom-1 left-0 w-0 h-[1px] bg-primary transition-all duration-300 group-hover:w-full"></span>
+</a>
+<a class="text-[#a9abb0] hover:text-[#f8f9fe] transition-all relative group" href="#">
+                Terms of Service
+                <span class="absolute -bottom-1 left-0 w-0 h-[1px] bg-primary transition-all duration-300 group-hover:w-full"></span>
+</a>
+<a class="text-[#a9abb0] hover:text-[#f8f9fe] transition-all relative group" href="#">
+                Cookies
+                <span class="absolute -bottom-1 left-0 w-0 h-[1px] bg-primary transition-all duration-300 group-hover:w-full"></span>
+</a>
+<a class="text-[#a9abb0] hover:text-[#f8f9fe] transition-all relative group" href="#">
+                LinkedIn
+                <span class="absolute -bottom-1 left-0 w-0 h-[1px] bg-primary transition-all duration-300 group-hover:w-full"></span>
+</a>
+</div>
+</div>
+</footer>
+<script>
+    // Intersection Observer for Step Animations
+    const observerOptions = {
+        threshold: 0.3
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+            } else {
+                // Keep the 'Clarity' theme by allowing steps to fade back out if needed
+                // entry.target.classList.remove('active'); 
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal-step').forEach(step => {
+        observer.observe(step);
+    });
+
+    // Simple Parallax for Hero Image
+    window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        const heroImg = document.querySelector('.parallax-hero');
+        if (heroImg) {
+            heroImg.style.transform = `translateY(${scrolled * 0.15}px) scale(1.1)`;
+        }
+    });
+
+    // Tilt Effect for Glass Cards
+    document.querySelectorAll('.glass-card').forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            const rotateX = (y - centerY) / 20;
+            const rotateY = (centerX - x) / 20;
+            
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px) scale(1.02)`;
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0) scale(1)`;
+        });
+    });
+</script>
+</body></html>
