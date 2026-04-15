@@ -63,13 +63,13 @@ export const siteContent = {
   },
   proof: {
     id: "provas",
-    items: [
-      { value: 30, suffix: "+", label: "Projetos Entregues" },
-      { value: 30, suffix: "+", label: "Avaliações Positivas e Públicas" },
-      { value: 2025, prefix: "Desde ", label: "Atuação Freelancer" },
-      { value: 4, suffix: "", label: "Frentes de Especialização" },
-    ],
-  },
+      items: [
+        { value: 30, suffix: "+", label: "Projetos entregues" },
+        { value: 30, suffix: "+", label: "Avaliações Positivas e Públicas" },
+        { value: 2025, prefix: "Desde ", label: "Atuação Freelancer" },
+        { value: 4, suffix: "+", label: "Especializações" },
+      ],
+    },
   pain: {
     id: "dores",
     badge: "O CUSTO DA INÉRCIA",
