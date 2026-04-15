@@ -18,7 +18,7 @@ const formatNumber = (value: number, decimals: number) => {
 
 export const CountUp = ({ value, prefix = "", suffix = "", decimals = 0, className }: CountUpProps) => {
   const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-20%" });
+  const inView = useInView(ref, { once: true, margin: "0px 0px -20% 0px" });
 
   const base = useMotionValue(0);
   const smooth = useSpring(base, { damping: 30, stiffness: 110, mass: 0.6 });
