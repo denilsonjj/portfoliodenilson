@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+﻿import { cn } from "@/lib/utils";
 import { useEffect, useRef } from "react";
 import {
   AdditiveBlending,
@@ -113,7 +113,6 @@ const networkTargets = [
 type EarthGlobeProps = {
   className?: string;
   reduceMotion?: boolean;
-  lowPower?: boolean;
 };
 
 type PulseNode = {
@@ -122,7 +121,7 @@ type PulseNode = {
   phase: number;
 };
 
-export const EarthGlobe = ({ className, reduceMotion = false, lowPower = false }: EarthGlobeProps) => {
+export const EarthGlobe = ({ className, reduceMotion = false }: EarthGlobeProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -135,11 +134,11 @@ export const EarthGlobe = ({ className, reduceMotion = false, lowPower = false }
 
     const renderer = new WebGLRenderer({
       alpha: true,
-      antialias: !lowPower,
+      antialias: true,
       powerPreference: "high-performance",
     });
     renderer.setClearColor(0x000000, 0);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, lowPower ? 1.1 : 1.55));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.7));
     root.appendChild(renderer.domElement);
 
     const ambientLight = new AmbientLight(0x5ea8d4, 0.72);
@@ -161,11 +160,6 @@ export const EarthGlobe = ({ className, reduceMotion = false, lowPower = false }
     let frameId = 0;
     let disposed = false;
     let sweep = -70;
-    let previousFrameTime = 0;
-    const maxFps = lowPower ? 18 : 30;
-    const frameInterval = 1000 / maxFps;
-    let containerVisible = false;
-    let pageVisible = document.visibilityState === "visible";
 
     let earthUniforms:
       | {
@@ -192,7 +186,7 @@ export const EarthGlobe = ({ className, reduceMotion = false, lowPower = false }
 
     const createStars = (gradientTexture: Texture) => {
       const starGeometry = new BufferGeometry();
-      const starCount = lowPower ? 120 : 220;
+      const starCount = 380;
       const positions = new Float32Array(starCount * 3);
       for (let i = 0; i < starCount; i += 1) {
         positions[i * 3] = 740 * Math.random() - 300;
@@ -268,8 +262,7 @@ export const EarthGlobe = ({ className, reduceMotion = false, lowPower = false }
         };
 
         const radius = 64;
-        const sphereSegments = lowPower ? 40 : 56;
-        const earthGeometry = new SphereGeometry(radius, sphereSegments, sphereSegments);
+        const earthGeometry = new SphereGeometry(radius, 72, 72);
         const earthMaterial = new ShaderMaterial({
           uniforms: earthUniforms,
           vertexShader: earthVertexShader,
@@ -281,8 +274,7 @@ export const EarthGlobe = ({ className, reduceMotion = false, lowPower = false }
         geometries.push(earthGeometry);
         materials.push(earthMaterial);
 
-        const atmosphereSegments = lowPower ? 34 : 44;
-        const atmosphereGeometry = new SphereGeometry(radius + 1.6, atmosphereSegments, atmosphereSegments);
+        const atmosphereGeometry = new SphereGeometry(radius + 1.6, 60, 60);
         const atmosphereMaterial = new ShaderMaterial({
           uniforms: {
             coeficient: { value: 1 },
@@ -319,12 +311,8 @@ export const EarthGlobe = ({ className, reduceMotion = false, lowPower = false }
       }
     };
 
-    const render = (now = performance.now()) => {
+    const render = () => {
       if (disposed) return;
-      frameId = window.requestAnimationFrame(render);
-      if (!containerVisible || !pageVisible) return;
-      if (now - previousFrameTime < frameInterval) return;
-      previousFrameTime = now;
 
       const time = performance.now() * 0.001;
 
@@ -346,20 +334,8 @@ export const EarthGlobe = ({ className, reduceMotion = false, lowPower = false }
       if (earthUniforms) earthUniforms.time.value = sweep;
 
       renderer.render(scene, camera);
+      frameId = window.requestAnimationFrame(render);
     };
-
-    const visibilityObserver = new IntersectionObserver(
-      (entries) => {
-        containerVisible = entries.some((entry) => entry.isIntersecting);
-      },
-      { threshold: 0.12 },
-    );
-    visibilityObserver.observe(root);
-
-    const onVisibilityChange = () => {
-      pageVisible = document.visibilityState === "visible";
-    };
-    document.addEventListener("visibilitychange", onVisibilityChange);
 
     void init();
     frameId = window.requestAnimationFrame(render);
@@ -367,8 +343,6 @@ export const EarthGlobe = ({ className, reduceMotion = false, lowPower = false }
     return () => {
       disposed = true;
       window.cancelAnimationFrame(frameId);
-      visibilityObserver.disconnect();
-      document.removeEventListener("visibilitychange", onVisibilityChange);
       observer.disconnect();
       scene.clear();
       geometries.forEach((geometry) => geometry.dispose());
@@ -379,7 +353,7 @@ export const EarthGlobe = ({ className, reduceMotion = false, lowPower = false }
       renderer.dispose();
       root.removeChild(renderer.domElement);
     };
-  }, [lowPower, reduceMotion]);
+  }, [reduceMotion]);
 
   return <div ref={containerRef} className={cn("h-full w-full", className)} />;
 };
