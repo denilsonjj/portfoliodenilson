@@ -1,4 +1,4 @@
-import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
+﻿import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -12,12 +12,29 @@ interface ContactEmailRequest {
   message: string;
 }
 
+const escapeHtml = (value: string) =>
+  value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+
 const getErrorMessage = (error: unknown) => {
   if (error instanceof Error) return error.message;
   return "Unexpected error";
 };
 
-const sendEmail = async (payload: ContactEmailRequest, apiKey: string) => {
+const sendEmail = async (
+  payload: ContactEmailRequest,
+  apiKey: string,
+  from: string,
+  to: string,
+) => {
+  const safeName = escapeHtml(payload.name);
+  const safeEmail = escapeHtml(payload.email);
+  const safeMessage = escapeHtml(payload.message).replace(/\n/g, "<br>");
+
   const response = await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: {
@@ -25,15 +42,16 @@ const sendEmail = async (payload: ContactEmailRequest, apiKey: string) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      from: "Portfolio <onboarding@resend.dev>",
-      to: ["juniordenilson363@gmail.com"],
+      from,
+      to: [to],
+      reply_to: payload.email,
       subject: `Nova mensagem de contato: ${payload.name}`,
       html: `
         <h1>Nova mensagem de contato</h1>
-        <p><strong>Nome:</strong> ${payload.name}</p>
-        <p><strong>Email:</strong> ${payload.email}</p>
+        <p><strong>Nome:</strong> ${safeName}</p>
+        <p><strong>Email:</strong> ${safeEmail}</p>
         <p><strong>Mensagem:</strong></p>
-        <p>${payload.message.replace(/\n/g, "<br>")}</p>
+        <p>${safeMessage}</p>
         <hr>
         <p style="color: #666; font-size: 12px;">Enviado através do formulário de contato do portfólio.</p>
       `,
@@ -63,13 +81,27 @@ serve(async (req: Request): Promise<Response> => {
   try {
     const { name, email, message }: ContactEmailRequest = await req.json();
     const resendApiKey = Deno.env.get("RESEND_API_KEY");
+    const resendFromEmail = Deno.env.get("RESEND_FROM_EMAIL") ?? "Denilson Junior <onboarding@resend.dev>";
+    const resendToEmail = Deno.env.get("RESEND_TO_EMAIL") ?? "juniordenilson363@gmail.com";
 
     if (!resendApiKey) {
       throw new Error("RESEND_API_KEY is not configured");
     }
 
+    if (!name?.trim() || !email?.trim() || !message?.trim()) {
+      return new Response(JSON.stringify({ error: "Invalid payload" }), {
+        status: 400,
+        headers: { "Content-Type": "application/json", ...corsHeaders },
+      });
+    }
+
     console.log("Sending contact email from:", name, email);
-    const emailResponse = await sendEmail({ name, email, message }, resendApiKey);
+    const emailResponse = await sendEmail(
+      { name: name.trim(), email: email.trim(), message: message.trim() },
+      resendApiKey,
+      resendFromEmail,
+      resendToEmail,
+    );
     console.log("Email sent successfully:", emailResponse);
 
     return new Response(JSON.stringify({ success: true }), {
