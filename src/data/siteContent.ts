@@ -66,7 +66,7 @@ export const siteContent = {
       items: [
         { value: 30, suffix: "+", label: "Projetos entregues" },
         { value: 30, suffix: "+", label: "Avaliações Positivas e Públicas" },
-        { value: 2025, prefix: "Desde ", label: "Atuação Freelancer" },
+        { value: 2025, prefix: "Desde ", label: "Atuação Freelancer", useGrouping: false },
         { value: 4, suffix: "+", label: "Especializações" },
       ],
     },

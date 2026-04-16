@@ -24,6 +24,7 @@ export const ProofBarSection = () => {
                 prefix={item.prefix}
                 suffix={item.suffix}
                 decimals={item.decimals}
+                useGrouping={item.useGrouping}
                 className="metric-value text-4xl font-bold md:text-5xl"
               />
               <p className="mt-1 text-[11px] uppercase tracking-[0.14em] text-slate-400 md:text-xs">{item.label}</p>
