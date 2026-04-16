@@ -1,6 +1,7 @@
 ﻿import { Container } from "@/components/ui/container";
 import { GradientButton } from "@/components/ui/gradient-button";
 import { siteContent } from "@/data/siteContent";
+import { usePerformanceMode } from "@/hooks/usePerformanceMode";
 import {
   motion,
   useInView,
@@ -27,8 +28,10 @@ const panelPositions = ["left-4 top-16", "right-4 top-36", "left-8 bottom-[4.8re
 export const HeroSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const reduceMotion = useReducedMotion();
+  const { lowPower } = usePerformanceMode();
   const inView = useInView(sectionRef, { amount: 0.2 });
   const shouldAnimate = !reduceMotion && inView;
+  const shouldRunLoops = shouldAnimate && !lowPower;
   const pointerX = useMotionValue(50);
   const pointerY = useMotionValue(50);
 
@@ -135,7 +138,7 @@ export const HeroSection = () => {
                     strokeWidth="1.3"
                     strokeDasharray="7 9"
                     fill="none"
-                    animate={reduceMotion ? {} : { strokeDashoffset: [0, -34] }}
+                    animate={shouldRunLoops ? { strokeDashoffset: [0, -34] } : {}}
                     transition={{ repeat: Infinity, duration: 2.2, ease: "linear" }}
                   />
                   <motion.path
@@ -144,7 +147,7 @@ export const HeroSection = () => {
                     strokeWidth="1.2"
                     strokeDasharray="6 10"
                     fill="none"
-                    animate={reduceMotion ? {} : { strokeDashoffset: [0, -30] }}
+                    animate={shouldRunLoops ? { strokeDashoffset: [0, -30] } : {}}
                     transition={{ repeat: Infinity, duration: 2.5, ease: "linear" }}
                   />
                   <motion.path
@@ -153,7 +156,7 @@ export const HeroSection = () => {
                     strokeWidth="1.2"
                     strokeDasharray="8 10"
                     fill="none"
-                    animate={reduceMotion ? {} : { strokeDashoffset: [0, -24] }}
+                    animate={shouldRunLoops ? { strokeDashoffset: [0, -24] } : {}}
                     transition={{ repeat: Infinity, duration: 2.1, ease: "linear" }}
                   />
                 </motion.svg>
@@ -164,7 +167,7 @@ export const HeroSection = () => {
                       key={node.id}
                       className="hero-node"
                       style={{ left: node.left, top: node.top }}
-                      animate={shouldAnimate ? { scale: [1, 1.35, 1], opacity: [0.45, 1, 0.45] } : {}}
+                      animate={shouldRunLoops ? { scale: [1, 1.35, 1], opacity: [0.45, 1, 0.45] } : {}}
                       transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut", delay: node.delay }}
                     />
                   ))}
@@ -174,7 +177,7 @@ export const HeroSection = () => {
                   {siteContent.hero.panels.map((panel, index) => (
                     <motion.div
                       key={panel.label}
-                      animate={shouldAnimate ? { y: [0, index % 2 === 0 ? -8 : 7, 0] } : {}}
+                      animate={shouldRunLoops ? { y: [0, index % 2 === 0 ? -8 : 7, 0] } : {}}
                       transition={{ repeat: Infinity, duration: 3.4 + index * 0.25, ease: "easeInOut", delay: index * 0.25 }}
                       className={`hero-floating-card absolute ${panelPositions[index]}`}
                     >
@@ -195,7 +198,7 @@ export const HeroSection = () => {
                         <span className="text-slate-300">{signal.label}</span>
                         <motion.span
                           className="inline-flex items-center gap-1 text-cyan-200"
-                          animate={shouldAnimate ? { opacity: [0.5, 1, 0.5] } : {}}
+                          animate={shouldRunLoops ? { opacity: [0.5, 1, 0.5] } : {}}
                           transition={{ repeat: Infinity, duration: 1.2, delay: index * 0.18 }}
                         >
                           <span className="h-1.5 w-1.5 rounded-full bg-cyan-200" />
@@ -216,7 +219,7 @@ export const HeroSection = () => {
                       <motion.span
                         key={`flow-${node.id}`}
                         className="h-2.5 w-2.5 rounded-full border border-cyan-200/50 bg-cyan-200/30"
-                        animate={shouldAnimate ? { scale: [1, 1.25, 1], opacity: [0.4, 1, 0.4] } : {}}
+                        animate={shouldRunLoops ? { scale: [1, 1.25, 1], opacity: [0.4, 1, 0.4] } : {}}
                         transition={{ repeat: Infinity, duration: 1.3, delay: node.delay * 0.7 }}
                       />
                     ))}
@@ -230,3 +233,4 @@ export const HeroSection = () => {
     </section>
   );
 };
+

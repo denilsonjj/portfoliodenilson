@@ -1,15 +1,20 @@
-import { Container } from "@/components/ui/container";
+﻿import { Container } from "@/components/ui/container";
 import { siteContent } from "@/data/siteContent";
-import { motion, useReducedMotion } from "framer-motion";
+import { usePerformanceMode } from "@/hooks/usePerformanceMode";
+import { motion, useInView, useReducedMotion } from "framer-motion";
 import { Gauge, Layers3, Repeat2, ScanSearch, Workflow } from "lucide-react";
-import { lazy, Suspense, useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
 
 const icons = [Workflow, Gauge, ScanSearch, Repeat2, Layers3];
 const LazyEarthGlobe = lazy(() => import("@/components/ui/earth-globe").then((module) => ({ default: module.EarthGlobe })));
 
 export const PainPointsSection = () => {
+  const sectionRef = useRef<HTMLElement>(null);
   const reduceMotion = useReducedMotion();
+  const { lowPower } = usePerformanceMode();
   const [isDesktop, setIsDesktop] = useState(false);
+  const [allowGlobe, setAllowGlobe] = useState(false);
+  const sectionInView = useInView(sectionRef, { amount: 0.12, margin: "0px 0px -20% 0px" });
 
   useEffect(() => {
     const media = window.matchMedia("(min-width: 1024px)");
@@ -19,10 +24,16 @@ export const PainPointsSection = () => {
     return () => media.removeEventListener("change", onChange);
   }, []);
 
-  const shouldRenderGlobe = isDesktop;
+  useEffect(() => {
+    if (!isDesktop || lowPower || !sectionInView) return;
+    const timer = window.setTimeout(() => setAllowGlobe(true), 260);
+    return () => window.clearTimeout(timer);
+  }, [isDesktop, lowPower, sectionInView]);
+
+  const shouldRenderGlobe = isDesktop && !lowPower && allowGlobe;
 
   return (
-    <section id="dores" className="section-wrap surface-alt scroll-mt-24" aria-labelledby="pain-title">
+    <section ref={sectionRef} id="dores" className="section-wrap surface-alt scroll-mt-24" aria-labelledby="pain-title">
       <Container>
         <div className="grid items-start gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:gap-16">
           <div className="lg:sticky lg:top-28">
@@ -36,12 +47,12 @@ export const PainPointsSection = () => {
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_38%_30%,rgba(0,224,255,0.12),transparent_44%)]" />
               {shouldRenderGlobe ? (
                 <Suspense fallback={<div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_60%,rgba(0,224,255,0.16),transparent_62%)]" />}>
-                  <LazyEarthGlobe className="absolute inset-2 xl:inset-3" reduceMotion={reduceMotion ?? false} />
+                  <LazyEarthGlobe className="absolute inset-2 xl:inset-3" reduceMotion={reduceMotion ?? false} lowPower={lowPower} />
                 </Suspense>
               ) : null}
               <motion.div
                 className="pointer-events-none absolute left-1/2 top-[53%] h-[360px] w-[360px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(0,224,255,0.25),transparent_72%)] blur-[28px]"
-                animate={reduceMotion ? {} : { opacity: [0.24, 0.5, 0.24], scale: [0.96, 1.06, 0.96] }}
+                animate={reduceMotion || lowPower ? {} : { opacity: [0.24, 0.5, 0.24], scale: [0.96, 1.06, 0.96] }}
                 transition={{ duration: 4.6, repeat: Infinity, ease: "easeInOut" }}
               />
               <div className="pointer-events-none absolute inset-5 rounded-[0.86rem] border border-cyan-200/14" />
