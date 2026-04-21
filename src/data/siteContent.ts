@@ -10,7 +10,7 @@ export const siteContent = {
     siteUrl,
     canonicalPath: "/",
     ogImagePath: "/placeholder.svg",
-    instagram: "https://www.instagram.com/denilsonbdev/",
+    instagram: "https://www.instagram.com/dsolucoes/",
     localServiceLine: "Atendimento remoto e possibilidade de visitas na Grande Recife.",
     serviceDescription: "Desenvolvimento de sistemas, dashboards executivos e automação de processos.",
     areaServed: "Grande Recife",
@@ -291,7 +291,7 @@ export const siteContent = {
       phone: "+55 81 97331-9128",
       whatsapp:
         "https://wa.me/5581973319128?text=Olá! Quero conversar sobre estrutura, automação e clareza operacional.",
-      instagram: "https://www.instagram.com/denilsonbdev/",
+      instagram: "https://www.instagram.com/dsolucoes/",
     },
   },
   footer: {
@@ -300,7 +300,7 @@ export const siteContent = {
       { label: "Privacidade", href: "#" },
       { label: "Termos", href: "#" },
       { label: "Cookies", href: "#" },
-      { label: "Instagram", href: "https://www.instagram.com/denilsonbdev/" },
+      { label: "Instagram", href: "https://www.instagram.com/dsolucoes/" },
     ],
   },
 } as const;
