@@ -1,6 +1,6 @@
 ﻿const runtimeOrigin = typeof window !== "undefined" ? window.location.origin : "";
 const configuredOrigin = (import.meta.env.VITE_SITE_URL ?? "").trim();
-const siteUrl = (configuredOrigin || runtimeOrigin).replace(/\/+$/, "");
+const siteUrl = (configuredOrigin || runtimeOrigin || "https://denilsonjunior.vercel.app").replace(/\/+$/, "");
 
 export const siteContent = {
   seo: {
