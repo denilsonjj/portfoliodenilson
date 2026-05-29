@@ -75,6 +75,12 @@ const quickOffers = [
     icon: FileSpreadsheet,
   },
   {
+    title: "Sistemas e lojas",
+    price: "a partir de R$ 900",
+    href: "/servicos#catalogo",
+    icon: BriefcaseBusiness,
+  },
+  {
     title: "Dashboards e automações",
     price: "gerar orçamento",
     href: "/servicos#catalogo",
