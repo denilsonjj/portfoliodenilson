@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 const sectionIds = ["inicio", "dores", "solucoes", "cases", "metodologia", "faq", "contato"];
 
@@ -20,6 +21,7 @@ export const NavbarSection = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const activeSection = useSectionSpy(sectionIds);
+  const location = useLocation();
 
   useBodyScrollLock(isOpen);
 
@@ -52,25 +54,40 @@ export const NavbarSection = () => {
           </button>
 
           <ul className="hidden items-center gap-9 md:flex">
-            {siteContent.nav.links.map((link) => (
-              <li key={link.id}>
-                <button
-                  onClick={() => scrollToSection(link.id)}
-                  className={cn(
-                    "relative text-sm text-slate-300 transition-colors duration-300 hover:text-cyan-200",
-                    activeSection === link.id && "text-cyan-200",
+            {siteContent.nav.links.map((link) => {
+              const isRouteLink = "href" in link && link.href.startsWith("/");
+              const isActive = isRouteLink ? location.pathname === link.href : activeSection === link.id;
+              const navLinkClass = cn(
+                "relative text-sm text-slate-300 transition-colors duration-300 hover:text-cyan-200",
+                isActive && "text-cyan-200",
+              );
+
+              return (
+                <li key={link.id}>
+                  {isRouteLink ? (
+                    <Link to={link.href} className={navLinkClass}>
+                      {link.label}
+                      <span
+                        className={cn(
+                          "absolute -bottom-1 left-0 h-px w-full bg-cyan-200 transition-transform duration-300",
+                          isActive ? "scale-x-100" : "scale-x-0",
+                        )}
+                      />
+                    </Link>
+                  ) : (
+                    <button onClick={() => scrollToSection(link.id)} className={navLinkClass}>
+                      {link.label}
+                      <span
+                        className={cn(
+                          "absolute -bottom-1 left-0 h-px w-full bg-cyan-200 transition-transform duration-300",
+                          isActive ? "scale-x-100" : "scale-x-0",
+                        )}
+                      />
+                    </button>
                   )}
-                >
-                  {link.label}
-                  <span
-                    className={cn(
-                      "absolute -bottom-1 left-0 h-px w-full bg-cyan-200 transition-transform duration-300",
-                      activeSection === link.id ? "scale-x-100" : "scale-x-0",
-                    )}
-                  />
-                </button>
-              </li>
-            ))}
+                </li>
+              );
+            })}
           </ul>
 
           <div className="hidden md:block">
@@ -101,22 +118,34 @@ export const NavbarSection = () => {
           >
             <Container className="py-4">
               <ul className="space-y-2">
-                {siteContent.nav.links.map((link) => (
-                  <li key={link.id}>
-                    <button
-                      onClick={() => {
-                        scrollToSection(link.id);
-                        setIsOpen(false);
-                      }}
-                      className={cn(
-                        "w-full rounded-sm border border-transparent px-4 py-3 text-left text-sm text-slate-200 transition",
-                        activeSection === link.id ? "border-cyan-200/35 bg-[#0f1726]" : "hover:border-cyan-200/25 hover:bg-[#0d1522]",
+                {siteContent.nav.links.map((link) => {
+                  const isRouteLink = "href" in link && link.href.startsWith("/");
+                  const isActive = isRouteLink ? location.pathname === link.href : activeSection === link.id;
+                  const mobileLinkClass = cn(
+                    "block w-full rounded-sm border border-transparent px-4 py-3 text-left text-sm text-slate-200 transition",
+                    isActive ? "border-cyan-200/35 bg-[#0f1726]" : "hover:border-cyan-200/25 hover:bg-[#0d1522]",
+                  );
+
+                  return (
+                    <li key={link.id}>
+                      {isRouteLink ? (
+                        <Link to={link.href} onClick={() => setIsOpen(false)} className={mobileLinkClass}>
+                          {link.label}
+                        </Link>
+                      ) : (
+                        <button
+                          onClick={() => {
+                            scrollToSection(link.id);
+                            setIsOpen(false);
+                          }}
+                          className={mobileLinkClass}
+                        >
+                          {link.label}
+                        </button>
                       )}
-                    >
-                      {link.label}
-                    </button>
-                  </li>
-                ))}
+                    </li>
+                  );
+                })}
               </ul>
               <GradientButton
                 asChild

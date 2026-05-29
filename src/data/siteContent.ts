@@ -25,6 +25,7 @@ export const siteContent = {
   nav: {
     links: [
       { id: "solucoes", label: "Soluções" },
+      { id: "servicos", label: "Pacotes", href: "/servicos" },
       { id: "cases", label: "Cases" },
       { id: "metodologia", label: "Processo" },
       { id: "faq", label: "FAQ" },

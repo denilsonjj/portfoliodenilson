@@ -10,6 +10,13 @@ interface ContactEmailRequest {
   name: string;
   email: string;
   message: string;
+  phone?: string;
+  source?: string;
+  service?: string;
+  packageName?: string;
+  budget?: string;
+  deadline?: string;
+  brief?: string;
 }
 
 const escapeHtml = (value: string) =>
@@ -66,6 +73,35 @@ const sendEmail = async (
   return response.json();
 };
 
+const sendLeadToSheet = async (payload: ContactEmailRequest, webhookUrl: string) => {
+  const response = await fetch(webhookUrl, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+    },
+    body: JSON.stringify({
+      submittedAt: new Date().toISOString(),
+      name: payload.name,
+      email: payload.email,
+      phone: payload.phone ?? "",
+      source: payload.source ?? "contact_form",
+      service: payload.service ?? "",
+      packageName: payload.packageName ?? "",
+      budget: payload.budget ?? "",
+      deadline: payload.deadline ?? "",
+      brief: payload.brief ?? "",
+      message: payload.message,
+    }),
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(`Google Sheets webhook error (${response.status}): ${errorText}`);
+  }
+
+  return response.text();
+};
+
 serve(async (req: Request): Promise<Response> => {
   if (req.method === "OPTIONS") {
     return new Response(null, { status: 200, headers: corsHeaders });
@@ -79,14 +115,12 @@ serve(async (req: Request): Promise<Response> => {
   }
 
   try {
-    const { name, email, message }: ContactEmailRequest = await req.json();
+    const payload: ContactEmailRequest = await req.json();
+    const { name, email, message } = payload;
     const resendApiKey = Deno.env.get("RESEND_API_KEY");
     const resendFromEmail = Deno.env.get("RESEND_FROM_EMAIL") ?? "Denilson Junior <onboarding@resend.dev>";
     const resendToEmail = Deno.env.get("RESEND_TO_EMAIL") ?? "juniordenilson363@gmail.com";
-
-    if (!resendApiKey) {
-      throw new Error("RESEND_API_KEY is not configured");
-    }
+    const googleSheetsWebhookUrl = Deno.env.get("GOOGLE_SHEETS_WEBHOOK_URL");
 
     if (!name?.trim() || !email?.trim() || !message?.trim()) {
       return new Response(JSON.stringify({ error: "Invalid payload" }), {
@@ -95,16 +129,55 @@ serve(async (req: Request): Promise<Response> => {
       });
     }
 
-    console.log("Sending contact email from:", name, email);
-    const emailResponse = await sendEmail(
-      { name: name.trim(), email: email.trim(), message: message.trim() },
-      resendApiKey,
-      resendFromEmail,
-      resendToEmail,
-    );
-    console.log("Email sent successfully:", emailResponse);
+    const normalizedPayload = {
+      ...payload,
+      name: name.trim(),
+      email: email.trim(),
+      message: message.trim(),
+      phone: payload.phone?.trim(),
+      source: payload.source?.trim(),
+      service: payload.service?.trim(),
+      packageName: payload.packageName?.trim(),
+      budget: payload.budget?.trim(),
+      deadline: payload.deadline?.trim(),
+      brief: payload.brief?.trim(),
+    };
 
-    return new Response(JSON.stringify({ success: true }), {
+    let sheetsSynced = false;
+    if (googleSheetsWebhookUrl) {
+      try {
+        await sendLeadToSheet(normalizedPayload, googleSheetsWebhookUrl);
+        sheetsSynced = true;
+        console.log("Lead synced to Google Sheets");
+      } catch (sheetError: unknown) {
+        console.error("Google Sheets sync failed:", sheetError);
+      }
+    }
+
+    let emailSent = false;
+    try {
+      if (!resendApiKey) {
+        throw new Error("RESEND_API_KEY is not configured");
+      }
+
+      console.log("Sending contact email from:", name, email);
+      const emailResponse = await sendEmail(
+        normalizedPayload,
+        resendApiKey,
+        resendFromEmail,
+        resendToEmail,
+      );
+      emailSent = true;
+      console.log("Email sent successfully:", emailResponse);
+    } catch (emailError: unknown) {
+      console.error("Email send failed:", emailError);
+
+      if (!sheetsSynced) {
+        throw emailError;
+      }
+    }
+
+    return new Response(JSON.stringify({ success: true, emailSent, sheetsSynced }), {
       status: 200,
       headers: {
         "Content-Type": "application/json",
