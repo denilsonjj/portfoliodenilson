@@ -13,4 +13,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://denilsonjunior.vercel.app/sitemap.xml
+Sitemap: https://denilsonjr.com.br/sitemap.xml
