@@ -127,7 +127,7 @@ const serviceCategories: ServiceCategory[] = [
       },
       {
         name: "Sob Medida",
-        price: "Orçamento sob medida",
+        price: "Gerar orçamento",
         deadline: "A definir",
         summary: "Projeto desenhado com diagnóstico, arquitetura e roadmap.",
         bestFor: "Produtos internos, portais e fluxos com regras de negócio específicas.",
