@@ -4,6 +4,7 @@ import { GradientButton } from "@/components/ui/gradient-button";
 import { siteContent } from "@/data/siteContent";
 import { trackEvent } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
+import logo from "../assets/logo.png";
 import { motion, useReducedMotion } from "framer-motion";
 import {
   ArrowRight,
@@ -70,19 +71,19 @@ const quickOffers = [
   },
   {
     title: "Planilhas inteligentes",
-    price: "a partir de R$ 200",
+    price: "a partir de R$ 250",
     href: "/servicos#catalogo",
     icon: FileSpreadsheet,
   },
   {
     title: "Sistemas e lojas",
-    price: "a partir de R$ 900",
+    price: "Solicitar orçamento",
     href: "/servicos#catalogo",
     icon: BriefcaseBusiness,
   },
   {
     title: "Dashboards e automações",
-    price: "gerar orçamento",
+    price: "Solicitar orçamento",
     href: "/servicos#catalogo",
     icon: BarChart3,
   },
@@ -158,7 +159,7 @@ const BioPage = () => {
               <div className="relative">
                 <div className="flex items-center gap-4">
                   <div className="relative flex h-20 w-20 shrink-0 items-center justify-center rounded-[0.7rem] border border-cyan-200/28 bg-cyan-200/10 shadow-[0_0_36px_-18px_rgba(151,247,255,0.95)]">
-                    <span className="font-heading text-2xl font-semibold text-cyan-100">DJ</span>
+                    <span className="font-heading text-2xl font-semibold text-cyan-100"> <img style={{borderRadius:'10px', objectFit:'cover'}} src={logo} alt="Logo" className="h-full w-full object-contain" /></span>
                     <span className="absolute -right-1 -top-1 h-3 w-3 rounded-full border border-cyan-100/70 bg-cyan-200" />
                   </div>
                   <div>
