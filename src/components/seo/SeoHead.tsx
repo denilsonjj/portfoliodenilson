@@ -9,7 +9,7 @@ type SeoHeadProps = {
   instagram: string;
   brandName: string;
   serviceDescription: string;
-  areaServed: string;
+  areaServed: string | readonly string[];
   addressLocality: string;
   addressRegion: string;
   addressCountry: string;
@@ -56,6 +56,17 @@ const setJsonLd = (id: string, schema: Record<string, unknown>) => {
   tag.text = JSON.stringify(schema);
 };
 
+const toAreaServedSchema = (areaServed: string | readonly string[]) => {
+  if (!Array.isArray(areaServed)) {
+    return areaServed;
+  }
+
+  return areaServed.map((name) => ({
+    "@type": "AdministrativeArea",
+    name,
+  }));
+};
+
 export const SeoHead = ({
   title,
   description,
@@ -75,6 +86,7 @@ export const SeoHead = ({
     const normalizedOrigin = trimTrailingSlash(siteUrl || runtimeOrigin);
     const canonicalUrl = toAbsoluteUrl(normalizedOrigin, canonicalPath);
     const ogImageUrl = toAbsoluteUrl(normalizedOrigin, ogImagePath);
+    const areaServedSchema = toAreaServedSchema(areaServed);
 
     document.documentElement.lang = "pt-BR";
     document.title = title;
@@ -104,7 +116,7 @@ export const SeoHead = ({
       name: brandName,
       url: canonicalUrl,
       description: serviceDescription,
-      areaServed,
+      areaServed: areaServedSchema,
       address: {
         "@type": "PostalAddress",
         addressLocality,

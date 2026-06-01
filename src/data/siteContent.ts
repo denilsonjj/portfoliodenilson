@@ -6,14 +6,15 @@ export const siteContent = {
   seo: {
     title: "Denilson Junior | Sistemas, Dashboards e Automação",
     description:
-      "Desenvolvo sistemas sob medida, dashboards executivos e automação de processos para empresas. Atendimento remoto e possibilidade de visitas na Grande Recife.",
+      "Desenvolvo sistemas sob medida, dashboards executivos e automação para empresas em Recife, Olinda, Paulista, Abreu e Lima e Igarassu.",
     siteUrl,
     canonicalPath: "/",
     ogImagePath: "/placeholder.svg",
     instagram: "https://www.instagram.com/dsolucoes/",
-    localServiceLine: "Atendimento remoto e possibilidade de visitas na Grande Recife.",
-    serviceDescription: "Desenvolvimento de sistemas, dashboards executivos e automação de processos.",
-    areaServed: "Grande Recife",
+    localServiceLine: "Atendimento remoto e visitas em Recife, Olinda, Paulista, Abreu e Lima e Igarassu.",
+    serviceDescription:
+      "Desenvolvimento de sistemas, dashboards executivos, planilhas inteligentes e automação de processos para empresas na Grande Recife.",
+    areaServed: ["Recife", "Olinda", "Paulista", "Abreu e Lima", "Igarassu", "Grande Recife"],
     addressLocality: "Recife",
     addressRegion: "PE",
     addressCountry: "BR",

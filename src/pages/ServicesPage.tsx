@@ -273,7 +273,7 @@ const isValidEmail = (value: string) => /\S+@\S+\.\S+/.test(value);
 
 const buildWhatsAppUrl = (values: Pick<FormValues, "service" | "packageName" | "brief">) => {
   const text = [
-    "Olá! Quero conversar sobre um serviço produtizado.",
+    "Olá! Quero conversar sobre um serviço ou projeto.",
     `Serviço: ${values.service}`,
     `Pacote: ${values.packageName}`,
     values.brief ? `Contexto: ${values.brief}` : "Pode me ajudar a escolher o melhor pacote?",
@@ -391,14 +391,14 @@ const ServicesPage = () => {
   return (
     <div className="min-h-screen overflow-x-hidden bg-[#06080d] text-white">
       <SeoHead
-        title="Serviços Produtizados | Denilson Junior"
-        description="Contrate landing pages, sistemas, planilhas, dashboards e automações com pacotes claros ou solicite um projeto sob medida."
+        title="Pacotes de Serviços | Denilson Junior"
+        description="Contrate landing pages, sistemas, planilhas, dashboards e automações em Recife, Olinda, Paulista, Abreu e Lima e Igarassu."
         siteUrl={siteContent.seo.siteUrl}
         canonicalPath="/servicos"
         ogImagePath={siteContent.seo.ogImagePath}
         instagram={siteContent.seo.instagram}
         brandName={siteContent.brand.name}
-        serviceDescription="Pacotes de landing pages, sistemas web, planilhas, dashboards e automações para empresas."
+        serviceDescription="Pacotes de landing pages, sistemas web, planilhas, dashboards e automações para empresas na Grande Recife."
         areaServed={siteContent.seo.areaServed}
         addressLocality={siteContent.seo.addressLocality}
         addressRegion={siteContent.seo.addressRegion}
@@ -479,7 +479,7 @@ const ServicesPage = () => {
                 animate={reduceMotion ? {} : { opacity: 1, y: 0 }}
                 transition={{ duration: 0.45 }}
               >
-                <span className="section-badge">SERVIÇOS PRODUTIZADOS</span>
+                <span className="section-badge">PACOTES DE SERVIÇOS</span>
                 <h1 id="services-title" className="headline-xl mt-6 max-w-4xl text-white">
                   Escolha uma solução pronta
                   <span className="accent-text block italic">ou peça um projeto sob medida.</span>
