@@ -44,7 +44,7 @@ export const MethodologySection = () => {
               <div className="mt-9 hidden lg:block">
                 <motion.div style={reduceMotion ? undefined : { y: routeY }}>
                   <div className="rounded-[0.95rem] border border-cyan-200/14 bg-[radial-gradient(circle_at_50%_0%,rgba(0,224,255,0.14),rgba(6,14,26,0.94)_50%),linear-gradient(180deg,#060f1d_0%,#050b14_100%)] p-5 shadow-[0_24px_52px_-30px_rgba(0,0,0,0.9),0_0_26px_-20px_rgba(0,224,255,0.35)]">
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-cyan-200/90">Rota de execução</p>
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-cyan-200/90">Etapas do projeto</p>
 
                     <div className="mt-4 space-y-2.5">
                       {siteContent.methodology.steps.map((step, index) => (

@@ -21,52 +21,52 @@ export const siteContent = {
   },
   brand: {
     name: "Denilson Junior",
-    descriptor: "Data + Web Specialist",
+    descriptor: "Sistemas, Dados e Automação",
   },
   nav: {
     links: [
       { id: "solucoes", label: "Soluções" },
       { id: "servicos", label: "Pacotes", href: "/servicos" },
-      { id: "cases", label: "Cases" },
+      { id: "cases", label: "Projetos" },
       { id: "metodologia", label: "Processo" },
       { id: "faq", label: "FAQ" },
     ],
     cta: { label: "Quero uma proposta", href: "#contato" },
-    mobileCta: { label: "Iniciar diagnóstico", href: "#contato" },
+    mobileCta: { label: "Falar sobre meu projeto", href: "#contato" },
   },
   hero: {
     id: "inicio",
-    badge: "ENGENHARIA DE ALTO IMPACTO",
-    titleLineOne: "Sistemas que respiram",
-    titleAccent: "eficiência absoluta",
+    badge: "TECNOLOGIA PARA EMPRESAS",
+    titleLineOne: "Sistemas que tornam seu negócio",
+    titleAccent: "mais simples e eficiente",
     description:
-      "Transformo desafios de negócio em dashboards, automação e sistemas sob medida para dar visibilidade, reduzir gargalos e acelerar execução.",
-    primaryCta: { label: "Iniciar Consultoria", href: "#contato" },
-    secondaryCta: { label: "Ver Cases Reais", href: "#cases" },
+      "Crio sistemas, painéis e automações sob medida para organizar processos, reduzir tarefas manuais e facilitar decisões.",
+    primaryCta: { label: "Conversar sobre um projeto", href: "#contato" },
+    secondaryCta: { label: "Ver projetos realizados", href: "#cases" },
     visual: {
-      panelHeader: "Sistema Operacional Ativo",
-      signalTitle: "Sinais operacionais",
-      signalState: "Live",
-      flowLabel: "Fluxo sincronizado",
-      connectorsLabel: "Conectores ativos",
+      panelHeader: "Sistema funcionando",
+      signalTitle: "Acompanhamento",
+      signalState: "Ativo",
+      flowLabel: "Processos conectados",
+      connectorsLabel: "Integrações ativas",
       image:
         "https://lh3.googleusercontent.com/aida-public/AB6AXuAtEzFXS0zLRSkq1N8Bog6mvkesdae238_vNF6vWI_W7ysFx7UsKLsvNWHjCAtKW6B4SrLPwZ4l2qgQCYLZn5lH6VlNLZroBF5o94LiwL9oSEcyQ5Ah-qg4JnSRpb4V9x8CBCeDbjuDbv1JztcvCT98xjXyCbxDkpwsKpKpQ5-Ay3YBOToodKq6FV2CaP7UsxhIsxCJlefsBkxBm-7bN1eYS_0TONzfttQ8XypT7PaVgkGcwjjwywGMyuPE6IyCqmkcwW0d-dACy3o",
     },
     panels: [
-      { label: "Visão operacional", value: "Indicadores críticos em tempo real" },
-      { label: "Fluxos automatizados", value: "Menos tarefas manuais, mais execução" },
-      { label: "Entrega contínua", value: "Evolução técnica com foco em resultado" },
+      { label: "Visão do negócio", value: "Informações importantes em um só lugar" },
+      { label: "Processos automáticos", value: "Menos tarefas manuais e retrabalho" },
+      { label: "Melhoria contínua", value: "Soluções que evoluem com sua empresa" },
     ],
     systemSignals: [
-      { label: "Sincronização", status: "Estável" },
-      { label: "Qualidade de dados", status: "Monitorada" },
-      { label: "Pipeline", status: "Ativo" },
+      { label: "Dados atualizados", status: "Estável" },
+      { label: "Qualidade das informações", status: "Acompanhada" },
+      { label: "Funcionamento", status: "Ativo" },
     ],
   },
   proof: {
     id: "provas",
       items: [
-        { value: 30, suffix: "+", label: "Projetos entregues" },
+        { value: 50, suffix: "+", label: "Projetos entregues" },
         { value: 30, suffix: "+", label: "Avaliações Positivas e Públicas" },
         { value: 2025, prefix: "Desde ", label: "Atuação Freelancer", useGrouping: false },
         { value: 4, suffix: "+", label: "Especializações" },
@@ -74,86 +74,86 @@ export const siteContent = {
     },
   pain: {
     id: "dores",
-    badge: "O CUSTO DA INÉRCIA",
-    title: "Bottlenecks que matam sua escala operacional.",
+    badge: "PROBLEMAS QUE ATRASAM SUA EMPRESA",
+    title: "O que está impedindo seu negócio de avançar?",
     description:
-      "Processos manuais, lentidão operacional e falta de visibilidade drenam margem diariamente. O resultado é retrabalho, gargalos invisíveis e execução inconsistente.",
+      "Tarefas manuais, informações espalhadas e falta de controle consomem tempo e dinheiro. O resultado é retrabalho, atrasos e decisões sem segurança.",
     items: [
       {
-        title: "Processos Manuais",
-        description: "Capital humano desperdiçado em tarefas repetitivas e suscetíveis a falhas críticas.",
+        title: "Tarefas Manuais",
+        description: "Sua equipe perde tempo repetindo atividades que poderiam ser automáticas.",
       },
       {
-        title: "Lentidão Operacional",
-        description: "Decisões tomadas tarde demais para um mercado que exige respostas imediatas.",
+        title: "Processos Demorados",
+        description: "A demora para encontrar informações atrasa decisões e entregas.",
       },
       {
-        title: "Falta de Visibilidade",
-        description: "Sem indicadores confiáveis, a liderança opera sem clareza sobre riscos e desempenho.",
+        title: "Falta de Controle",
+        description: "Sem informações confiáveis, fica difícil saber o que está funcionando e o que precisa melhorar.",
       },
       {
-        title: "Retrabalho Contínuo",
-        description: "Fluxos desconectados geram retrabalho, desperdício e queda de produtividade.",
+        title: "Retrabalho",
+        description: "Ferramentas e informações desconectadas fazem a equipe executar a mesma tarefa mais de uma vez.",
       },
       {
-        title: "Gargalos Invisíveis",
-        description: "Dependências ocultas comprometem a execução e bloqueiam crescimento sustentável.",
+        title: "Problemas Difíceis de Identificar",
+        description: "A falta de acompanhamento esconde falhas que prejudicam o crescimento da empresa.",
       },
     ],
   },
   solutions: {
     id: "solucoes",
-    title: "Arquitetura de Soluções",
-    subtitle: "Estrutura técnica orientada a negócio para transformar operação em resultado mensurável.",
-    cardCtaLabel: "Explorar",
+    title: "Soluções para facilitar o dia a dia",
+    subtitle: "Tecnologia feita para organizar sua empresa, economizar tempo e melhorar resultados.",
+    cardCtaLabel: "Conhecer",
     items: [
       {
-        title: "Dashboards Executivos",
-        description: "Controle total da operação em uma única visão com indicadores de negócio atualizados.",
-        gain: "Visão estratégica com clareza para liderança",
+        title: "Painéis de Controle",
+        description: "Acompanhe os principais números da empresa em uma tela simples e atualizada.",
+        gain: "Mais clareza para tomar decisões",
       },
       {
         title: "Automação de Processos",
-        description: "Workflows inteligentes que eliminam tarefas manuais e reduzem risco operacional.",
-        gain: "Escala com execução consistente",
+        description: "Automatize tarefas repetitivas para reduzir erros, atrasos e trabalho manual.",
+        gain: "Mais produtividade e menos retrabalho",
       },
       {
-        title: "Sistemas Customizados",
-        description: "Plataformas construídas para o seu contexto real, sem limitações de soluções genéricas.",
-        gain: "Vantagem operacional com software sob medida",
+        title: "Sistemas Sob Medida",
+        description: "Sistemas criados de acordo com as necessidades e a rotina da sua empresa.",
+        gain: "Uma solução que realmente combina com seu negócio",
       },
       {
-        title: "Consultoria de Dados",
-        description: "Estratégia analítica aplicada para decisões de negócio com menor incerteza.",
-        gain: "Inteligência aplicada à execução",
+        title: "Organização e Análise de Dados",
+        description: "Organize informações importantes e transforme dados em respostas úteis para a empresa.",
+        gain: "Decisões mais rápidas e seguras",
       },
     ],
   },
   cases: {
     id: "cases",
-    title: "Cases Reais de Projeto",
+    title: "Projetos realizados",
     subtitle:
-      "Projetos reais entregues em diferentes contextos operacionais, sem métricas fabricadas e com foco em impacto prático.",
-    cardCtaLabel: "Conversar sobre este case",
+      "Conheça soluções que desenvolvi para resolver problemas reais de organização, controle e produtividade.",
+    cardCtaLabel: "Conversar sobre este projeto",
     labels: {
       context: "Contexto",
       problem: "Problema",
       solution: "Solução",
-      stack: "Ferramenta usada",
+      stack: "Solução utilizada",
       impact: "Impacto",
-      chips: "Sinais do projeto",
+      chips: "Resumo do projeto",
     },
     flagship: {
       badge: "PROJETO EM DESTAQUE",
       title: "Sistema de Avaliação (Casa Autoral)",
-      context: "Gestão operacional em ambiente único.",
+      context: "Organização do trabalho em um único sistema.",
       problem:
         "As atividades e decisões ficavam espalhadas, sem visão clara do andamento da operação.",
       solution:
         "Foi criado um sistema centralizado para acompanhar tarefas, status e indicadores em um único fluxo de trabalho.",
       stack: "Sistema web sob medida",
       impact:
-        "Mais previsibilidade de execução, comunicação mais rápida e controle operacional em tempo real.",
+        "Mais controle das atividades, comunicação mais rápida e acompanhamento em tempo real.",
       image:
         "https://lh3.googleusercontent.com/aida-public/AB6AXuBYiEM1izlB6iNV5crm_wJTsSh1UQAsy5PSB-WBBJ6EBD3AcOmPIuG67CnE3CZdDuEJhAZ1rBRWmXKdRUMarRUa5gMo9tE_EI4dwp2AT62vE3H6XT2YmlIHghGMXJsF1hew3_5oM9KDNLCeLFbjDbVu7LYQ7m0Nxaqyok0TaeIc4t60jMDrc6n9gwlMgDnQgPe6fLqgXTeyQNNCf3vck0nR-VZFg9q-SS82MdJ5G27fHCZcCTak1OxBJM6DNMc57WTvu0Rp0NzlUko",
       chips: [
@@ -187,32 +187,32 @@ export const siteContent = {
   },
   methodology: {
     id: "metodologia",
-    badge: "METODOLOGIA APLICADA",
-    title: "O Caminho para a Eficiência Absoluta.",
+    badge: "COMO O PROJETO FUNCIONA",
+    title: "Um processo claro do início à entrega.",
     description:
-      "Uma jornada técnica para transformar caos operacional em estrutura de alta performance, com previsibilidade de entrega.",
+      "Cada etapa é conduzida com comunicação simples, validação e foco no problema que sua empresa precisa resolver.",
     visualImage:
       "https://lh3.googleusercontent.com/aida-public/AB6AXuAngDTSzArReLnZBQb7wC8gt26QXfsuvT8DlhpbPVnjAOEss5yN3AwoxNDE4vZ8Bfci_qEVvGpxz_c2tvlZDSG1sg0NbkvL6DujKPNhB9crckazBfMWtzDzTE3_2-s5RudoI1nhYaZ6Q-el8RzIvJOa4g4v3yR7coxpc4fVtsYStAw0sbaUnc5LPcVV0tlggAHzxjQXS9ovF6ogMwqxWfvIkncy8YwON4kc1FQxQuiBj_oyMcxC6t2AZ7foU3eG375uGhZzhQr5dro",
     steps: [
       {
-        title: "Diagnóstico",
-        description: "Mapeamento profundo de fluxos, gargalos técnicos e desperdícios de operação.",
+        title: "Entendimento",
+        description: "Entendimento da rotina, das dificuldades e do resultado que você deseja alcançar.",
       },
       {
-        title: "Blueprint",
-        description: "Arquitetura da solução, stack recomendada e definição de metas de resultado.",
+        title: "Planejamento",
+        description: "Definição da solução, das ferramentas, do prazo e das prioridades do projeto.",
       },
       {
         title: "Execução",
-        description: "Desenvolvimento iterativo com entregas visíveis e validação contínua.",
+        description: "Desenvolvimento da solução com acompanhamento e validações durante o trabalho.",
       },
       {
-        title: "Refinamento",
-        description: "Otimização de performance, usabilidade e robustez da operação digital.",
+        title: "Ajustes",
+        description: "Melhorias de velocidade, facilidade de uso e funcionamento antes da entrega.",
       },
       {
         title: "Entrega",
-        description: "Onboarding, documentação e suporte para continuidade estratégica.",
+        description: "Orientação de uso, documentação e suporte para começar com segurança.",
       },
     ],
   },
@@ -238,7 +238,7 @@ export const siteContent = {
   },
   faq: {
     id: "faq",
-    title: "Respostas para Estrategistas",
+    title: "Dúvidas frequentes",
     items: [
       {
         question: "Qual o tempo médio de implementação?",
@@ -246,9 +246,9 @@ export const siteContent = {
           "Dependendo da complexidade, os projetos variam entre 4 e 12 semanas. Nas primeiras semanas, já entregamos uma camada funcional para validação.",
       },
       {
-        question: "Vocês trabalham com stacks específicas?",
+        question: "Quais tecnologias você utiliza?",
         answer:
-          "Escolhemos a stack ideal para seu contexto de negócio, priorizando confiabilidade, escalabilidade e governança técnica.",
+          "Escolho as ferramentas mais adequadas para cada projeto, considerando segurança, facilidade de manutenção e possibilidade de crescimento.",
       },
       {
         question: "Existe suporte após a entrega?",
@@ -260,13 +260,13 @@ export const siteContent = {
   contact: {
     id: "contato",
     titleLineOne: "Seu negócio não precisa de mais complexidade.",
-    titleAccent: "Precisa de estrutura e execução.",
+    titleAccent: "Precisa de organização e soluções práticas.",
     description:
-      "Agende uma análise estratégica e descubra onde sua operação está perdendo velocidade, margem e capacidade de decisão.",
+      "Conte o que sua empresa precisa e descubra como um sistema, painel ou automação pode facilitar sua rotina.",
     reassurance: [
       "Resposta técnica em até 24h",
       "Atendimento direto",
-      "Conversa objetiva e estratégica",
+      "Conversa clara e objetiva",
     ],
     form: {
       nameLabel: "Nome",
@@ -274,9 +274,9 @@ export const siteContent = {
       challengeLabel: "Desafio principal",
       namePlaceholder: "Seu nome completo",
       emailPlaceholder: "nome@empresa.com",
-      challengePlaceholder: "Descreva o principal gargalo da sua operação",
-      submit: "Solicitar Diagnóstico Técnico",
-      helper: "Sem compromisso inicial. Retorno técnico e objetivo.",
+      challengePlaceholder: "Descreva o principal problema ou necessidade da sua empresa",
+      submit: "Conversar sobre meu projeto",
+      helper: "Sem compromisso. Retorno claro e objetivo.",
       loading: "Enviando solicitação...",
       successTitle: "Solicitação recebida",
       successMessage: "Resposta técnica enviada em até 24h úteis.",
@@ -292,12 +292,12 @@ export const siteContent = {
       email: "juniordenilson363@gmail.com",
       phone: "+55 81 97331-9128",
       whatsapp:
-        "https://wa.me/5581973319128?text=Olá! Quero conversar sobre estrutura, automação e clareza operacional.",
+        "https://wa.me/5581973319128?text=Olá! Quero conversar sobre um serviço ou projeto.",
       instagram: "https://www.instagram.com/dsolucoes/",
     },
   },
   footer: {
-    note: "Soluções reais em dados, automação e sistemas para operações que precisam de clareza e execução.",
+    note: "Soluções em dados, automação e sistemas para empresas que precisam de mais organização e produtividade.",
     links: [
       { label: "Privacidade", href: "#" },
       { label: "Termos", href: "#" },
