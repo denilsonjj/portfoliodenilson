@@ -27,7 +27,6 @@ export const siteContent = {
     links: [
       { id: "solucoes", label: "Soluções" },
       { id: "servicos", label: "Pacotes", href: "/servicos" },
-      { id: "cases", label: "Projetos" },
       { id: "metodologia", label: "Processo" },
       { id: "faq", label: "FAQ" },
     ],
@@ -42,7 +41,7 @@ export const siteContent = {
     description:
       "Crio sistemas, painéis e automações sob medida para organizar processos, reduzir tarefas manuais e facilitar decisões.",
     primaryCta: { label: "Conversar sobre um projeto", href: "#contato" },
-    secondaryCta: { label: "Ver projetos realizados", href: "#cases" },
+    secondaryCta: { label: "Ver soluções", href: "#solucoes" },
     visual: {
       panelHeader: "Sistema funcionando",
       signalTitle: "Acompanhamento",
@@ -126,62 +125,6 @@ export const siteContent = {
         title: "Organização e Análise de Dados",
         description: "Organize informações importantes e transforme dados em respostas úteis para a empresa.",
         gain: "Decisões mais rápidas e seguras",
-      },
-    ],
-  },
-  cases: {
-    id: "cases",
-    title: "Projetos realizados",
-    subtitle:
-      "Conheça soluções que desenvolvi para resolver problemas reais de organização, controle e produtividade.",
-    cardCtaLabel: "Conversar sobre este projeto",
-    labels: {
-      context: "Contexto",
-      problem: "Problema",
-      solution: "Solução",
-      stack: "Solução utilizada",
-      impact: "Impacto",
-      chips: "Resumo do projeto",
-    },
-    flagship: {
-      badge: "PROJETO EM DESTAQUE",
-      title: "Sistema de Avaliação (Casa Autoral)",
-      context: "Organização do trabalho em um único sistema.",
-      problem:
-        "As atividades e decisões ficavam espalhadas, sem visão clara do andamento da operação.",
-      solution:
-        "Foi criado um sistema centralizado para acompanhar tarefas, status e indicadores em um único fluxo de trabalho.",
-      stack: "Sistema web sob medida",
-      impact:
-        "Mais controle das atividades, comunicação mais rápida e acompanhamento em tempo real.",
-      image:
-        "https://lh3.googleusercontent.com/aida-public/AB6AXuBYiEM1izlB6iNV5crm_wJTsSh1UQAsy5PSB-WBBJ6EBD3AcOmPIuG67CnE3CZdDuEJhAZ1rBRWmXKdRUMarRUa5gMo9tE_EI4dwp2AT62vE3H6XT2YmlIHghGMXJsF1hew3_5oM9KDNLCeLFbjDbVu7LYQ7m0Nxaqyok0TaeIc4t60jMDrc6n9gwlMgDnQgPe6fLqgXTeyQNNCf3vck0nR-VZFg9q-SS82MdJ5G27fHCZcCTak1OxBJM6DNMc57WTvu0Rp0NzlUko",
-      chips: [
-        { label: "Escopo", value: "Centralização da operação" },
-        { label: "Entrega", value: "Painel e fluxo em um único sistema" },
-        { label: "Resultado", value: "Acompanhamento contínuo da equipe" },
-      ],
-    },
-    side: [
-      {
-        badge: "Projeto Real",
-        title: "Dashboard em Excel para Rede de Supermercados",
-        context: "Visão consolidada para decisão comercial.",
-        problem: "Leitura de desempenho fragmentada em múltiplas planilhas.",
-        solution: "Dashboard com visão clara dos indicadores principais para facilitar decisões diárias.",
-        stack: "Dashboard gerencial",
-        impact: "Mais rapidez na tomada de decisão e alinhamento entre áreas.",
-      },
-      {
-        badge: "Projeto Real",
-        title: "Planilha Automatizada para Fábrica (Produção e Envase)",
-        context: "Gestão diária de produção, envase, estoque e vendas dentro de uma única planilha.",
-        problem:
-          "Os lançamentos de produção, envase, estoque e vendas estavam separados, dificultando o controle e atrasando decisões.",
-        solution:
-          "Planilha automatizada com rotinas de lançamento e dashboard integrado para acompanhar operação e desempenho em tempo real.",
-        stack: "Planilha automatizada com dashboard",
-        impact: "Processo mais organizado, menos retrabalho e leitura clara da operação para agir com rapidez.",
       },
     ],
   },

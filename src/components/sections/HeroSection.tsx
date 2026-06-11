@@ -81,7 +81,7 @@ export const HeroSection = () => {
             className="max-w-3xl"
           >
             <span className="section-badge">{siteContent.hero.badge}</span>
-            <h1 id="hero-title" className="headline-xl mt-6 text-white">
+            <h1 id="hero-title" className="headline-xl mt-6 min-w-0 break-words text-white">
               {siteContent.hero.titleLineOne}
               <span className="accent-text block italic">{siteContent.hero.titleAccent}</span>
             </h1>

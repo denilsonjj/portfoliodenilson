@@ -54,11 +54,11 @@ const bioLinks: BioLink[] = [
     event: "bio_services_click",
   },
   {
-    label: "Conhecer projetos reais",
-    description: "Cases entregues com foco em resultado prático.",
-    href: "/#cases",
+    label: "Conhecer como trabalho",
+    description: "Veja as etapas do início até a entrega.",
+    href: "/#metodologia",
     icon: BriefcaseBusiness,
-    event: "bio_cases_click",
+    event: "bio_process_click",
   },
 ];
 
@@ -163,7 +163,7 @@ const BioPage = () => {
                     <span className="absolute -right-1 -top-1 h-3 w-3 rounded-full border border-cyan-100/70 bg-cyan-200" />
                   </div>
                   <div>
-                    <span className="section-badge">DATA + WEB SPECIALIST</span>
+                    <span className="section-badge">DESENVOLVEDOR WEB E ANALISTA DE DADOS</span>
                     <h1 className="mt-3 font-heading text-3xl font-semibold leading-tight text-white sm:text-4xl">
                       Soluções digitais para vender, controlar e decidir melhor.
                     </h1>
@@ -177,7 +177,7 @@ const BioPage = () => {
 
                 <div className="mt-6 grid grid-cols-3 gap-2">
                   {[
-                    ["30+", "Projetos"],
+                    ["50+", "Projetos"],
                     ["30+", "Avaliações"],
                     ["24h", "Retorno"],
                   ].map(([value, label]) => (

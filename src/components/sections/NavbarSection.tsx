@@ -9,7 +9,7 @@ import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
-const sectionIds = ["inicio", "dores", "solucoes", "cases", "metodologia", "faq", "contato"];
+const sectionIds = ["inicio", "dores", "solucoes", "metodologia", "faq", "contato"];
 
 const scrollToSection = (id: string) => {
   const element = document.getElementById(id);

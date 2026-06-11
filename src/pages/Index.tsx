@@ -1,5 +1,4 @@
 ﻿import { SeoHead } from "@/components/seo/SeoHead";
-import { FeaturedCasesSection } from "@/components/sections/FeaturedCasesSection";
 import { FaqSection } from "@/components/sections/FaqSection";
 import { FinalCtaSection } from "@/components/sections/FinalCtaSection";
 import { FooterSection } from "@/components/sections/FooterSection";
@@ -36,7 +35,6 @@ const Index = () => {
         <ProofBarSection />
         <PainPointsSection />
         <SolutionsSection />
-        <FeaturedCasesSection />
         <MethodologySection />
         <TestimonialSection />
         <FaqSection />

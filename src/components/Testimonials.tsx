@@ -63,7 +63,7 @@ const Testimonials = () => {
             <p className="text-sm text-muted-foreground">Nota geral na 99Freelas</p>
           </article>
           <article className="glass-card p-4 text-center">
-            <p className="text-3xl font-bold text-foreground">20+</p>
+            <p className="text-3xl font-bold text-foreground">50+</p>
             <p className="text-sm text-muted-foreground">Projetos entregues</p>
           </article>
           <article className="glass-card p-4 text-center">
