@@ -9,7 +9,7 @@ export const siteContent = {
       "Desenvolvo sistemas sob medida, dashboards executivos e automação para empresas em Recife, Olinda, Paulista, Abreu e Lima e Igarassu.",
     siteUrl,
     canonicalPath: "/",
-    ogImagePath: "/placeholder.svg",
+    ogImagePath: "/og-denilson.jpg",
     instagram: "https://www.instagram.com/dsolucoes/",
     localServiceLine: "Atendimento remoto e visitas em Recife, Olinda, Paulista, Abreu e Lima e Igarassu.",
     serviceDescription:
@@ -26,6 +26,7 @@ export const siteContent = {
   nav: {
     links: [
       { id: "solucoes", label: "Soluções" },
+      { id: "cases", label: "Cases" },
       { id: "servicos", label: "Pacotes", href: "/servicos" },
       { id: "metodologia", label: "Processo" },
       { id: "faq", label: "FAQ" },
@@ -65,10 +66,10 @@ export const siteContent = {
   proof: {
     id: "provas",
       items: [
-        { value: 50, suffix: "+", label: "Projetos entregues" },
-        { value: 30, suffix: "+", label: "Avaliações Positivas e Públicas" },
-        { value: 2025, prefix: "Desde ", label: "Atuação Freelancer", useGrouping: false },
-        { value: 4, suffix: "+", label: "Especializações" },
+        { value: 50, prefix: "", suffix: "+", decimals: 0, label: "Projetos entregues", useGrouping: true, animate: true },
+        { value: 30, prefix: "", suffix: "+", decimals: 0, label: "Avaliações Positivas e Públicas", useGrouping: true, animate: true },
+        { value: 2025, prefix: "Desde ", suffix: "", decimals: 0, label: "Atuação Freelancer", useGrouping: false, animate: false },
+        { value: 4, prefix: "", suffix: "+", decimals: 0, label: "Especializações", useGrouping: true, animate: true },
       ],
     },
   pain: {
@@ -125,6 +126,33 @@ export const siteContent = {
         title: "Organização e Análise de Dados",
         description: "Organize informações importantes e transforme dados em respostas úteis para a empresa.",
         gain: "Decisões mais rápidas e seguras",
+      },
+    ],
+  },
+  cases: {
+    id: "cases",
+    badge: "PROJETOS REAIS",
+    title: "Problemas reais transformados em soluções práticas.",
+    description:
+      "Alguns exemplos de entregas realizadas para organizar operações, automatizar rotinas e facilitar decisões — com escopo adaptado à realidade de cada cliente.",
+    items: [
+      {
+        title: "Aplicação React + Supabase",
+        challenge: "Transformar um protótipo em um produto estável, com dados organizados e estrutura pronta para evoluir.",
+        solution: "Migração do fluxo para React e Supabase, com organização das telas, dados e regras do produto.",
+        result: "Base funcional e escalável, pronta para uso real e novas funcionalidades.",
+      },
+      {
+        title: "Etiquetas médicas em Python",
+        challenge: "Substituir um processo manual e disperso de cadastro e geração de etiquetas.",
+        solution: "Sistema em Python para cadastrar, atualizar e emitir etiquetas com um fluxo simples e padronizado.",
+        result: "Mais consistência operacional e controle do ciclo de etiquetagem.",
+      },
+      {
+        title: "Dashboard para supermercados",
+        challenge: "Consolidar indicadores que estavam espalhados em diferentes planilhas.",
+        solution: "Painel em Excel com leitura rápida, comparação de resultados e visão dos indicadores principais.",
+        result: "Informações mais claras para apoiar decisões comerciais no dia a dia.",
       },
     ],
   },
@@ -242,9 +270,9 @@ export const siteContent = {
   footer: {
     note: "Soluções em dados, automação e sistemas para empresas que precisam de mais organização e produtividade.",
     links: [
-      { label: "Privacidade", href: "#" },
-      { label: "Termos", href: "#" },
-      { label: "Cookies", href: "#" },
+      { label: "Privacidade", href: "/privacidade" },
+      { label: "Termos", href: "/termos" },
+      { label: "Cookies", href: "/cookies" },
       { label: "Instagram", href: "https://www.instagram.com/dsolucoes/" },
     ],
   },

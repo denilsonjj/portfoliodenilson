@@ -1,25 +1,17 @@
 ﻿import { Container } from "@/components/ui/container";
 import { siteContent } from "@/data/siteContent";
-import { motion, useReducedMotion } from "framer-motion";
+import { usePerformanceMode } from "@/hooks/usePerformanceMode";
+import { motion, useInView, useReducedMotion } from "framer-motion";
 import { Gauge, Layers3, Repeat2, ScanSearch, Workflow } from "lucide-react";
-import { lazy, Suspense, useEffect, useState } from "react";
+import { useRef } from "react";
+import { EarthGlobe } from "@/components/ui/earth-globe";
 
 const icons = [Workflow, Gauge, ScanSearch, Repeat2, Layers3];
-const LazyEarthGlobe = lazy(() => import("@/components/ui/earth-globe").then((module) => ({ default: module.EarthGlobe })));
-
 export const PainPointsSection = () => {
   const reduceMotion = useReducedMotion();
-  const [isDesktop, setIsDesktop] = useState(false);
-
-  useEffect(() => {
-    const media = window.matchMedia("(min-width: 1024px)");
-    const onChange = () => setIsDesktop(media.matches);
-    onChange();
-    media.addEventListener("change", onChange);
-    return () => media.removeEventListener("change", onChange);
-  }, []);
-
-  const shouldRenderGlobe = isDesktop;
+  const { lowPower } = usePerformanceMode();
+  const globeRef = useRef<HTMLDivElement>(null);
+  const shouldRenderGlobe = useInView(globeRef, { once: true, margin: "320px 0px" });
 
   return (
     <section id="dores" className="section-wrap surface-alt scroll-mt-24" aria-labelledby="pain-title">
@@ -32,12 +24,18 @@ export const PainPointsSection = () => {
             </h2>
             <p className="muted-copy mt-5 max-w-xl text-base leading-relaxed">{siteContent.pain.description}</p>
 
-            <div className="relative mt-10 hidden h-[470px] overflow-hidden rounded-[0.9rem] border border-cyan-200/10 bg-[linear-gradient(180deg,rgba(6,14,25,0.5),rgba(5,11,20,0.22))] lg:block xl:h-[500px]">
+            <div
+              ref={globeRef}
+              className="relative mt-9 h-[330px] overflow-hidden rounded-[0.9rem] border border-cyan-200/10 bg-[linear-gradient(180deg,rgba(6,14,25,0.5),rgba(5,11,20,0.22))] sm:h-[390px] lg:mt-10 lg:h-[470px] xl:h-[500px]"
+              aria-label="Rede global animada representando sistemas conectados"
+            >
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_38%_30%,rgba(0,224,255,0.12),transparent_44%)]" />
               {shouldRenderGlobe ? (
-                <Suspense fallback={<div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_60%,rgba(0,224,255,0.16),transparent_62%)]" />}>
-                  <LazyEarthGlobe className="absolute inset-2 xl:inset-3" reduceMotion={reduceMotion ?? false} />
-                </Suspense>
+                <EarthGlobe
+                  className="absolute inset-1 sm:inset-2 xl:inset-3"
+                  reduceMotion={reduceMotion ?? false}
+                  lowPower={lowPower}
+                />
               ) : null}
               <motion.div
                 className="pointer-events-none absolute left-1/2 top-[53%] h-[360px] w-[360px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(0,224,255,0.25),transparent_72%)] blur-[28px]"

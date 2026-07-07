@@ -4,7 +4,7 @@ import { GradientButton } from "@/components/ui/gradient-button";
 import { siteContent } from "@/data/siteContent";
 import { trackEvent } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
-import logo from "../assets/logo.png";
+import logo from "../assets/logo.webp";
 import { motion, useReducedMotion } from "framer-motion";
 import {
   ArrowRight,

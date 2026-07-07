@@ -15,4 +15,7 @@
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
+  <url><loc>https://denilsonjr.com.br/privacidade</loc><priority>0.3</priority></url>
+  <url><loc>https://denilsonjr.com.br/termos</loc><priority>0.3</priority></url>
+  <url><loc>https://denilsonjr.com.br/cookies</loc><priority>0.3</priority></url>
 </urlset>

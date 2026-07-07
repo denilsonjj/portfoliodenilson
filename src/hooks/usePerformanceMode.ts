@@ -19,8 +19,7 @@ export const usePerformanceMode = () => {
     const cores = nav.hardwareConcurrency ?? 8;
     const memory = nav.deviceMemory ?? 8;
     const saveData = nav.connection?.saveData === true;
-    const automatedAudit = nav.webdriver === true;
-    const lowPower = saveData || automatedAudit || cores <= 4 || memory <= 4;
+    const lowPower = saveData || cores <= 2 || memory <= 2;
 
     return {
       lowPower,

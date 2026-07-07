@@ -23,7 +23,11 @@ const nodes = [
   { id: "n5", left: "63%", top: "69%", delay: 1.2 },
 ];
 
-const panelPositions = ["left-4 top-16", "right-4 top-36", "left-8 bottom-[4.8rem]"];
+const panelPositions = [
+  "left-3 top-14 sm:left-4 sm:top-16",
+  "right-3 top-28 sm:right-4 sm:top-36",
+  "left-5 bottom-[4.3rem] sm:left-8 sm:bottom-[4.8rem]",
+];
 
 export const HeroSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -104,11 +108,11 @@ export const HeroSection = () => {
             initial={reduceMotion ? false : { opacity: 0, y: 26 }}
             animate={reduceMotion ? {} : { opacity: 1, y: 0 }}
             transition={{ duration: 0.55, delay: 0.12, ease: [0.2, 0.8, 0.2, 1] }}
-            className="relative hidden lg:block"
+            className="relative mx-auto block w-full max-w-lg lg:max-w-none"
             style={{ y: reduceMotion ? 0 : panelY }}
           >
-            <div className="hero-right-frame p-5">
-              <div className="hero-system relative h-[34rem] rounded-md border border-white/10 bg-[#0a111d]/92 p-4">
+            <div className="hero-right-frame p-3 sm:p-5">
+              <div className="hero-system relative h-[27rem] rounded-md border border-white/10 bg-[#0a111d]/92 p-3 sm:h-[31rem] sm:p-4 lg:h-[34rem]">
                 <motion.img
                   src={siteContent.hero.visual.image}
                   alt=""
@@ -182,12 +186,12 @@ export const HeroSection = () => {
                       className={`hero-floating-card absolute ${panelPositions[index]}`}
                     >
                       <p className="text-[11px] uppercase tracking-[0.15em] text-cyan-200/85">{panel.label}</p>
-                      <p className="mt-2 text-sm font-semibold text-white">{panel.value}</p>
+                      <p className="mt-1.5 text-xs font-semibold leading-snug text-white sm:mt-2 sm:text-sm">{panel.value}</p>
                     </motion.div>
                   ))}
                 </div>
 
-                <div className="absolute bottom-[5.4rem] right-4 z-20 rounded-sm border border-white/10 bg-[#0f1726]/90 p-3">
+                <div className="absolute bottom-[4.8rem] right-3 z-20 w-[10rem] rounded-sm border border-white/10 bg-[#0f1726]/90 p-2.5 sm:bottom-[5.4rem] sm:right-4 sm:w-auto sm:p-3">
                   <div className="mb-2 flex items-center justify-between text-[10px] uppercase tracking-[0.14em] text-slate-400">
                     <span>{siteContent.hero.visual.signalTitle}</span>
                     <span>{siteContent.hero.visual.signalState}</span>

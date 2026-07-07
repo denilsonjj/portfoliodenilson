@@ -9,7 +9,7 @@ import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
-const sectionIds = ["inicio", "dores", "solucoes", "metodologia", "faq", "contato"];
+const sectionIds = ["inicio", "dores", "solucoes", "cases", "metodologia", "faq", "contato"];
 
 const scrollToSection = (id: string) => {
   const element = document.getElementById(id);
@@ -53,7 +53,7 @@ export const NavbarSection = () => {
             <p className="text-[11px] uppercase tracking-[0.12em] text-slate-400">{siteContent.brand.descriptor}</p>
           </button>
 
-          <ul className="hidden items-center gap-9 md:flex">
+          <ul className="hidden items-center gap-5 lg:flex lg:gap-7 xl:gap-9">
             {siteContent.nav.links.map((link) => {
               const isRouteLink = "href" in link && link.href.startsWith("/");
               const isActive = isRouteLink ? location.pathname === link.href : activeSection === link.id;
@@ -90,14 +90,14 @@ export const NavbarSection = () => {
             })}
           </ul>
 
-          <div className="hidden md:block">
+          <div className="hidden lg:block">
             <GradientButton asChild>
               <a href={siteContent.nav.cta.href}>{siteContent.nav.cta.label}</a>
             </GradientButton>
           </div>
 
           <button
-            className="inline-flex h-10 w-10 items-center justify-center rounded-sm border border-slate-700/70 bg-[#101826]/80 text-slate-100 md:hidden"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-sm border border-slate-700/70 bg-[#101826]/80 text-slate-100 lg:hidden"
             onClick={() => setIsOpen((prev) => !prev)}
             aria-label={isOpen ? "Fechar menu" : "Abrir menu"}
             aria-expanded={isOpen}
@@ -114,7 +114,7 @@ export const NavbarSection = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.2 }}
-            className="border-t border-white/10 bg-[#070b12]/96 backdrop-blur-2xl md:hidden"
+            className="border-t border-white/10 bg-[#070b12]/96 backdrop-blur-2xl lg:hidden"
           >
             <Container className="py-4">
               <ul className="space-y-2">

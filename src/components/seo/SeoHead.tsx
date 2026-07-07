@@ -100,6 +100,12 @@ export const SeoHead = ({
     setMeta("property", "og:site_name", brandName);
     setMeta("property", "og:locale", "pt_BR");
     setMeta("property", "og:image", ogImageUrl);
+    setMeta("property", "og:image:width", "1200");
+    setMeta("property", "og:image:height", "630");
+    setMeta("name", "twitter:card", "summary_large_image");
+    setMeta("name", "twitter:title", title);
+    setMeta("name", "twitter:description", description);
+    setMeta("name", "twitter:image", ogImageUrl);
     setCanonical(canonicalUrl);
 
     setJsonLd("website", {
