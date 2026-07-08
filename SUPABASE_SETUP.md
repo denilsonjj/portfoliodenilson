@@ -83,6 +83,10 @@ A planilha usada para o seu fluxo atual e:
 
 No projeto da Vercel, em `Environment Variables`, adicione as mesmas variaveis do `.env`.
 
+Adicione tambem `CRON_SECRET` apenas no ambiente de Production. Use um valor aleatorio com pelo menos 16 caracteres. A Vercel enviara esse segredo automaticamente ao cron diario configurado em `vercel.json`.
+
+O endpoint `/api/cron/supabase-keepalive` executa tres consultas minimas por dia para gerar atividade real no banco sem ler ou alterar mensagens.
+
 ## 7) Sobre IA
 
 A parte de IA pode ficar ignorada.
