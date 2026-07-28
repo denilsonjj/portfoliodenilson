@@ -2,7 +2,7 @@ import { Container } from "@/components/ui/container";
 import { siteContent } from "@/data/siteContent";
 import { cn } from "@/lib/utils";
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowUpRight, CheckCircle2, Circle, Github, Radio, Rocket } from "lucide-react";
+import { ArrowUpRight, CheckCircle2, Circle, Radio, Rocket } from "lucide-react";
 
 const statusStyles = {
   done: {
@@ -30,33 +30,9 @@ export const ProductEvolutionSection = () => {
   const content = siteContent.productEvolution;
 
   return (
-    <section id={content.id} className="surface-alt scroll-mt-24 py-16 md:py-24" aria-labelledby="product-evolution-title">
+    <section id={content.id} className="surface-alt scroll-mt-24 py-16 md:py-24" aria-label="Evolu??o do produto Comandativa">
       <Container>
-        <div className="grid gap-8 lg:grid-cols-[0.86fr_1.14fr] lg:items-center lg:gap-12">
-          <motion.div
-            initial={reduceMotion ? false : { opacity: 0, y: 18 }}
-            whileInView={reduceMotion ? {} : { opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.28 }}
-            transition={{ duration: 0.36 }}
-          >
-            <span className="section-badge">{content.badge}</span>
-            <h2 id="product-evolution-title" className="headline-lg mt-5 max-w-2xl text-white">
-              {content.title}
-            </h2>
-            <p className="muted-copy mt-5 max-w-xl text-base leading-relaxed">{content.description}</p>
-
-            <a
-              href={content.repoUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="mt-7 inline-flex items-center gap-2 rounded-full border border-cyan-200/24 bg-cyan-200/8 px-4 py-2 text-sm font-bold text-cyan-100 transition hover:border-cyan-200/50 hover:bg-cyan-200/14"
-            >
-              <Github size={16} />
-              {content.repoLabel}
-              <ArrowUpRight size={15} />
-            </a>
-          </motion.div>
-
+        <div className="mx-auto grid max-w-3xl gap-8">
           <motion.article
             initial={reduceMotion ? false : { opacity: 0, y: 26, scale: 0.985 }}
             whileInView={reduceMotion ? {} : { opacity: 1, y: 0, scale: 1 }}

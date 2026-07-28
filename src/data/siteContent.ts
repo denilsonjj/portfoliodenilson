@@ -189,12 +189,6 @@ export const siteContent = {
   },
   productEvolution: {
     id: "comandativa",
-    badge: "SAAS EM DESENVOLVIMENTO",
-    title: "Comandativa: evolução real de um produto próprio.",
-    description:
-      "Além dos projetos para clientes, estou construindo um SaaS multiempresa para cardápio digital, pedidos, comandas, operação de salão e pagamentos. Aqui aparecem apenas marcos relevantes do produto, organizados a partir das entregas publicadas no GitHub.",
-    repoLabel: "Ver changelog no GitHub",
-    repoUrl: "https://github.com/denilsonjj/rotamesa",
     sprint: "CICLO 07",
     projectName: "Comandativa",
     status: "Ao vivo",
