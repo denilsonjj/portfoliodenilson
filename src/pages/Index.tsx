@@ -7,6 +7,7 @@ import { HeroSection } from "@/components/sections/HeroSection";
 import { MethodologySection } from "@/components/sections/MethodologySection";
 import { NavbarSection } from "@/components/sections/NavbarSection";
 import { PainPointsSection } from "@/components/sections/PainPointsSection";
+import { ProductEvolutionSection } from "@/components/sections/ProductEvolutionSection";
 import { ProofBarSection } from "@/components/sections/ProofBarSection";
 import { SolutionsSection } from "@/components/sections/SolutionsSection";
 import { TestimonialSection } from "@/components/sections/TestimonialSection";
@@ -38,6 +39,7 @@ const Index = () => {
         <SolutionsSection />
         <CaseStudiesSection />
         <MethodologySection />
+        <ProductEvolutionSection />
         <TestimonialSection />
         <FaqSection />
         <FinalCtaSection />

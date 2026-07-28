@@ -187,6 +187,66 @@ export const siteContent = {
       },
     ],
   },
+  productEvolution: {
+    id: "comandativa",
+    badge: "SAAS EM DESENVOLVIMENTO",
+    title: "Comandativa: evolução real de um produto próprio.",
+    description:
+      "Além dos projetos para clientes, estou construindo um SaaS multiempresa para cardápio digital, pedidos, comandas, operação de salão e pagamentos. Aqui aparecem apenas marcos relevantes do produto, organizados a partir das entregas publicadas no GitHub.",
+    repoLabel: "Ver changelog no GitHub",
+    repoUrl: "https://github.com/denilsonjj/rotamesa",
+    sprint: "CICLO 07",
+    projectName: "Comandativa",
+    status: "Ao vivo",
+    deliveryLabel: "Fase atual",
+    deliveryTitle: "Preparação para operação real",
+    progressLabel: "4 / 6 marcos principais",
+    progress: 67,
+    highlights: [
+      "SaaS multiempresa",
+      "PWA e operação offline",
+      "Pagamentos e notificações",
+      "Segurança, LGPD e RLS",
+    ],
+    milestones: [
+      {
+        title: "Fundação segura do SaaS e design system",
+        status: "done",
+        source: "Build secure product foundation and design system",
+        url: "https://github.com/denilsonjj/rotamesa/commit/0a54ea6a749e49a52f72c62d4458960e2721b466",
+      },
+      {
+        title: "Fluxos locais, comandas e operação offline",
+        status: "done",
+        source: "Complete local SaaS product flows",
+        url: "https://github.com/denilsonjj/rotamesa/commit/5b592b037c6f85a450a7f0584773179c183c0e0e",
+      },
+      {
+        title: "Pagamentos, assinaturas e notificações",
+        status: "done",
+        source: "Implement production payment and notification flows",
+        url: "https://github.com/denilsonjj/rotamesa/commit/53662929f418ca48a33f3de1dbb108ed5c586bb8",
+      },
+      {
+        title: "Hardening de webhooks, tokens e produção",
+        status: "done",
+        source: "Harden Mercado Pago token refresh and webhooks",
+        url: "https://github.com/denilsonjj/rotamesa/commit/55c419f99980b2b20d7a27416ef7bee7251d8504",
+      },
+      {
+        title: "Deploy Cloudflare Workers e build de produção",
+        status: "active",
+        source: "Add Cloudflare Workers configuration",
+        url: "https://github.com/denilsonjj/rotamesa/commit/034d2e9f00573ec5ab5b01c1d2a07f539beabd97",
+      },
+      {
+        title: "Responsividade, tema claro e dashboards operacionais",
+        status: "active",
+        source: "Fix table sales dashboard and light theme",
+        url: "https://github.com/denilsonjj/rotamesa/commit/3ae9e993c46e0093d21c05f26a7e92e60309c3a4",
+      },
+    ],
+  },
   testimonial: {
     main: {
       quote:
