@@ -202,12 +202,6 @@ export const siteContent = {
     deliveryTitle: "Preparação para operação real",
     progressLabel: "4 / 6 marcos principais",
     progress: 67,
-    highlights: [
-      "SaaS multiempresa",
-      "PWA e operação offline",
-      "Pagamentos e notificações",
-      "Segurança, LGPD e RLS",
-    ],
     milestones: [
       {
         title: "Fundação segura do SaaS e design system",

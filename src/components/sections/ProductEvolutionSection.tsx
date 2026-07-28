@@ -2,7 +2,7 @@ import { Container } from "@/components/ui/container";
 import { siteContent } from "@/data/siteContent";
 import { cn } from "@/lib/utils";
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowUpRight, CheckCircle2, Circle, Github, Radio, Rocket, ShieldCheck } from "lucide-react";
+import { ArrowUpRight, CheckCircle2, Circle, Github, Radio, Rocket } from "lucide-react";
 
 const statusStyles = {
   done: {
@@ -44,21 +44,6 @@ export const ProductEvolutionSection = () => {
               {content.title}
             </h2>
             <p className="muted-copy mt-5 max-w-xl text-base leading-relaxed">{content.description}</p>
-
-            <div className="mt-7 grid gap-3 sm:grid-cols-2">
-              {content.highlights.map((highlight, index) => (
-                <motion.div
-                  key={highlight}
-                  initial={reduceMotion ? false : { opacity: 0, y: 12 }}
-                  whileInView={reduceMotion ? {} : { opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.4 }}
-                  transition={{ duration: 0.28, delay: index * 0.04 }}
-                  className="rounded-md border border-white/10 bg-white/[0.035] px-4 py-3 text-sm font-semibold text-slate-200"
-                >
-                  {highlight}
-                </motion.div>
-              ))}
-            </div>
 
             <a
               href={content.repoUrl}
@@ -147,14 +132,6 @@ export const ProductEvolutionSection = () => {
                   </a>
                 );
               })}
-            </div>
-
-            <div className="relative mt-5 flex items-start gap-3 rounded-md border border-cyan-200/12 bg-cyan-200/[0.045] p-4">
-              <ShieldCheck className="mt-0.5 shrink-0 text-cyan-200" size={18} />
-              <p className="text-sm leading-relaxed text-slate-300">
-                Curadoria manual: entram aqui entregas estruturais, como operação offline, segurança, pagamentos, deploy e correções críticas.
-                Ajustes pequenos continuam apenas no histórico do GitHub.
-              </p>
             </div>
           </motion.article>
         </div>
