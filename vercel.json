@@ -8,8 +8,20 @@
   ],
   "rewrites": [
     {
-      "source": "/(.*)",
+      "source": "/",
       "destination": "/index.html"
+    },
+    {
+      "source": "/projetos/:slug",
+      "destination": "/projetos/:slug.html"
+    },
+    {
+      "source": "/servicos/:slug",
+      "destination": "/servicos/:slug.html"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/app.html"
     }
   ]
 }

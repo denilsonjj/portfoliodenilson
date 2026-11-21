@@ -5,6 +5,8 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import LegalPage from "./pages/LegalPage";
 import ServicesPage from "./pages/ServicesPage";
+import ProjectPage from "./pages/ProjectPage";
+import ServiceDetailPage from "./pages/ServiceDetailPage";
 
 const App = () => {
   return (
@@ -14,6 +16,8 @@ const App = () => {
         <Route path="/" element={<Index />} />
         <Route path="/bio" element={<BioPage />} />
         <Route path="/servicos" element={<ServicesPage />} />
+        <Route path="/servicos/:slug" element={<ServiceDetailPage />} />
+        <Route path="/projetos/:slug" element={<ProjectPage />} />
         <Route path="/privacidade" element={<LegalPage />} />
         <Route path="/termos" element={<LegalPage />} />
         <Route path="/cookies" element={<LegalPage />} />

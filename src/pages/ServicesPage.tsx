@@ -5,6 +5,7 @@ import { SeoHead } from "@/components/seo/SeoHead";
 import { siteContent } from "@/data/siteContent";
 import { trackEvent } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
+import { whatsappWithMessage } from "@/lib/whatsapp";
 import { motion, useReducedMotion } from "framer-motion";
 import {
   ArrowRight,
@@ -22,8 +23,8 @@ import {
   Sparkles,
   X,
 } from "lucide-react";
-import { useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useMemo, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 type ServicePackage = {
   name: string;
@@ -57,8 +58,6 @@ type FormValues = {
   deadline: string;
   brief: string;
 };
-
-const WHATSAPP_BASE_URL = "https://wa.me/5581973319128";
 
 const serviceCategories: ServiceCategory[] = [
   {
@@ -279,7 +278,7 @@ const buildWhatsAppUrl = (values: Pick<FormValues, "service" | "packageName" | "
     values.brief ? `Contexto: ${values.brief}` : "Pode me ajudar a escolher o melhor pacote?",
   ].join("\n");
 
-  return `${WHATSAPP_BASE_URL}?text=${encodeURIComponent(text)}`;
+  return whatsappWithMessage(text);
 };
 
 const buildLeadMessage = (values: FormValues) =>
@@ -296,12 +295,17 @@ const buildLeadMessage = (values: FormValues) =>
   ].join("\n");
 
 const ServicesPage = () => {
+  const { hash } = useLocation();
   const [activeCategoryId, setActiveCategoryId] = useState(serviceCategories[0].id);
   const [values, setValues] = useState<FormValues>(initialValues);
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [message, setMessage] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const reduceMotion = useReducedMotion();
+
+  useEffect(() => {
+    if (hash === "#catalogo") document.getElementById("catalogo")?.scrollIntoView();
+  }, [hash]);
 
   const activeCategory = useMemo(
     () => serviceCategories.find((category) => category.id === activeCategoryId) ?? serviceCategories[0],
@@ -385,7 +389,7 @@ const ServicesPage = () => {
     { label: "Início", href: "/" },
     { label: "Pacotes", href: "#catalogo" },
     { label: "Fluxo", href: "#fluxo" },
-    { label: "Orçamento", href: "#orcamento" },
+    { label: "Formulário", href: "#orcamento" },
   ];
 
   return (
@@ -496,9 +500,12 @@ const ServicesPage = () => {
                     </a>
                   </GradientButton>
                   <GradientButton asChild variant="secondary" size="large">
-                    <a href="#orcamento">Gerar orçamento</a>
+                    <a href={siteContent.contact.channels.whatsapp} target="_blank" rel="noopener noreferrer">
+                      Pedir orçamento no WhatsApp <MessageCircle size={16} aria-hidden="true" />
+                    </a>
                   </GradientButton>
                 </div>
+                <a className="mt-3 inline-block text-sm font-semibold text-cyan-200 hover:underline" href="#orcamento">Enviar pelo formulário</a>
               </motion.div>
 
               <motion.aside
@@ -677,11 +684,8 @@ const ServicesPage = () => {
                         </li>
                       ))}
                     </ul>
-                    <div className="mt-7 grid gap-3 sm:grid-cols-2">
-                      <GradientButton onClick={() => selectPackage(activeCategory, item)} className="w-full">
-                        Selecionar
-                      </GradientButton>
-                      <GradientButton asChild variant="secondary" className="w-full">
+                    <div className="mt-7 grid gap-3">
+                      <GradientButton asChild className="w-full">
                         <a
                           href={buildWhatsAppUrl({
                             service: activeCategory.label,
@@ -692,8 +696,11 @@ const ServicesPage = () => {
                           rel="noreferrer"
                           onClick={() => trackEvent("whatsapp_click", { source: "service_package", service: activeCategory.id, package: item.name })}
                         >
-                          WhatsApp
+                          Pedir orçamento no WhatsApp
                         </a>
+                      </GradientButton>
+                      <GradientButton variant="secondary" onClick={() => selectPackage(activeCategory, item)} className="w-full">
+                        Enviar pelo formulário
                       </GradientButton>
                     </div>
                   </article>
@@ -859,7 +866,7 @@ const ServicesPage = () => {
 
                 <div className="mt-5 grid gap-3 sm:grid-cols-[1fr_auto]">
                   <GradientButton type="submit" size="large" disabled={status === "loading"}>
-                    {status === "loading" ? "Enviando..." : "Solicitar orçamento"}
+                    {status === "loading" ? "Enviando..." : "Enviar briefing"}
                   </GradientButton>
                   <GradientButton asChild variant="secondary" size="large">
                     <a

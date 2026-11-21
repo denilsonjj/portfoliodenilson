@@ -1,5 +1,12 @@
-import { createRoot } from "react-dom/client";
+import { createRoot, hydrateRoot } from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
+import "./styles/portfolio.css";
 
-createRoot(document.getElementById("root")!).render(<App />);
+const root = document.getElementById("root")!;
+const pathname = window.location.pathname.replace(/\/+$/, "") || "/";
+if (root.dataset.prerendered === pathname) {
+  hydrateRoot(root, <App />);
+} else {
+  createRoot(root).render(<App />);
+}

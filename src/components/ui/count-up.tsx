@@ -51,8 +51,6 @@ export const CountUp = ({ value, prefix = "", suffix = "", decimals = 0, useGrou
   }, [animate, base, finalText, inView, reduceMotion, smooth, value]);
 
   return (
-    <span ref={ref} className={className} aria-label={finalText}>
-      {animate ? `${prefix}${formatNumber(0, decimals, useGrouping)}${suffix}` : finalText}
-    </span>
+    <span ref={ref} className={className} aria-label={finalText}>{finalText}</span>
   );
 };

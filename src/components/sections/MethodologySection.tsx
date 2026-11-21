@@ -20,6 +20,7 @@ export const MethodologySection = () => {
   const stepsCount = siteContent.methodology.steps.length;
 
   useMotionValueEvent(scrollYProgress, "change", (value) => {
+    if (reduceMotion) return;
     const clamped = Math.min(1, Math.max(0, value));
     const index = Math.min(stepsCount - 1, Math.max(0, Math.round(clamped * (stepsCount - 1))));
     setActiveIndex((current) => (current === index ? current : index));
@@ -28,7 +29,7 @@ export const MethodologySection = () => {
   return (
     <section
       id={siteContent.methodology.id}
-      className="surface-base scroll-mt-24 pb-12 pt-16 md:pb-16 md:pt-20"
+      className="portfolio-methodology surface-base scroll-mt-24 pb-12 pt-16 md:pb-16 md:pt-20"
       aria-labelledby="method-title"
     >
       <Container>
@@ -86,21 +87,14 @@ export const MethodologySection = () => {
 
           <div ref={timelineRef} className="relative pb-10 pl-10 sm:pl-12">
             <div className="absolute bottom-5 left-4 top-2 w-px bg-slate-700/55">
-              <motion.div className="w-full origin-top bg-cyan-200" style={reduceMotion ? { scaleY: 1 } : { scaleY: progress }} />
+              <motion.div className="h-full w-full origin-top bg-cyan-200" style={{ scaleY: progress }} />
             </div>
 
             <div className="space-y-8 lg:space-y-9">
               {siteContent.methodology.steps.map((step, index) => (
-                <motion.article
+                <article
                   key={step.title}
-                  viewport={{ amount: 0.6 }}
-                  initial={reduceMotion ? false : { opacity: 0, y: 34 }}
-                  whileInView={reduceMotion ? {} : { opacity: 1, y: 0 }}
-                  transition={
-                    reduceMotion
-                      ? {}
-                      : { type: "spring", stiffness: 130, damping: 20, mass: 0.5, delay: index * 0.04 }
-                  }
+                  data-portfolio-reveal
                   className={cn(
                     "method-card relative z-10 p-5 shadow-[0_14px_30px_-22px_rgba(0,0,0,0.85)] sm:p-6",
                     activeIndex === index && "border-cyan-200/42 bg-[#122033]",
@@ -117,7 +111,7 @@ export const MethodologySection = () => {
                   </p>
                   <h3 className="mt-2 font-heading text-2xl font-semibold text-white">{step.title}</h3>
                   <p className="mt-3 text-sm leading-relaxed text-slate-300 sm:text-base">{step.description}</p>
-                </motion.article>
+                </article>
               ))}
             </div>
           </div>

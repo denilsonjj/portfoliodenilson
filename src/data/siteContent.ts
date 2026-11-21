@@ -1,6 +1,6 @@
-﻿const runtimeOrigin = typeof window !== "undefined" ? window.location.origin : "";
-const configuredOrigin = (import.meta.env.VITE_SITE_URL ?? "").trim();
-const siteUrl = (configuredOrigin || runtimeOrigin || "https://denilsonjr.com.br").replace(/\/+$/, "");
+﻿const configuredOrigin = (import.meta.env.VITE_SITE_URL ?? "").trim();
+const siteUrl = (configuredOrigin || "https://denilsonjr.com.br").replace(/\/+$/, "");
+const serviceCities = ["Recife", "Olinda", "Paulista", "Abreu e Lima", "Igarassu"] as const;
 
 export const siteContent = {
   seo: {
@@ -11,10 +11,11 @@ export const siteContent = {
     canonicalPath: "/",
     ogImagePath: "/og-denilson.jpg",
     instagram: "https://www.instagram.com/dsolucoes/",
-    localServiceLine: "Atendimento remoto e visitas em Recife, Olinda, Paulista, Abreu e Lima e Igarassu.",
+    localServiceLine: "Atendimento remoto em todo o Brasil e visitas na Região Metropolitana do Recife.",
     serviceDescription:
       "Desenvolvimento de sistemas, dashboards executivos, planilhas inteligentes e automação de processos para empresas na Grande Recife.",
-    areaServed: ["Recife", "Olinda", "Paulista", "Abreu e Lima", "Igarassu", "Grande Recife"],
+    serviceCities,
+    areaServed: [...serviceCities, "Grande Recife"],
     addressLocality: "Recife",
     addressRegion: "PE",
     addressCountry: "BR",
@@ -188,6 +189,7 @@ export const siteContent = {
     ],
   },
   testimonial: {
+    profileUrl: "https://www.99freelas.com.br/user/denilson.junior",
     main: {
       quote:
         "Entrega muito acima da expectativa, com comunicação clara durante todo o projeto e uma solução funcional que resolveu nosso problema real.",
