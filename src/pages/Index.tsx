@@ -9,13 +9,14 @@ import { MethodologySection } from "@/components/sections/MethodologySection";
 import { SeoHead } from "@/components/seo/SeoHead";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { CountUp } from "@/components/ui/count-up";
-import { contactInterests, featuredProjects, pastProjects, portfolioSeo, projectLabel, projectPath, projects, services, type ContactInterestId } from "@/data/portfolio";
+import { contactInterests, featuredProjects, pastProjects, portfolioSeo, projectLabel, projectPath, projects, services, webService, type ContactInterestId } from "@/data/portfolio";
 import { servicePath } from "@/data/servicePages";
 import { siteContent } from "@/data/siteContent";
 import { trackEvent } from "@/lib/analytics";
 
 const proof = siteContent.proof.items.slice(0, 2);
 const reviewedProjects = projects.filter((project) => project.review).slice(0, 3);
+const homepageServices = [...services.map((item) => ({ ...item, href: servicePath(item.id) })), webService];
 const faqs = [
   { question: "Quanto custa um projeto sob medida?", answer: "Depende do escopo, das integrações e das fontes de dados. Depois de entender sua rotina, monto uma proposta com o que será entregue, prazo e investimento." },
   { question: "Dá para aproveitar minhas planilhas e ferramentas atuais?", answer: "Sim. Primeiro avalio as planilhas, sistemas e integrações que você já usa. A proposta indica o que dá para reaproveitar e o que precisa ser ajustado." },
@@ -127,12 +128,12 @@ const Index = () => {
           <div className="portfolio-container portfolio-split">
             <div><p className="portfolio-eyebrow">Serviços</p><h2 id="portfolio-services-title">Onde posso<br /> ajudar.</h2><p className="portfolio-section-copy">De uma rotina que ocupa horas até um sistema inteiro para a equipe.</p><a className="portfolio-text-link" href="/servicos">Ver pacotes e preços <Plus size={16} aria-hidden="true" /></a></div>
             <div className="portfolio-service-list">
-              {services.map((item) => {
+              {homepageServices.map((item) => {
                 const Icon = projectIcons[item.id];
                 return (
                   <article key={item.id} className="portfolio-service" data-portfolio-reveal>
                     <span className="portfolio-service-icon"><Icon size={22} aria-hidden="true" /></span>
-                    <div><h3><a className="portfolio-service-title" href={servicePath(item.id)}>{item.title} <Plus size={17} aria-hidden="true" /></a></h3><p>{item.description}</p>
+                    <div><h3><a className="portfolio-service-title" href={item.href}>{item.title} <Plus size={17} aria-hidden="true" /></a></h3><p>{item.description}</p>
                       <PortfolioQuoteLink source="service" context={{ service: item }} className="portfolio-text-link" />
                     </div>
                   </article>

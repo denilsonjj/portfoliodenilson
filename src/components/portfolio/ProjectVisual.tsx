@@ -1,4 +1,4 @@
-import { BarChart3, CalendarDays, Database, FileSpreadsheet, FileText, LayoutGrid, Mail, Tag, Truck, Workflow } from "lucide-react";
+import { BarChart3, CalendarDays, Database, FileSpreadsheet, FileText, Globe2, LayoutGrid, Mail, Tag, Truck, Workflow } from "lucide-react";
 import type { Project } from "@/data/portfolio";
 
 export const ProjectVisual = ({ project }: { project: Project }) => (
@@ -108,4 +108,4 @@ const ChartBars = ({ values }: { values: readonly number[] }) => (
   <div className="demo-bars">{values.map((height) => <i key={height} style={{ height: `${height}%` }} />)}</div>
 );
 
-export const projectIcons = { sistemas: LayoutGrid, dashboards: BarChart3, automacoes: Workflow };
+export const projectIcons = { sistemas: LayoutGrid, dashboards: BarChart3, automacoes: Workflow, sites: Globe2 };

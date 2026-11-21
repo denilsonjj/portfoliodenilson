@@ -6,8 +6,8 @@ export const PortfolioHeader = ({ home = false, quote }: { home?: boolean; quote
     <a className="portfolio-skip" href="#main-content">Pular para o conteúdo</a>
     <div className="portfolio-container portfolio-header-inner">
       <a className="portfolio-brand" href={home ? "#inicio" : "/"}>
-        <span className="portfolio-monogram" aria-hidden="true">dj<span>.</span></span>
-        <span>Denilson Junior</span>
+        <span className="portfolio-brand-name">{siteContent.brand.name}</span>
+        <span className="portfolio-brand-descriptor">{siteContent.brand.descriptor}</span>
       </a>
       <nav aria-label="Navegação principal">
         <a href={home ? "#cases" : "/#cases"}>Projetos</a>

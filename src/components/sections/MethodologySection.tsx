@@ -15,8 +15,7 @@ export const MethodologySection = () => {
   });
 
   const progress = useSpring(scrollYProgress, { stiffness: 110, damping: 24, mass: 0.55 });
-  const routeTravel = useTransform(scrollYProgress, [0, 0.45, 0.78, 1], [0, 24, 150, 300]);
-  const routeY = useSpring(routeTravel, { stiffness: 96, damping: 22, mass: 0.72 });
+  const routeY = useTransform(progress, [0, 1], [0, 12]);
   const stepsCount = siteContent.methodology.steps.length;
 
   useMotionValueEvent(scrollYProgress, "change", (value) => {
@@ -33,59 +32,51 @@ export const MethodologySection = () => {
       aria-labelledby="method-title"
     >
       <Container>
-        <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14">
-          <div className="relative">
-            <div className="lg:sticky lg:top-20">
-              <span className="section-badge">{siteContent.methodology.badge}</span>
-              <h2 id="method-title" className="headline-lg mt-5 text-white">
-                {siteContent.methodology.title}
-              </h2>
-              <p className="muted-copy mt-5 max-w-md text-base leading-relaxed">{siteContent.methodology.description}</p>
-
-              <div className="mt-9 hidden lg:block">
-                <motion.div style={reduceMotion ? undefined : { y: routeY }}>
-                  <div className="rounded-[0.95rem] border border-cyan-200/14 bg-[radial-gradient(circle_at_50%_0%,rgba(0,224,255,0.14),rgba(6,14,26,0.94)_50%),linear-gradient(180deg,#060f1d_0%,#050b14_100%)] p-5 shadow-[0_24px_52px_-30px_rgba(0,0,0,0.9),0_0_26px_-20px_rgba(0,224,255,0.35)]">
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-cyan-200/90">Etapas do projeto</p>
-
-                    <div className="mt-4 space-y-2.5">
-                      {siteContent.methodology.steps.map((step, index) => (
-                        <div key={step.title} className="flex items-center gap-2.5">
-                          <span
-                            className={cn(
-                              "h-2.5 w-2.5 rounded-full border border-slate-500 bg-slate-600/55 transition-all duration-300",
-                              activeIndex >= index && "border-cyan-200 bg-cyan-200 shadow-[0_0_14px_rgba(151,247,255,0.55)]",
-                            )}
-                          />
-                          <p
-                            className={cn(
-                              "text-xs font-medium uppercase tracking-[0.11em] text-slate-400 transition-colors duration-300",
-                              activeIndex >= index && "text-cyan-100",
-                            )}
-                          >
-                            {String(index + 1).padStart(2, "0")} · {step.title}
-                          </p>
-                        </div>
-                      ))}
-                    </div>
-
-                    <div className="mt-4 grid grid-cols-5 gap-1.5">
-                      {siteContent.methodology.steps.map((step, index) => (
-                        <div
-                          key={step.title}
-                          className={cn("h-1 rounded-full transition-colors duration-300", activeIndex >= index ? "bg-cyan-200/85" : "bg-slate-500/35")}
-                        />
-                      ))}
-                    </div>
-                    <p className="mt-3 text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-300">
-                      Etapa ativa: {String(activeIndex + 1).padStart(2, "0")} · {siteContent.methodology.steps[activeIndex]?.title}
-                    </p>
-                  </div>
-                </motion.div>
-              </div>
-            </div>
+        <div className="portfolio-method-layout">
+          <div className="portfolio-method-heading">
+            <span className="section-badge">{siteContent.methodology.badge}</span>
+            <h2 id="method-title" className="headline-lg mt-5 text-white">
+              {siteContent.methodology.title}
+            </h2>
+            <p className="muted-copy mt-5 max-w-md text-base leading-relaxed">{siteContent.methodology.description}</p>
           </div>
 
-          <div ref={timelineRef} className="relative pb-10 pl-10 sm:pl-12">
+          <div className="portfolio-method-overview">
+            <motion.div
+              className="portfolio-method-panel rounded-[0.95rem] border border-cyan-200/20 p-3 shadow-[0_18px_38px_-22px_rgba(0,0,0,0.85)] sm:p-5"
+              style={reduceMotion ? undefined : { y: routeY }}
+            >
+              <p className="text-xs font-semibold uppercase tracking-[0.13em] text-cyan-200/90">Etapas do projeto</p>
+              <div className="portfolio-method-step-list">
+                {siteContent.methodology.steps.map((step, index) => (
+                  <div key={step.title} className="flex items-center gap-2" aria-current={activeIndex === index ? "step" : undefined}>
+                    <span
+                      className={cn(
+                        "h-2.5 w-2.5 shrink-0 rounded-full border border-slate-500 bg-slate-600/55 transition-all duration-300",
+                        activeIndex >= index && "border-cyan-200 bg-cyan-200 shadow-[0_0_14px_rgba(151,247,255,0.55)]",
+                      )}
+                    />
+                    <p
+                      className={cn(
+                        "text-xs font-medium uppercase tracking-[0.11em] text-slate-400 transition-colors duration-300",
+                        activeIndex >= index && "text-cyan-100",
+                      )}
+                    >
+                      {String(index + 1).padStart(2, "0")} · {step.title}
+                    </p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-3 grid grid-cols-5 gap-1.5" aria-hidden="true">
+                {siteContent.methodology.steps.map((step, index) => (
+                  <div key={step.title} className={cn("h-1 rounded-full transition-colors duration-300", activeIndex >= index ? "bg-cyan-200/85" : "bg-slate-500/35")} />
+                ))}
+              </div>
+            </motion.div>
+          </div>
+
+          <div ref={timelineRef} className="portfolio-method-timeline relative pb-10 pl-10 sm:pl-12">
             <div className="absolute bottom-5 left-4 top-2 w-px bg-slate-700/55">
               <motion.div className="h-full w-full origin-top bg-cyan-200" style={{ scaleY: progress }} />
             </div>

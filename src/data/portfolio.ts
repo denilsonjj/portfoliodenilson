@@ -13,10 +13,17 @@ export const services = [
 
 export type ServiceId = (typeof services)[number]["id"];
 
+export const webService = {
+  id: "sites",
+  title: "Sites e lojas virtuais",
+  description: "Sites institucionais, landing pages e lojas virtuais para apresentar sua empresa, captar contatos ou vender online.",
+  href: "/servicos#catalogo",
+} as const;
+
 export const contactInterests = [
   ...services,
   { id: "agentes-ia", title: "Agentes de IA" },
-  { id: "sites", title: "Sites sob medida" },
+  webService,
 ] as const;
 
 export type ContactInterestId = (typeof contactInterests)[number]["id"];
