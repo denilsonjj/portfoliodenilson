@@ -2,6 +2,7 @@ import { Container } from "@/components/ui/container";
 import { GradientButton } from "@/components/ui/gradient-button";
 import { FooterSection } from "@/components/sections/FooterSection";
 import { SeoHead } from "@/components/seo/SeoHead";
+import { budgetOptions } from "@/data/portfolio";
 import { siteContent } from "@/data/siteContent";
 import { trackEvent } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
@@ -247,14 +248,6 @@ const serviceCategories: ServiceCategory[] = [
   },
 ];
 
-const budgetOptions = [
-  "Até R$ 400",
-  "R$ 400 a R$ 700",
-  "R$ 700 a R$ 1.500",
-  "R$ 1.500 a R$ 3.000",
-  "Acima de R$ 3.000",
-  "Ainda não defini",
-];
 const deadlineOptions = ["Urgente", "Até 7 dias", "Até 15 dias", "Até 30 dias", "Sem pressa definida"];
 
 const initialValues: FormValues = {

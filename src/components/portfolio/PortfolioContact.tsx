@@ -1,6 +1,6 @@
 import { Check, Mail, MapPin, MessageCircle } from "lucide-react";
 import { useEffect, useRef, useState, type FormEvent } from "react";
-import { contactInterests, type ContactInterestId } from "@/data/portfolio";
+import { budgetOptions, contactInterests, type ContactInterestId } from "@/data/portfolio";
 import { siteContent } from "@/data/siteContent";
 import { trackEvent } from "@/lib/analytics";
 
@@ -28,6 +28,7 @@ export const PortfolioContact = ({ service, setService }: { service: ContactInte
     const name = String(values.get("name") ?? "").trim();
     const email = String(values.get("email") ?? "").trim();
     const brief = String(values.get("message") ?? "").trim();
+    const budget = budgetOptions.find((option) => option === values.get("budget"));
     const serviceName = contactInterests.find((item) => item.id === service)?.title;
     const analytics = { source: "homepage_cta", service: service || "unspecified" };
 
@@ -48,7 +49,9 @@ export const PortfolioContact = ({ service, setService }: { service: ContactInte
 
     try {
       const { supabase } = await import("@/integrations/supabase/client");
-      const payload = { name, email, message: serviceName ? `Interesse: ${serviceName}\n\n${brief}` : brief };
+      const details = [serviceName && `Interesse: ${serviceName}`, budget && `Faixa de investimento: ${budget}`].filter(Boolean);
+      const message = details.length ? `${details.join("\n")}\n\n${brief}` : brief;
+      const payload = { name, email, message };
       const { error } = await supabase.from("contact_messages").insert([payload]);
       if (error) throw error;
       stored = true;
@@ -60,7 +63,7 @@ export const PortfolioContact = ({ service, setService }: { service: ContactInte
 
       // The database already accepted the lead. A notification failure must not prompt a duplicate submission.
       const { data, error: notificationError } = await supabase.functions.invoke("send-contact-email", {
-        body: { ...payload, service: serviceName, source: "homepage_cta", brief },
+        body: { ...payload, service: serviceName, source: "homepage_cta", budget, brief },
       });
       if (notificationError || !data?.success) trackEvent("lead_notification_error", analytics);
     } catch {
@@ -101,12 +104,20 @@ export const PortfolioContact = ({ service, setService }: { service: ContactInte
               <label>Seu nome<input name="name" autoComplete="name" placeholder="Como posso te chamar?" maxLength={120} required /></label>
               <label>Seu e-mail<input name="email" type="email" autoComplete="email" placeholder="voce@exemplo.com" maxLength={254} required /></label>
             </div>
-            <label>O que você procura?
-              <select name="service" value={service} onChange={(event) => setService(event.target.value as ContactInterestId | "")}>
-                <option value="">Ainda estou definindo</option>
-                {contactInterests.map((item) => <option key={item.id} value={item.id}>{item.title}</option>)}
-              </select>
-            </label>
+            <div className="grid gap-4 sm:grid-cols-2">
+              <label>O que você procura?
+                <select name="service" value={service} onChange={(event) => setService(event.target.value as ContactInterestId | "")}>
+                  <option value="">Ainda estou definindo</option>
+                  {contactInterests.map((item) => <option key={item.id} value={item.id}>{item.title}</option>)}
+                </select>
+              </label>
+              <label>Faixa de investimento (opcional)
+                <select name="budget" defaultValue="">
+                  <option value="">Selecione uma faixa</option>
+                  {budgetOptions.map((option) => <option key={option} value={option}>{option}</option>)}
+                </select>
+              </label>
+            </div>
             <label>Sobre o projeto<textarea name="message" rows={4} placeholder="Ex.: hoje consolido as vendas de três lojas manualmente e quero acompanhar tudo em um painel." required minLength={10} maxLength={4000} /></label>
             <button className="portfolio-button" type="submit">{pending ? "Enviando…" : "Enviar briefing"}</button>
           </fieldset>

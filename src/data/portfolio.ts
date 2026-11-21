@@ -28,6 +28,15 @@ export const contactInterests = [
 
 export type ContactInterestId = (typeof contactInterests)[number]["id"];
 
+export const budgetOptions = [
+  "Até R$ 400",
+  "R$ 400 a R$ 700",
+  "R$ 700 a R$ 1.500",
+  "R$ 1.500 a R$ 3.000",
+  "Acima de R$ 3.000",
+  "Ainda não defini",
+] as const;
+
 type ProjectVisual = "finance" | "sales" | "logistics" | "planner" | "email" | "support" | "recruiting" | "system" | "labels";
 
 export type Project = {
