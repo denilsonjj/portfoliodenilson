@@ -76,7 +76,6 @@ a.portfolio-text-link:hover { text-decoration: underline; }
 .portfolio-hero-copy { animation: portfolio-enter 550ms var(--motion-ease) both; }
 .portfolio-globe { position: relative; isolation: isolate; min-width: 0; min-height: clamp(23rem, 37vw, 30rem); border: 1px solid #5bb2cc50; border-radius: 25px; background: radial-gradient(ellipse at 50% 41%, #15374e, transparent 70%), #081623; box-shadow: 0 28px 52px -28px #040b13c7; animation: portfolio-enter 620ms var(--motion-ease) 90ms both; }
 .portfolio-globe-glow { position: absolute; inset: 0; z-index: -1; pointer-events: none; border-radius: inherit; }
-.portfolio-globe-caption { position: absolute; top: 1rem; left: 1.15rem; z-index: 2; color: #d8eff8; font-size: 0.85rem; font-weight: 700; }
 .portfolio-earth { position: absolute; inset: 1.75rem 0 0; border-radius: inherit; }
 .portfolio-earth .earth-sphere-shell { width: min(69%, 330px); }
 .portfolio-earth.is-paused, .portfolio-earth.is-paused * { animation-play-state: paused; }

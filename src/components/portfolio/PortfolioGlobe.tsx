@@ -35,7 +35,6 @@ export const PortfolioGlobe = () => {
 
   return (
     <div className="portfolio-globe" ref={ref} onPointerDown={moveGlow} onPointerMove={moveGlow} onPointerLeave={() => { x.set(50); y.set(55); }}>
-      <p className="portfolio-globe-caption">Explore as soluções</p>
       <motion.div className="portfolio-globe-glow" aria-hidden="true" style={{ background: glow }} />
       <EarthGlobe className={`portfolio-earth${isInView ? "" : " is-paused"}`} nodes={pins} activeNode={hoveredNode ?? focusedNode} />
       <ul className="globe-pins" aria-label="Soluções">
