@@ -1,27 +1,11 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "cleanUrls": true,
+  "trailingSlash": false,
   "crons": [
     {
       "path": "/api/cron/supabase-keepalive",
       "schedule": "15 12 * * *"
-    }
-  ],
-  "rewrites": [
-    {
-      "source": "/",
-      "destination": "/index.html"
-    },
-    {
-      "source": "/projetos/:slug",
-      "destination": "/projetos/:slug.html"
-    },
-    {
-      "source": "/servicos/:slug",
-      "destination": "/servicos/:slug.html"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/app.html"
     }
   ]
 }

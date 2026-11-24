@@ -1,6 +1,9 @@
-﻿const configuredOrigin = (import.meta.env.VITE_SITE_URL ?? "").trim();
+const configuredOrigin = (import.meta.env.VITE_SITE_URL ?? "").trim();
 const siteUrl = (configuredOrigin || "https://denilsonjr.com.br").replace(/\/+$/, "");
 const serviceCities = ["Recife", "Olinda", "Paulista", "Abreu e Lima", "Igarassu"] as const;
+const serviceCitiesLabel = `${serviceCities.slice(0, -1).join(", ")} e ${serviceCities[serviceCities.length - 1]}`;
+const inPersonServiceLine = `Atendimento presencial em ${serviceCitiesLabel}.`;
+const remoteServiceLine = "Atendimento remoto em todo o Brasil, inclusive em Aracaju (SE).";
 
 export const siteContent = {
   seo: {
@@ -8,17 +11,14 @@ export const siteContent = {
     description:
       "Desenvolvo sistemas sob medida, dashboards executivos e automação para empresas em Recife, Olinda, Paulista, Abreu e Lima e Igarassu.",
     siteUrl,
-    canonicalPath: "/",
     ogImagePath: "/og-denilson.jpg",
     instagram: "https://www.instagram.com/dsolucoes/",
     localServiceLine: "Atendimento remoto em todo o Brasil e visitas na Região Metropolitana do Recife.",
+    inPersonServiceLine,
+    remoteServiceLine,
     serviceDescription:
-      "Desenvolvimento de sistemas, dashboards executivos, planilhas inteligentes e automação de processos para empresas na Grande Recife.",
+      "Criação de sites e lojas virtuais, desenvolvimento de sistemas, dashboards e automação para empresas na Grande Recife.",
     serviceCities,
-    areaServed: [...serviceCities, "Grande Recife"],
-    addressLocality: "Recife",
-    addressRegion: "PE",
-    addressCountry: "BR",
   },
   brand: {
     name: "Denilson Junior",

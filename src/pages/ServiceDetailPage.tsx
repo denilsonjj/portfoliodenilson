@@ -17,7 +17,7 @@ export const ServiceDetail = ({ id }: { id: ServiceId }) => {
 
   return (
     <div className="portfolio">
-      <SeoHead {...siteContent.seo} {...serviceSeo(id)} canonicalPath={servicePath(id)} brandName={siteContent.brand.name} />
+      <SeoHead {...serviceSeo(id)} canonicalPath={servicePath(id)} />
       <PortfolioHeader quote={quote} />
       <main id="main-content" tabIndex={-1}>
         <section className="portfolio-section project-detail service-detail" aria-labelledby="service-title">
@@ -68,6 +68,10 @@ export const ServiceDetail = ({ id }: { id: ServiceId }) => {
               <h2 id="service-questions-title">Perguntas antes de começar.</h2>
               <dl className="service-questions">
                 {service.questions.map(({ question, answer }) => <div key={question}><dt>{question}</dt><dd>{answer}</dd></div>)}
+                <div>
+                  <dt>Em quais cidades você atende?</dt>
+                  <dd>{siteContent.seo.inPersonServiceLine} {siteContent.seo.remoteServiceLine}</dd>
+                </div>
               </dl>
             </div>
             <div className="project-cta service-cta">

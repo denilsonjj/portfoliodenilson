@@ -55,21 +55,21 @@ const Index = () => {
 
   return (
     <div className="portfolio">
-      <SeoHead {...siteContent.seo} {...portfolioSeo} brandName={siteContent.brand.name} />
+      <SeoHead {...portfolioSeo} />
       <PortfolioHeader home />
       <main id="main-content" tabIndex={-1} ref={main}>
         <section className="portfolio-hero" id="inicio" aria-labelledby="portfolio-title">
           <div className="portfolio-container portfolio-hero-grid">
             <div className="portfolio-hero-copy">
-              <p className="portfolio-eyebrow"><span /> Desenvolvimento sob medida</p>
+              <p className="portfolio-eyebrow"><span /> Desenvolvimento sob medida na Grande Recife</p>
               <h1 id="portfolio-title">Sistemas, dados <em>e automação.</em></h1>
-              <p className="portfolio-hero-description">Desenvolvo sistemas web, dashboards e planilhas automatizadas para empresas que querem organizar a operação e reduzir o trabalho manual.</p>
+              <p className="portfolio-hero-description">Desenvolvo sistemas web, sites, dashboards e planilhas automatizadas para empresas que querem vender online, organizar a operação ou reduzir o trabalho manual.</p>
               <div className="portfolio-actions">
                 <PortfolioQuoteLink source="hero" />
                 <a className="portfolio-button portfolio-button-outline" href="#cases" onClick={() => trackEvent("portfolio_click", { source: "hero" })}>Ver projetos <ChevronDown size={17} aria-hidden="true" /></a>
               </div>
               <a className="portfolio-text-link portfolio-form-shortcut" href="#formulario-contato">Enviar pelo formulário</a>
-              <p className="portfolio-location"><MapPin size={17} aria-hidden="true" /> Grande Recife <span aria-hidden="true">·</span> Atendimento remoto em todo o Brasil</p>
+              <p className="portfolio-location"><MapPin size={17} aria-hidden="true" /> <a className="underline underline-offset-4 hover:text-white" href="#portfolio-service-area">Atendimento na Grande Recife</a> <span aria-hidden="true">·</span> Remoto em todo o Brasil</p>
             </div>
             <PortfolioGlobe />
           </div>

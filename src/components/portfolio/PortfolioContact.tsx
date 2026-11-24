@@ -91,10 +91,11 @@ export const PortfolioContact = ({ service, setService }: { service: ContactInte
             <a href="#formulario-contato" onClick={() => trackEvent("contact_click", { channel: "form", source: "homepage_cta" })}><Mail size={19} aria-hidden="true" /> Enviar pelo formulário</a>
           </div>
           <div className="portfolio-service-area">
-            <p id="portfolio-service-area"><MapPin size={16} aria-hidden="true" /> Atendimento presencial na Grande Recife</p>
+            <p id="portfolio-service-area" className="scroll-mt-24"><MapPin size={16} aria-hidden="true" /> Atendimento presencial na Grande Recife</p>
             <ul aria-labelledby="portfolio-service-area">
               {siteContent.seo.serviceCities.map((city) => <li key={city}>{city}</li>)}
             </ul>
+            <p className="mt-3">{siteContent.seo.remoteServiceLine}</p>
           </div>
         </div>
         <form id="formulario-contato" className="portfolio-form" onSubmit={onSubmit} aria-busy={pending}>

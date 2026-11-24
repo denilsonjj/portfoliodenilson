@@ -107,25 +107,17 @@ const socialLinks = [
   },
 ];
 
+export const bioSeo = {
+  title: "Denilson Junior | Desenvolvedor web e analista de dados",
+  description: "Conheça os serviços, projetos, perfis profissionais e canais de contato de Denilson Junior, desenvolvedor web e analista de dados na Grande Recife.",
+};
+
 const BioPage = () => {
   const reduceMotion = useReducedMotion();
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-[#06080d] text-white">
-      <SeoHead
-        title="Denilson Junior | Links e Serviços"
-        description="Acesse os principais links de Denilson Junior: orçamento, pacotes de serviços, projetos, Instagram, GitHub e contato."
-        siteUrl={siteContent.seo.siteUrl}
-        canonicalPath="/bio"
-        ogImagePath={siteContent.seo.ogImagePath}
-        instagram={siteContent.seo.instagram}
-        brandName={siteContent.brand.name}
-        serviceDescription={siteContent.seo.serviceDescription}
-        areaServed={siteContent.seo.areaServed}
-        addressLocality={siteContent.seo.addressLocality}
-        addressRegion={siteContent.seo.addressRegion}
-        addressCountry={siteContent.seo.addressCountry}
-      />
+      <SeoHead {...bioSeo} canonicalPath="/bio" />
 
       <main className="relative min-h-screen overflow-hidden py-6 sm:py-8">
         <div className="hero-flow absolute inset-0" />
@@ -159,7 +151,7 @@ const BioPage = () => {
               <div className="relative">
                 <div className="flex items-center gap-4">
                   <div className="relative flex h-20 w-20 shrink-0 items-center justify-center rounded-[0.7rem] border border-cyan-200/28 bg-cyan-200/10 shadow-[0_0_36px_-18px_rgba(151,247,255,0.95)]">
-                    <span className="font-heading text-2xl font-semibold text-cyan-100"> <img style={{borderRadius:'10px', objectFit:'cover'}} src={logo} alt="Logo" className="h-full w-full object-contain" /></span>
+                    <span className="font-heading text-2xl font-semibold text-cyan-100"> <img style={{borderRadius:'10px', objectFit:'cover'}} src={logo} alt="Denilson Junior" width={64} height={64} className="h-full w-full object-contain" /></span>
                     <span className="absolute -right-1 -top-1 h-3 w-3 rounded-full border border-cyan-100/70 bg-cyan-200" />
                   </div>
                   <div>

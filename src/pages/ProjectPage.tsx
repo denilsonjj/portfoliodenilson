@@ -10,14 +10,14 @@ import NotFound from "./NotFound";
 
 export const ProjectDetail = ({ project }: { project: Project }) => (
   <div className="portfolio">
-    <SeoHead {...siteContent.seo} {...projectSeo(project)} canonicalPath={projectPath(project)} brandName={siteContent.brand.name} />
+    <SeoHead {...projectSeo(project)} canonicalPath={projectPath(project)} />
     <PortfolioHeader quote={{ project }} />
     <main id="main-content" tabIndex={-1}>
       <section className="portfolio-section project-detail" aria-labelledby="project-title">
         <div className="portfolio-container">
           <a className="portfolio-text-link project-back" href="/#cases">Todos os projetos</a>
           <div className="project-detail-grid">
-            <div><p className="portfolio-eyebrow">{projectLabel(project)}</p><h1 id="project-title">{project.title}</h1><p className="portfolio-section-copy">{project.summary}</p></div>
+            <div><p className="portfolio-eyebrow">{projectLabel(project)}</p><h1 id="project-title">{project.searchTitle ?? project.title}</h1><p className="portfolio-section-copy">{project.summary}</p></div>
             <figure><ProjectVisual project={project} /><figcaption>Ilustração do fluxo do projeto</figcaption></figure>
           </div>
           <dl className="project-story">

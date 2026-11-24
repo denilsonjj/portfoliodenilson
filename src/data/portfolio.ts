@@ -1,8 +1,8 @@
 import { siteContent } from "./siteContent";
 
 export const portfolioSeo = {
-  title: "Sistemas sob medida, dashboards e automação em Recife | Denilson Junior",
-  description: "Desenvolvimento de sistemas web, dashboards e automação de processos em Recife e para todo o Brasil. Veja projetos de gestão financeira, BI e rotinas de RH.",
+  title: "Sistemas, dashboards e automação em Recife | Denilson Junior",
+  description: "Denilson Junior desenvolve sistemas, dashboards e automações na Grande Recife. Veja projetos entregues para RH, logística, gestão financeira e vendas.",
 };
 
 export const services = [
@@ -44,6 +44,7 @@ export type Project = {
   service: ServiceId;
   category: string;
   title: string;
+  searchTitle?: string;
   summary: string;
   stack: readonly string[];
   visual: ProjectVisual;
@@ -70,6 +71,7 @@ export const featuredProjects: readonly Project[] = [
     service: "dashboards",
     category: "Gestão logística",
     title: "Dashboard de gestão logística",
+    searchTitle: "Dashboard de logística para revenda Ambev",
     summary: "Painel de indicadores logísticos desenvolvido para acompanhar a operação de uma revenda Ambev.",
     stack: [],
     visual: "logistics",
@@ -92,6 +94,7 @@ export const featuredProjects: readonly Project[] = [
     service: "automacoes",
     category: "Automação de processos",
     title: "Automação de envio de e-mails baseada em dados",
+    searchTitle: "Automação de envio de e-mails a partir de planilha",
     summary: "Fluxo de envio de e-mails que usa os registros de uma planilha como fonte de dados.",
     stack: [],
     visual: "email",
@@ -115,6 +118,7 @@ export const featuredProjects: readonly Project[] = [
     service: "dashboards",
     category: "Indicadores de RH",
     title: "Dashboard de recrutamento e seleção",
+    searchTitle: "Dashboard de recrutamento e seleção em Looker Studio",
     summary: "Painéis em Looker Studio para acompanhar o funil de contratação, da triagem à contratação final, com métricas de SLA e geolocalização.",
     stack: ["Looker Studio"],
     visual: "recruiting",
@@ -188,6 +192,6 @@ export const projectLabel = ({ category, stack }: Project) => [category, stack.j
 export const projectPath = (project: Project) => `/projetos/${project.slug}`;
 
 export const projectSeo = (project: Project) => ({
-  title: `${project.title} | Projeto de Denilson Junior`,
+  title: `${project.searchTitle ?? project.title} | Denilson Junior`,
   description: project.summary,
 });

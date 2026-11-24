@@ -40,29 +40,25 @@ const legalContent = {
   },
 } as const;
 
+type LegalDocument = keyof typeof legalContent;
+
+export const legalDocuments = Object.keys(legalContent) as LegalDocument[];
+
+export const legalSeo = (document: LegalDocument) => ({
+  title: `${legalContent[document].title} | ${siteContent.brand.name}`,
+  description: legalContent[document].description,
+});
+
 export default function LegalPage() {
   const { pathname } = useLocation();
-  const document = pathname.slice(1) as keyof typeof legalContent;
+  const document = pathname.replace(/^\/|\/$/g, "") as LegalDocument;
   const content = legalContent[document];
 
   if (!content) return <Navigate to="/" replace />;
 
   return (
     <div className="min-h-screen bg-[#06080d] text-white">
-      <SeoHead
-        title={`${content.title} | ${siteContent.brand.name}`}
-        description={content.description}
-        siteUrl={siteContent.seo.siteUrl}
-        canonicalPath={`/${document}`}
-        ogImagePath={siteContent.seo.ogImagePath}
-        instagram={siteContent.seo.instagram}
-        brandName={siteContent.brand.name}
-        serviceDescription={siteContent.seo.serviceDescription}
-        areaServed={siteContent.seo.areaServed}
-        addressLocality={siteContent.seo.addressLocality}
-        addressRegion={siteContent.seo.addressRegion}
-        addressCountry={siteContent.seo.addressCountry}
-      />
+      <SeoHead {...legalSeo(document)} canonicalPath={`/${document}`} />
       <header className="border-b border-white/10 bg-[#070b12]/95">
         <Container className="flex h-20 items-center justify-between">
           <Link to="/" className="font-heading text-xl font-semibold text-white">{siteContent.brand.name}</Link>

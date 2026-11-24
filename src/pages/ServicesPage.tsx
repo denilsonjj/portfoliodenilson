@@ -2,7 +2,8 @@ import { Container } from "@/components/ui/container";
 import { GradientButton } from "@/components/ui/gradient-button";
 import { FooterSection } from "@/components/sections/FooterSection";
 import { SeoHead } from "@/components/seo/SeoHead";
-import { budgetOptions } from "@/data/portfolio";
+import { budgetOptions, services } from "@/data/portfolio";
+import { servicePath, servicesCatalogSeo } from "@/data/servicePages";
 import { siteContent } from "@/data/siteContent";
 import { trackEvent } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
@@ -387,20 +388,7 @@ const ServicesPage = () => {
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-[#06080d] text-white">
-      <SeoHead
-        title="Pacotes de Serviços | Denilson Junior"
-        description="Contrate landing pages, sistemas, planilhas, dashboards e automações em Recife, Olinda, Paulista, Abreu e Lima e Igarassu."
-        siteUrl={siteContent.seo.siteUrl}
-        canonicalPath="/servicos"
-        ogImagePath={siteContent.seo.ogImagePath}
-        instagram={siteContent.seo.instagram}
-        brandName={siteContent.brand.name}
-        serviceDescription="Pacotes de landing pages, sistemas web, planilhas, dashboards e automações para empresas na Grande Recife."
-        areaServed={siteContent.seo.areaServed}
-        addressLocality={siteContent.seo.addressLocality}
-        addressRegion={siteContent.seo.addressRegion}
-        addressCountry={siteContent.seo.addressCountry}
-      />
+      <SeoHead {...servicesCatalogSeo} canonicalPath="/servicos" />
 
       <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-[#070b12]/78 backdrop-blur-2xl">
         <Container>
@@ -478,12 +466,15 @@ const ServicesPage = () => {
               >
                 <span className="section-badge">PACOTES DE SERVIÇOS</span>
                 <h1 id="services-title" className="headline-xl mt-6 max-w-4xl text-white">
-                  Escolha uma solução pronta
-                  <span className="accent-text block italic">ou peça um projeto sob medida.</span>
+                  Sites, lojas virtuais e sistemas
+                  <span className="accent-text block italic">na Grande Recife.</span>
                 </h1>
                 <p className="muted-copy mt-6 max-w-2xl text-base leading-relaxed sm:text-lg">
-                  Um catálogo comercial para contratar landing pages, sistemas, planilhas, dashboards e automações com
-                  escopo inicial claro, resposta objetiva e conversa rápida pelo WhatsApp.
+                  Criação de sites institucionais, landing pages e lojas virtuais, além de sistemas sob medida,
+                  dashboards e automação de processos para empresas.
+                </p>
+                <p className="muted-copy mt-3 max-w-2xl text-sm leading-relaxed sm:text-base">
+                  {siteContent.seo.inPersonServiceLine} {siteContent.seo.remoteServiceLine}
                 </p>
                 <div className="mt-10 flex flex-col gap-4 sm:flex-row">
                   <GradientButton asChild size="large">
@@ -493,7 +484,7 @@ const ServicesPage = () => {
                     </a>
                   </GradientButton>
                   <GradientButton asChild variant="secondary" size="large">
-                    <a href={siteContent.contact.channels.whatsapp} target="_blank" rel="noopener noreferrer">
+                    <a href={siteContent.contact.channels.whatsapp} target="_blank" rel="noopener noreferrer" onClick={() => trackEvent("whatsapp_click", { source: "services_hero" })}>
                       Pedir orçamento no WhatsApp <MessageCircle size={16} aria-hidden="true" />
                     </a>
                   </GradientButton>
@@ -541,11 +532,16 @@ const ServicesPage = () => {
                 <span className="section-badge">CATÁLOGO</span>
                 <h2 id="catalog-title" className="headline-lg mt-4 text-white">Pacotes com ponto de partida claro</h2>
                 <p className="muted-copy mt-4 max-w-2xl text-sm leading-relaxed sm:text-base">
-                  Os valores são faixas iniciais. Antes de cobrar, o escopo é confirmado para evitar promessa solta e
-                  entrega apertada.
+                  Os valores são faixas iniciais. Confirmo o escopo antes da contratação.
                 </p>
               </div>
             </div>
+
+            <ul aria-label="Detalhes dos serviços sob medida" className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm text-cyan-200">
+              {services.map(({ id, title }) => (
+                <li key={id}><a className="underline underline-offset-4 hover:text-white" href={servicePath(id)}>{title}</a></li>
+              ))}
+            </ul>
 
             <div className="mt-9 rounded-[0.7rem] border border-white/10 bg-[#080f1a]/86 p-2 shadow-[0_24px_70px_-46px_rgba(151,247,255,0.65)]">
               <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-5">

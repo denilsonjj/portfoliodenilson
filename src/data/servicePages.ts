@@ -1,5 +1,10 @@
 import type { ServiceId } from "./portfolio";
 
+export const servicesCatalogSeo = {
+  title: "Criação de sites e lojas virtuais em Recife | Denilson Junior",
+  description: "Criação de sites, lojas virtuais e landing pages em Recife, Olinda, Paulista, Abreu e Lima e Igarassu. Veja pacotes e peça um orçamento.",
+};
+
 type ServicePageContent = {
   slug: string;
   title: string;
@@ -49,7 +54,7 @@ export const servicePages: Record<ServiceId, ServicePageContent> = {
   automacoes: {
     slug: "automacao-google-sheets-apps-script",
     title: "Automação de planilhas no Google Sheets com Apps Script",
-    description: "Automação de planilhas em Google Sheets e Apps Script para rotinas de RH, envio de e-mails e processos que dependem de atualizações manuais.",
+    description: "Automação de planilhas para empresas em Recife e online. Desenvolvo rotinas em Google Sheets e Apps Script para RH, envio de e-mails e gestão.",
     lead: "Transformo planilhas que a equipe já usa em ferramentas que executam rotinas repetitivas, como preparar comunicações ou manter um planner atualizado. Também avalio projetos em Excel quando a operação já usa essa ferramenta.",
     situations: [
       { title: "A planilha dispara uma ação recorrente", description: "Mapeio quais registros pedem uma ação, quem precisa receber a informação e em que momento ela deve acontecer." },
