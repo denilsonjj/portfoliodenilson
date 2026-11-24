@@ -1,29 +1,59 @@
 import { Container } from "@/components/ui/container";
 import { siteContent } from "@/data/siteContent";
 import { cn } from "@/lib/utils";
-import { motion, useMotionValueEvent, useReducedMotion, useScroll, useSpring, useTransform } from "framer-motion";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+
+const steps = siteContent.methodology.steps;
 
 export const MethodologySection = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const reduceMotion = useReducedMotion();
   const timelineRef = useRef<HTMLDivElement>(null);
+  const progressRef = useRef<HTMLDivElement>(null);
 
-  const { scrollYProgress } = useScroll({
-    target: timelineRef,
-    offset: ["start 0.75", "end 0.3"],
-  });
+  useEffect(() => {
+    const timeline = timelineRef.current;
+    const bar = progressRef.current;
+    if (!timeline || !bar || typeof IntersectionObserver === "undefined"
+      || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-  const progress = useSpring(scrollYProgress, { stiffness: 110, damping: 24, mass: 0.55 });
-  const routeY = useTransform(progress, [0, 1], [0, 12]);
-  const stepsCount = siteContent.methodology.steps.length;
-
-  useMotionValueEvent(scrollYProgress, "change", (value) => {
-    if (reduceMotion) return;
-    const clamped = Math.min(1, Math.max(0, value));
-    const index = Math.min(stepsCount - 1, Math.max(0, Math.round(clamped * (stepsCount - 1))));
-    setActiveIndex((current) => (current === index ? current : index));
-  });
+    let frame = 0;
+    let lastIndex = 0;
+    const update = () => {
+      frame = 0;
+      const { top, height } = timeline.getBoundingClientRect();
+      const viewport = window.innerHeight;
+      const progress = Math.min(1, Math.max(0, (viewport * 0.75 - top) / (height + viewport * 0.45)));
+      bar.style.setProperty("--method-progress", String(progress));
+      const nextStep = Math.round(progress * (steps.length - 1));
+      if (nextStep !== lastIndex) {
+        lastIndex = nextStep;
+        setActiveIndex(nextStep);
+      }
+    };
+    const scheduleUpdate = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    const stopTracking = () => {
+      window.removeEventListener("scroll", scheduleUpdate);
+      window.removeEventListener("resize", scheduleUpdate);
+      cancelAnimationFrame(frame);
+      frame = 0;
+    };
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) {
+        stopTracking();
+        return;
+      }
+      window.addEventListener("scroll", scheduleUpdate, { passive: true });
+      window.addEventListener("resize", scheduleUpdate);
+      scheduleUpdate();
+    });
+    observer.observe(timeline);
+    return () => {
+      observer.disconnect();
+      stopTracking();
+    };
+  }, []);
 
   return (
     <section
@@ -42,13 +72,12 @@ export const MethodologySection = () => {
           </div>
 
           <div className="portfolio-method-overview">
-            <motion.div
+            <div
               className="portfolio-method-panel rounded-[0.95rem] border border-cyan-200/20 p-3 shadow-[0_18px_38px_-22px_rgba(0,0,0,0.85)] sm:p-5"
-              style={reduceMotion ? undefined : { y: routeY }}
             >
               <p className="text-xs font-semibold uppercase tracking-[0.13em] text-cyan-200/90">Etapas do projeto</p>
               <div className="portfolio-method-step-list">
-                {siteContent.methodology.steps.map((step, index) => (
+                {steps.map((step, index) => (
                   <div key={step.title} className="flex items-center gap-2" aria-current={activeIndex === index ? "step" : undefined}>
                     <span
                       className={cn(
@@ -69,20 +98,20 @@ export const MethodologySection = () => {
               </div>
 
               <div className="mt-3 grid grid-cols-5 gap-1.5" aria-hidden="true">
-                {siteContent.methodology.steps.map((step, index) => (
+                {steps.map((step, index) => (
                   <div key={step.title} className={cn("h-1 rounded-full transition-colors duration-300", activeIndex >= index ? "bg-cyan-200/85" : "bg-slate-500/35")} />
                 ))}
               </div>
-            </motion.div>
+            </div>
           </div>
 
           <div ref={timelineRef} className="portfolio-method-timeline relative pb-10 pl-10 sm:pl-12">
-            <div className="absolute bottom-5 left-4 top-2 w-px bg-slate-700/55">
-              <motion.div className="h-full w-full origin-top bg-cyan-200" style={{ scaleY: progress }} />
+            <div className="absolute bottom-5 left-4 top-2 w-px bg-slate-700/55" aria-hidden="true">
+              <div ref={progressRef} className="portfolio-method-progress h-full w-full origin-top bg-cyan-200" />
             </div>
 
             <div className="space-y-8 lg:space-y-9">
-              {siteContent.methodology.steps.map((step, index) => (
+              {steps.map((step, index) => (
                 <article
                   key={step.title}
                   data-portfolio-reveal

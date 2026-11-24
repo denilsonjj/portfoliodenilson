@@ -8,7 +8,6 @@ import { siteContent } from "@/data/siteContent";
 import { trackEvent } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
 import { whatsappWithMessage } from "@/lib/whatsapp";
-import { motion, useReducedMotion } from "framer-motion";
 import {
   ArrowRight,
   BadgeCheck,
@@ -25,7 +24,7 @@ import {
   Sparkles,
   X,
 } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, type CSSProperties } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 type ServicePackage = {
@@ -295,7 +294,6 @@ const ServicesPage = () => {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [message, setMessage] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const reduceMotion = useReducedMotion();
 
   useEffect(() => {
     if (hash === "#catalogo") document.getElementById("catalogo")?.scrollIntoView();
@@ -323,7 +321,7 @@ const ServicesPage = () => {
       brief: current.brief || `Tenho interesse no pacote ${item.name} de ${category.label}.`,
     }));
     trackEvent("service_package_select", { service: category.id, package: item.name });
-    document.getElementById("orcamento")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    document.getElementById("orcamento")?.scrollIntoView({ block: "start" });
   };
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -488,12 +486,7 @@ const ServicesPage = () => {
                 <a className="mt-3 inline-block text-sm font-semibold text-cyan-200 hover:underline" href="#orcamento">Enviar pelo formulário</a>
               </div>
 
-              <motion.aside
-                initial={reduceMotion ? false : { opacity: 0, y: 22 }}
-                animate={reduceMotion ? {} : { opacity: 1, y: 0 }}
-                transition={{ duration: 0.48, delay: 0.08 }}
-                className="solution-card p-5 sm:p-6"
-              >
+              <aside className="services-intro services-intro-aside solution-card p-5 sm:p-6">
                 <div className="flex items-center justify-between gap-4 border-b border-white/10 pb-4">
                   <div>
                     <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-cyan-200/80">Contratação guiada</p>
@@ -516,7 +509,7 @@ const ServicesPage = () => {
                     </div>
                   ))}
                 </div>
-              </motion.aside>
+              </aside>
             </div>
           </Container>
         </section>
@@ -564,6 +557,7 @@ const ServicesPage = () => {
                           : "border-white/10 bg-[#0b1422]/76 text-slate-200 hover:border-cyan-200/35 hover:bg-[#101a2a]",
                       )}
                       aria-pressed={isActive}
+                      aria-controls="catalog-packages"
                     >
                       <span
                         aria-hidden="true"
@@ -610,13 +604,8 @@ const ServicesPage = () => {
               </div>
             </div>
 
-            <motion.div
-              key={activeCategory.id}
-              initial={reduceMotion ? false : { opacity: 0, y: 12 }}
-              animate={reduceMotion ? {} : { opacity: 1, y: 0 }}
-              transition={{ duration: 0.28 }}
-              className="mt-10"
-            >
+            <p role="status" className="sr-only">{activeCategory.label} · {activeCategory.packages.length} pacotes</p>
+            <div id="catalog-packages" key={activeCategory.id} className="catalog-package-panel mt-10">
               <div className="mb-6 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
                 <div>
                   <div className={cn("inline-flex h-11 w-11 items-center justify-center rounded-sm border", activeCategory.accent)}>
@@ -628,13 +617,14 @@ const ServicesPage = () => {
               </div>
 
               <div className="grid gap-5 lg:grid-cols-3">
-                {activeCategory.packages.map((item) => (
+                {activeCategory.packages.map((item, index) => (
                   <article
                     key={item.name}
                     className={cn(
-                      "solution-card relative flex h-full flex-col p-6",
+                      "catalog-package-card solution-card relative flex h-full flex-col p-6",
                       item.highlighted && "border-cyan-200/38 shadow-[0_0_38px_-28px_rgba(151,247,255,0.8)]",
                     )}
+                    style={{ "--package-order": index } as CSSProperties}
                   >
                     {item.highlighted ? (
                       <span className="absolute right-4 top-4 inline-flex items-center gap-1 rounded-sm border border-cyan-200/30 bg-cyan-200/10 px-2 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-cyan-100">
@@ -691,7 +681,7 @@ const ServicesPage = () => {
                   </article>
                 ))}
               </div>
-            </motion.div>
+            </div>
           </Container>
         </section>
 

@@ -1,6 +1,5 @@
-import { motion, useInView, useMotionTemplate, useMotionValue, useReducedMotion, useSpring } from "framer-motion";
-import { BarChart3, Bot, Globe2, LayoutGrid, Workflow } from "lucide-react";
-import { useRef, useState, type CSSProperties, type PointerEvent } from "react";
+import { BarChart3, Bot, Globe2, LayoutGrid, Pause, Play, Workflow } from "lucide-react";
+import { useEffect, useRef, useState, type CSSProperties, type PointerEvent } from "react";
 import { EarthGlobe } from "@/components/ui/earth-globe";
 import { webService } from "@/data/portfolio";
 import { servicePath } from "@/data/servicePages";
@@ -16,30 +15,50 @@ const pins = [
 
 export const PortfolioGlobe = () => {
   const ref = useRef<HTMLDivElement>(null);
+  const glow = useRef<HTMLDivElement>(null);
   const [hoveredNode, setHoveredNode] = useState<string>();
   const [focusedNode, setFocusedNode] = useState<string>();
-  const isInView = useInView(ref, { amount: 0.15 });
-  const reduceMotion = useReducedMotion();
-  const x = useMotionValue(50);
-  const y = useMotionValue(55);
-  const smoothX = useSpring(x, { stiffness: 95, damping: 22 });
-  const smoothY = useSpring(y, { stiffness: 95, damping: 22 });
-  const glow = useMotionTemplate`radial-gradient(ellipse 42% 45% at ${smoothX}% ${smoothY}%, rgba(0, 189, 231, 0.21), transparent 100%)`;
+  const [paused, setPaused] = useState(false);
+  useEffect(() => {
+    const globe = ref.current;
+    if (!globe || typeof IntersectionObserver === "undefined") {
+      globe?.removeAttribute("data-paused");
+      return;
+    }
+    const observer = new IntersectionObserver(([entry]) => {
+      globe.toggleAttribute("data-paused", !entry.isIntersecting);
+    }, { threshold: 0.15 });
+    observer.observe(globe);
+    return () => observer.disconnect();
+  }, []);
 
   const moveGlow = (event: PointerEvent<HTMLDivElement>) => {
-    if (reduceMotion) return;
+    if (event.pointerType === "touch" || !glow.current) return;
     const bounds = event.currentTarget.getBoundingClientRect();
-    x.set((event.clientX - bounds.left) / bounds.width * 100);
-    y.set((event.clientY - bounds.top) / bounds.height * 100);
+    glow.current.style.setProperty("--globe-x", `${(event.clientX - bounds.left - bounds.width / 2) * 0.48}px`);
+    glow.current.style.setProperty("--globe-y", `${(event.clientY - bounds.top - bounds.height / 2) * 0.48}px`);
+  };
+
+  const resetGlow = () => {
+    glow.current?.style.removeProperty("--globe-x");
+    glow.current?.style.removeProperty("--globe-y");
   };
 
   return (
-    <div className="portfolio-globe" ref={ref} onPointerDown={moveGlow} onPointerMove={moveGlow} onPointerLeave={() => { x.set(50); y.set(55); }}>
-      <motion.div className="portfolio-globe-glow" aria-hidden="true" style={{ background: glow }} />
-      <EarthGlobe className={`portfolio-earth${isInView ? "" : " is-paused"}`} nodes={pins} activeNode={hoveredNode ?? focusedNode} />
+    <div className="portfolio-globe" ref={ref} data-paused="" data-user-paused={paused || undefined} onPointerMove={moveGlow} onPointerLeave={resetGlow}>
+      <div className="portfolio-globe-glow" ref={glow} aria-hidden="true" />
+      <EarthGlobe className="portfolio-earth" nodes={pins} activeNode={hoveredNode ?? focusedNode} />
+      <button
+        type="button"
+        className="portfolio-globe-pause"
+        aria-label={paused ? "Retomar animação do globo" : "Pausar animação do globo"}
+        onClick={() => setPaused((current) => !current)}
+      >
+        {paused ? <Play size={16} aria-hidden="true" /> : <Pause size={16} aria-hidden="true" />}
+      </button>
       <ul className="globe-pins" aria-label="Soluções">
-        {pins.map(({ id, label, icon: Icon, href, labelY }) => (
-          <li key={id} style={{ "--pin-y": labelY } as CSSProperties}>
+        {pins.map(({ id, label, icon: Icon, href, labelY }, index) => (
+          <li key={id} style={{ "--pin-y": labelY, "--pin-delay": `${120 + index * 62}ms` } as CSSProperties}>
             <a
               href={href}
               onPointerEnter={() => setHoveredNode(id)}

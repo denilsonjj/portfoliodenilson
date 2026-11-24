@@ -11,6 +11,7 @@ import NotFound, { notFoundSeo } from "./pages/NotFound";
 import { ProjectDetail } from "./pages/ProjectPage";
 import { ServiceDetail } from "./pages/ServiceDetailPage";
 import ServicesPage from "./pages/ServicesPage";
+import { getPageRoute, pageSource } from "./routes";
 
 type SchemaItem = Record<string, unknown>;
 type Breadcrumb = { name: string; path: string };
@@ -75,6 +76,7 @@ const renderPage = (
   indexable = true,
 ) => ({
   path,
+  source: pageSource(getPageRoute(path)),
   ...seo,
   schema,
   indexable,

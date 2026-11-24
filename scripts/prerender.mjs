@@ -10,10 +10,30 @@ const vite = await createServer({ mode: process.argv[2] || "production", server:
 
 try {
   const { origin, shareImage, renderPages } = await vite.ssrLoadModule("/src/entry-prerender.tsx");
-  const template = await readFile("dist/index.html", "utf8");
+  const [template, manifestJson] = await Promise.all([
+    readFile("dist/index.html", "utf8"),
+    readFile("dist/.vite/manifest.json", "utf8"),
+  ]);
+  const manifest = JSON.parse(manifestJson);
+  const collectAssets = (source, visited = new Set()) => {
+    const chunk = manifest[source];
+    if (!chunk) throw new Error(`Missing client assets for ${source}`);
+    if (visited.has(source)) return [];
+    visited.add(source);
+    return [chunk, ...(chunk.imports ?? []).flatMap((key) => collectAssets(key, visited))];
+  };
   const pages = renderPages();
 
   for (const page of pages) {
+    const chunks = collectAssets(page.source);
+    const hasAsset = (file) => template.includes(`href="/${file}"`) || template.includes(`src="/${file}"`);
+    const styles = new Set(chunks.flatMap((chunk) => chunk.css ?? []));
+    const assets = [
+      ...[...styles].filter((file) => !hasAsset(file))
+        .map((file) => `<link rel="stylesheet" href="/${escapeHtml(file)}">`),
+      ...chunks.map((chunk) => chunk.file).filter((file) => !hasAsset(file))
+        .map((file) => `<link rel="modulepreload" href="/${escapeHtml(file)}">`),
+    ];
     const destination = join("dist", page.path === "/" ? "index.html" : `${page.path.slice(1)}.html`);
     const url = new URL(page.path, origin).href;
     let html = template
@@ -25,6 +45,7 @@ try {
       .replace(/(<link\s+rel="canonical"\s+href=")[^"]+/, (_, prefix) => `${prefix}${escapeHtml(url)}`)
       .replace(/<noscript>.*?<\/noscript>\s*/, "<noscript><style>.portfolio-form { display: none }</style></noscript>\n    ")
       .replace('<div id="root"></div>', () => `<div id="root" data-prerendered="${page.path}">${page.markup}</div>`);
+    if (assets.length) html = html.replace("</head>", `  ${assets.join("\n    ")}\n  </head>`);
     if (!page.indexable) {
       html = html
         .replace(/(<meta name="robots" content=")[^"]+/, "$1noindex,follow")

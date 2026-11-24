@@ -3,7 +3,7 @@ const siteUrl = (configuredOrigin || "https://denilsonjr.com.br").replace(/\/+$/
 const serviceCities = ["Recife", "Olinda", "Paulista", "Abreu e Lima", "Igarassu"] as const;
 const serviceCitiesLabel = `${serviceCities.slice(0, -1).join(", ")} e ${serviceCities[serviceCities.length - 1]}`;
 const inPersonServiceLine = `Atendimento presencial em ${serviceCitiesLabel}.`;
-const remoteServiceLine = "Atendimento remoto em todo o Brasil, inclusive em Aracaju (SE).";
+const remoteServiceLine = "Atendimento remoto em todo o Brasil.";
 
 export const siteContent = {
   seo: {

@@ -7,7 +7,6 @@ import { PortfolioFooter, PortfolioHeader } from "@/components/portfolio/Portfol
 import { ProjectVisual, projectIcons } from "@/components/portfolio/ProjectVisual";
 import { MethodologySection } from "@/components/sections/MethodologySection";
 import { SeoHead } from "@/components/seo/SeoHead";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { CountUp } from "@/components/ui/count-up";
 import { contactInterests, featuredProjects, pastProjects, portfolioSeo, projectLabel, projectPath, projects, services, webService, type ContactInterestId } from "@/data/portfolio";
 import { servicePath } from "@/data/servicePages";
@@ -83,14 +82,14 @@ const Index = () => {
                 {proof.map(({ label, ...metric }) => <div key={label}><dt>{label}</dt><dd><CountUp {...metric} /></dd></div>)}
               </dl>
             </div>
-            <div className="portfolio-project-grid">
+            <div className="portfolio-project-grid portfolio-project-reveal">
               {featuredProjects.map((item) => (
                 <article className="portfolio-project-card" id={item.slug} key={item.slug} data-portfolio-reveal>
-                  <a className="portfolio-project-link" href={projectPath(item)} onClick={() => trackEvent("case_open", { project: item.slug, source: "home" })}>
+                  <a className="portfolio-project-link" href={projectPath(item)} aria-labelledby={`${item.slug}-title`} onClick={() => trackEvent("case_open", { project: item.slug, source: "home" })}>
                     <ProjectVisual project={item} />
                     <div className="portfolio-project-copy">
                       <p className="portfolio-category">{projectLabel(item)}</p>
-                      <h3>{item.title}</h3><p>{item.summary}</p>
+                      <h3 id={`${item.slug}-title`}>{item.title}</h3><p>{item.summary}</p>
                       <span className="portfolio-text-link">Ver projeto <Plus size={16} aria-hidden="true" /></span>
                     </div>
                   </a>
@@ -148,14 +147,14 @@ const Index = () => {
           <section id="faq" className="portfolio-section" aria-labelledby="portfolio-faq-title">
             <div className="portfolio-container portfolio-split">
               <div><p className="portfolio-eyebrow">FAQ</p><h2 id="portfolio-faq-title">Dúvidas comuns.</h2></div>
-              <Accordion type="single" collapsible className="portfolio-faq">
-              {faqs.map(({ question, answer }, index) => (
-                  <AccordionItem value={question} key={question}>
-                  <AccordionTrigger id={`faq-question-${index}`} aria-controls={`faq-answer-${index}`}>{question}</AccordionTrigger>
-                  <AccordionContent id={`faq-answer-${index}`} aria-labelledby={`faq-question-${index}`}><p>{answer}</p></AccordionContent>
-                  </AccordionItem>
+              <div className="portfolio-faq">
+                {faqs.map(({ question, answer }, index) => (
+                  <details name="portfolio-faq" key={question}>
+                    <summary id={`faq-question-${index}`}>{question}<ChevronDown size={18} aria-hidden="true" /></summary>
+                    <p id={`faq-answer-${index}`}>{answer}</p>
+                  </details>
                 ))}
-              </Accordion>
+              </div>
             </div>
           </section>
 
