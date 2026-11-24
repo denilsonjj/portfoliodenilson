@@ -1,8 +1,17 @@
-﻿@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap");
-
-@tailwind base;
+﻿@tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@keyframes services-intro-enter {
+  from { transform: translateY(18px); }
+  to { transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .services-intro {
+    animation: services-intro-enter 450ms ease-out;
+  }
+}
 
 @layer base {
   :root {

@@ -459,11 +459,7 @@ const ServicesPage = () => {
           <div className="hero-mesh absolute inset-0 opacity-35" />
           <Container className="relative z-10 pb-16 md:pb-24">
             <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-end">
-              <motion.div
-                initial={reduceMotion ? false : { opacity: 0, y: 18 }}
-                animate={reduceMotion ? {} : { opacity: 1, y: 0 }}
-                transition={{ duration: 0.45 }}
-              >
+              <div className="services-intro">
                 <span className="section-badge">PACOTES DE SERVIÇOS</span>
                 <h1 id="services-title" className="headline-xl mt-6 max-w-4xl text-white">
                   Sites, lojas virtuais e sistemas
@@ -490,7 +486,7 @@ const ServicesPage = () => {
                   </GradientButton>
                 </div>
                 <a className="mt-3 inline-block text-sm font-semibold text-cyan-200 hover:underline" href="#orcamento">Enviar pelo formulário</a>
-              </motion.div>
+              </div>
 
               <motion.aside
                 initial={reduceMotion ? false : { opacity: 0, y: 22 }}
