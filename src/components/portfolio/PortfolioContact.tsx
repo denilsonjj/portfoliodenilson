@@ -1,82 +1,42 @@
-import { Check, Mail, MapPin, MessageCircle } from "lucide-react";
-import { useEffect, useRef, useState, type FormEvent } from "react";
+import { FileText, MapPin, MessageCircle } from "lucide-react";
+import { useEffect, useState, type FormEvent } from "react";
 import { budgetOptions, contactInterests, type ContactInterestId } from "@/data/portfolio";
 import { siteContent } from "@/data/siteContent";
 import { trackEvent } from "@/lib/analytics";
+import { formatWhatsAppBrief, isLocalWhatsAppPreview, whatsappWithMessage } from "@/lib/whatsapp";
 
 const { channels } = siteContent.contact;
-const isLocalPreview = () => import.meta.env.DEV || ["localhost", "127.0.0.1", "[::1]"].includes(window.location.hostname);
-
-type Submission = { type: "success" | "error"; text: string };
 
 export const PortfolioContact = ({ service, setService }: { service: ContactInterestId | ""; setService: (value: ContactInterestId | "") => void }) => {
   const [isPreview, setIsPreview] = useState<boolean | null>(null);
-  const [pending, setPending] = useState(false);
-  const [submission, setSubmission] = useState<Submission>();
-  const submitting = useRef(false);
+  const [error, setError] = useState("");
+  const [preview, setPreview] = useState("");
 
   useEffect(() => {
-    setIsPreview(isLocalPreview());
+    setIsPreview(isLocalWhatsAppPreview());
   }, []);
 
-  const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
+  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (submitting.current) return;
-
-    const form = event.currentTarget;
-    const values = new FormData(form);
+    if (isPreview === null) return;
+    const values = new FormData(event.currentTarget);
     const name = String(values.get("name") ?? "").trim();
     const email = String(values.get("email") ?? "").trim();
     const brief = String(values.get("message") ?? "").trim();
     const budget = budgetOptions.find((option) => option === values.get("budget"));
     const serviceName = contactInterests.find((item) => item.id === service)?.title;
-    const analytics = { source: "homepage_cta", service: service || "unspecified" };
-
     if (!name || !email || brief.length < 10) {
-      setSubmission({ type: "error", text: "Informe seu nome, e-mail e descreva o projeto em pelo menos 10 caracteres." });
+      setError("Informe seu nome, e-mail e descreva o projeto em pelo menos 10 caracteres.");
       return;
     }
-    if (isLocalPreview()) {
-      setSubmission({ type: "success", text: "Teste concluído. O briefing foi validado localmente." });
+    const message = formatWhatsAppBrief({ name, email, brief, budget, service: serviceName });
+    if (isPreview) {
+      setPreview(message);
       return;
     }
 
-    submitting.current = true;
-    setPending(true);
-    setSubmission(undefined);
-    trackEvent("lead_submit_attempt", analytics);
-    let stored = false;
-
-    try {
-      const { supabase } = await import("@/integrations/supabase/client");
-      const details = [serviceName && `Interesse: ${serviceName}`, budget && `Faixa de investimento: ${budget}`].filter(Boolean);
-      const message = details.length ? `${details.join("\n")}\n\n${brief}` : brief;
-      const payload = { name, email, message };
-      const { error } = await supabase.from("contact_messages").insert([payload]);
-      if (error) throw error;
-      stored = true;
-
-      trackEvent("generate_lead", analytics);
-      setSubmission({ type: "success", text: "Briefing recebido. Vou responder pelo e-mail que você informou." });
-      form.reset();
-      setService("");
-
-      // The database already accepted the lead. A notification failure must not prompt a duplicate submission.
-      const { data, error: notificationError } = await supabase.functions.invoke("send-contact-email", {
-        body: { ...payload, service: serviceName, source: "homepage_cta", budget, brief },
-      });
-      if (notificationError || !data?.success) trackEvent("lead_notification_error", analytics);
-    } catch {
-      if (stored) {
-        trackEvent("lead_notification_error", analytics);
-      } else {
-        trackEvent("lead_submit_error", analytics);
-        setSubmission({ type: "error", text: "O envio falhou. Seus dados continuam no formulário. Tente novamente ou fale comigo pelo WhatsApp." });
-      }
-    } finally {
-      submitting.current = false;
-      setPending(false);
-    }
+    trackEvent("whatsapp_brief_open", { source: "homepage_cta", service: service || "unspecified" });
+    window.location.assign(whatsappWithMessage(message));
   };
 
   return (
@@ -88,7 +48,7 @@ export const PortfolioContact = ({ service, setService }: { service: ContactInte
           <p>Conte como funciona sua operação hoje e o que precisa melhorar. Eu retorno para alinhar escopo, prazo e investimento.</p>
           <div className="portfolio-contact-links">
             <a href={channels.whatsapp} target="_blank" rel="noreferrer" onClick={() => trackEvent("contact_click", { channel: "whatsapp", source: "homepage_cta" })}><MessageCircle size={19} /> WhatsApp</a>
-            <a href="#formulario-contato" onClick={() => trackEvent("contact_click", { channel: "form", source: "homepage_cta" })}><Mail size={19} aria-hidden="true" /> Enviar pelo formulário</a>
+            <a href="#formulario-contato" onClick={() => trackEvent("contact_click", { channel: "form", source: "homepage_cta" })}><FileText size={19} aria-hidden="true" /> Preencher formulário</a>
           </div>
           <div className="portfolio-service-area">
             <p id="portfolio-service-area" className="scroll-mt-24"><MapPin size={16} aria-hidden="true" /> Atendimento presencial na Grande Recife</p>
@@ -98,9 +58,9 @@ export const PortfolioContact = ({ service, setService }: { service: ContactInte
             <p className="mt-3">{siteContent.seo.remoteServiceLine}</p>
           </div>
         </div>
-        <form id="formulario-contato" className="portfolio-form" onSubmit={onSubmit} aria-busy={pending}>
-          <div className="portfolio-form-top"><h3>Conte sobre seu projeto</h3>{isPreview && <p>Prévia local · envio simulado</p>}</div>
-          <fieldset disabled={pending || isPreview === null}>
+        <form id="formulario-contato" className="portfolio-form" onSubmit={onSubmit} onChange={() => { setError(""); setPreview(""); }}>
+          <div className="portfolio-form-top"><h3>Conte sobre seu projeto</h3>{isPreview && <p>Prévia local · mensagem simulada</p>}</div>
+          <fieldset disabled={isPreview === null}>
             <div className="portfolio-fields">
               <label>Seu nome<input name="name" autoComplete="name" placeholder="Como posso te chamar?" maxLength={120} required /></label>
               <label>Seu e-mail<input name="email" type="email" autoComplete="email" placeholder="voce@exemplo.com" maxLength={254} required /></label>
@@ -120,11 +80,12 @@ export const PortfolioContact = ({ service, setService }: { service: ContactInte
               </label>
             </div>
             <label>Sobre o projeto<textarea name="message" rows={4} placeholder="Ex.: hoje consolido as vendas de três lojas manualmente e quero acompanhar tudo em um painel." required minLength={10} maxLength={4000} /></label>
-            <button className="portfolio-button" type="submit">{pending ? "Enviando…" : "Enviar briefing"}</button>
+            <button className="portfolio-button" type="submit"><MessageCircle size={18} aria-hidden="true" /> Continuar no WhatsApp</button>
           </fieldset>
-          <p className="portfolio-form-note">Sem compromisso. Seus dados serão usados para responder ao contato. <a href="/privacidade">Privacidade</a></p>
+          <p className="portfolio-form-note">O briefing abre como mensagem pronta. Confira os dados e toque em Enviar no WhatsApp. <a href="/privacidade">Privacidade</a></p>
           <div role="status" aria-live="polite">
-            {submission && <p className={`portfolio-form-feedback is-${submission.type}`}>{submission.type === "success" && <Check size={17} />} {submission.text}</p>}
+            {error && <p className="portfolio-form-feedback is-error">{error}</p>}
+            {preview && <pre aria-label="Prévia da mensagem do WhatsApp" className="mt-4 whitespace-pre-wrap break-words rounded-lg border border-slate-200 bg-slate-50 p-3 font-sans text-sm">{preview}</pre>}
           </div>
         </form>
       </div>

@@ -7,7 +7,7 @@ import { servicePath, servicesCatalogSeo } from "@/data/servicePages";
 import { siteContent } from "@/data/siteContent";
 import { trackEvent } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
-import { whatsappWithMessage } from "@/lib/whatsapp";
+import { formatWhatsAppBrief, isLocalWhatsAppPreview, whatsappWithMessage } from "@/lib/whatsapp";
 import {
   ArrowRight,
   BadgeCheck,
@@ -254,14 +254,15 @@ const initialValues: FormValues = {
   name: "",
   email: "",
   whatsapp: "",
-  service: serviceCategories[0].label,
-  packageName: "Profissional",
-  budget: budgetOptions[1],
-  deadline: deadlineOptions[3],
+  service: "",
+  packageName: "",
+  budget: "",
+  deadline: "",
   brief: "",
 };
 
-const isValidEmail = (value: string) => /\S+@\S+\.\S+/.test(value);
+const isValidEmail = (value: string) => /^\S+@\S+\.\S+$/.test(value);
+const packageBrief = (service: string, packageName: string) => `Tenho interesse no pacote ${packageName} de ${service}.`;
 
 const buildWhatsAppUrl = (values: Pick<FormValues, "service" | "packageName" | "brief">) => {
   const text = [
@@ -274,26 +275,16 @@ const buildWhatsAppUrl = (values: Pick<FormValues, "service" | "packageName" | "
   return whatsappWithMessage(text);
 };
 
-const buildLeadMessage = (values: FormValues) =>
-  [
-    "Origem: rota /servicos",
-    `Serviço de interesse: ${values.service}`,
-    `Pacote: ${values.packageName}`,
-    `WhatsApp: ${values.whatsapp}`,
-    `Faixa de orçamento: ${values.budget}`,
-    `Prazo desejado: ${values.deadline}`,
-    "",
-    "Briefing:",
-    values.brief,
-  ].join("\n");
-
 const ServicesPage = () => {
   const { hash } = useLocation();
   const [activeCategoryId, setActiveCategoryId] = useState(serviceCategories[0].id);
   const [values, setValues] = useState<FormValues>(initialValues);
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
-  const [message, setMessage] = useState("");
+  const [isPreview, setIsPreview] = useState<boolean | null>(null);
+  const [error, setError] = useState("");
+  const [preview, setPreview] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  useEffect(() => setIsPreview(isLocalWhatsAppPreview()), []);
 
   useEffect(() => {
     if (hash === "#catalogo") document.getElementById("catalogo")?.scrollIntoView();
@@ -306,75 +297,48 @@ const ServicesPage = () => {
 
   const setField = (field: keyof FormValues, value: string) => {
     setValues((current) => ({ ...current, [field]: value }));
-    if (status === "error") {
-      setStatus("idle");
-      setMessage("");
-    }
+    setError("");
+    setPreview("");
   };
 
   const selectPackage = (category: ServiceCategory, item: ServicePackage) => {
+    setError("");
+    setPreview("");
     setActiveCategoryId(category.id);
     setValues((current) => ({
       ...current,
       service: category.label,
       packageName: item.name,
-      brief: current.brief || `Tenho interesse no pacote ${item.name} de ${category.label}.`,
+      brief: !current.brief || current.brief === packageBrief(current.service, current.packageName)
+        ? packageBrief(category.label, item.name)
+        : current.brief,
     }));
     trackEvent("service_package_select", { service: category.id, package: item.name });
     document.getElementById("orcamento")?.scrollIntoView({ block: "start" });
   };
 
-  const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (isPreview === null) return;
 
     if (!values.name.trim() || !values.email.trim() || !values.whatsapp.trim() || !values.brief.trim()) {
-      setStatus("error");
-      setMessage("Preencha nome, e-mail, WhatsApp e um resumo do projeto.");
+      setError("Preencha nome, e-mail, WhatsApp e um resumo do projeto.");
       return;
     }
 
-    if (!isValidEmail(values.email)) {
-      setStatus("error");
-      setMessage("Informe um e-mail válido para retorno.");
+    if (!isValidEmail(values.email.trim())) {
+      setError("Informe um e-mail válido.");
       return;
     }
 
-    setStatus("loading");
-    setMessage("Enviando briefing...");
-    trackEvent("lead_submit_attempt", { source: "services_page", service: values.service, package: values.packageName });
-
-    try {
-      const { supabase } = await import("@/integrations/supabase/client");
-      const payload = {
-        name: values.name.trim(),
-        email: values.email.trim(),
-        message: buildLeadMessage(values),
-        phone: values.whatsapp.trim(),
-        source: "services_page",
-        service: values.service,
-        packageName: values.packageName,
-        budget: values.budget,
-        deadline: values.deadline,
-        brief: values.brief.trim(),
-      };
-
-      const { error: insertError } = await supabase.from("contact_messages").insert([payload]);
-      if (insertError) throw insertError;
-
-      const { data, error: functionError } = await supabase.functions.invoke("send-contact-email", {
-        body: payload,
-      });
-      if (functionError || !data?.success) throw functionError || new Error("send-contact-email failed");
-
-      trackEvent("generate_lead", { source: "services_page", service: values.service, package: values.packageName });
-      setStatus("success");
-      setMessage("Briefing recebido. Vou te responder com o melhor próximo passo para o seu projeto.");
-      setValues((current) => ({ ...initialValues, service: current.service, packageName: current.packageName }));
-    } catch {
-      trackEvent("lead_submit_error", { source: "services_page" });
-      setStatus("error");
-      setMessage("Não consegui enviar agora. Use o WhatsApp abaixo para garantir o contato.");
+    const message = formatWhatsAppBrief({ ...values, phone: values.whatsapp });
+    if (isPreview) {
+      setPreview(message);
+      return;
     }
+
+    trackEvent("whatsapp_brief_open", { source: "services_page", service: values.service || "unspecified" });
+    window.location.assign(whatsappWithMessage(message));
   };
 
   const navLinks = [
@@ -408,7 +372,7 @@ const ServicesPage = () => {
 
             <div className="hidden md:block">
               <GradientButton asChild>
-                <a href={buildWhatsAppUrl(values)} target="_blank" rel="noreferrer">
+                <a href={siteContent.contact.channels.whatsapp} target="_blank" rel="noreferrer">
                   WhatsApp
                   <MessageCircle size={15} />
                 </a>
@@ -441,7 +405,7 @@ const ServicesPage = () => {
                   </a>
                 ))}
                 <GradientButton asChild className="mt-3 w-full">
-                  <a href={buildWhatsAppUrl(values)} target="_blank" rel="noreferrer" onClick={() => setIsMenuOpen(false)}>
+                  <a href={siteContent.contact.channels.whatsapp} target="_blank" rel="noreferrer" onClick={() => setIsMenuOpen(false)}>
                     Abrir WhatsApp
                   </a>
                 </GradientButton>
@@ -665,7 +629,7 @@ const ServicesPage = () => {
                           href={buildWhatsAppUrl({
                             service: activeCategory.label,
                             packageName: item.name,
-                            brief: `Tenho interesse no pacote ${item.name} de ${activeCategory.label}.`,
+                            brief: packageBrief(activeCategory.label, item.name),
                           })}
                           target="_blank"
                           rel="noreferrer"
@@ -724,7 +688,7 @@ const ServicesPage = () => {
                   Use este briefing para eu responder com a melhor rota: pacote fechado, ajuste de escopo ou projeto sob medida.
                 </p>
                 <div className="mt-7 space-y-3">
-                  {["Resposta objetiva em até 24h úteis", "Sem pagamento antes de validar escopo", "Opção de WhatsApp para acelerar conversa"].map((item) => (
+                  {["Resposta objetiva em até 24h úteis", "Sem pagamento antes de validar escopo", "Briefing organizado para enviar no WhatsApp"].map((item) => (
                     <div key={item} className="flex items-center gap-3 text-sm text-slate-200">
                       <BadgeCheck size={16} className="text-cyan-200" />
                       {item}
@@ -734,6 +698,7 @@ const ServicesPage = () => {
               </div>
 
               <form onSubmit={onSubmit} className="form-card p-5 sm:p-7" noValidate>
+                {isPreview && <p className="mb-4 text-sm text-cyan-100">Prévia local · mensagem simulada</p>}
                 <div className="grid gap-4 sm:grid-cols-2">
                   <label className="space-y-2">
                     <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-400">Nome</span>
@@ -743,6 +708,7 @@ const ServicesPage = () => {
                       onChange={(event) => setField("name", event.target.value)}
                       placeholder="Seu nome completo"
                       autoComplete="name"
+                      maxLength={120}
                       required
                     />
                   </label>
@@ -755,6 +721,7 @@ const ServicesPage = () => {
                       onChange={(event) => setField("email", event.target.value)}
                       placeholder="nome@empresa.com"
                       autoComplete="email"
+                      maxLength={254}
                       required
                     />
                   </label>
@@ -765,10 +732,12 @@ const ServicesPage = () => {
                     <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-400">WhatsApp</span>
                     <input
                       className="input-dark"
+                      type="tel"
                       value={values.whatsapp}
                       onChange={(event) => setField("whatsapp", event.target.value)}
                       placeholder="(81) 99999-9999"
                       autoComplete="tel"
+                      maxLength={40}
                       required
                     />
                   </label>
@@ -780,6 +749,7 @@ const ServicesPage = () => {
                         value={values.service}
                         onChange={(event) => setField("service", event.target.value)}
                       >
+                        <option value="">Ainda estou definindo</option>
                         {serviceCategories.map((category) => (
                           <option key={category.id} value={category.label}>
                             {category.label}
@@ -794,12 +764,13 @@ const ServicesPage = () => {
                 <div className="mt-4 grid gap-4 sm:grid-cols-3">
                   <label className="space-y-2">
                     <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-400">Pacote</span>
-                    <input className="input-dark" value={values.packageName} onChange={(event) => setField("packageName", event.target.value)} />
+                    <input className="input-dark" value={values.packageName} onChange={(event) => setField("packageName", event.target.value)} placeholder="Se já escolheu" maxLength={120} />
                   </label>
                   <label className="space-y-2">
                     <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-400">Orçamento</span>
                     <span className="relative block">
                       <select className="input-dark appearance-none pr-10" value={values.budget} onChange={(event) => setField("budget", event.target.value)}>
+                        <option value="">Selecione uma faixa</option>
                         {budgetOptions.map((option) => (
                           <option key={option} value={option}>
                             {option}
@@ -817,6 +788,7 @@ const ServicesPage = () => {
                         value={values.deadline}
                         onChange={(event) => setField("deadline", event.target.value)}
                       >
+                        <option value="">Selecione um prazo</option>
                         {deadlineOptions.map((option) => (
                           <option key={option} value={option}>
                             {option}
@@ -835,42 +807,19 @@ const ServicesPage = () => {
                     value={values.brief}
                     onChange={(event) => setField("brief", event.target.value)}
                     placeholder="Conte o que você quer vender, controlar, automatizar ou visualizar."
+                    maxLength={4000}
                     required
                   />
                 </label>
 
-                <div className="mt-5 grid gap-3 sm:grid-cols-[1fr_auto]">
-                  <GradientButton type="submit" size="large" disabled={status === "loading"}>
-                    {status === "loading" ? "Enviando..." : "Enviar briefing"}
-                  </GradientButton>
-                  <GradientButton asChild variant="secondary" size="large">
-                    <a
-                      href={buildWhatsAppUrl(values)}
-                      target="_blank"
-                      rel="noreferrer"
-                      onClick={() => trackEvent("whatsapp_click", { source: "services_quote_form" })}
-                    >
-                      WhatsApp
-                    </a>
-                  </GradientButton>
+                <GradientButton type="submit" size="large" className="mt-5 w-full" disabled={isPreview === null}>
+                  <MessageCircle size={18} aria-hidden="true" /> Continuar no WhatsApp
+                </GradientButton>
+                <p className="mt-3 text-sm text-slate-300">O briefing abre como mensagem pronta. Confira os dados e toque em Enviar no WhatsApp. <Link to="/privacidade" className="text-cyan-200 underline">Privacidade</Link></p>
+                <div role="status" aria-live="polite">
+                  {error && <p className="mt-4 rounded-sm border border-rose-400/35 bg-rose-400/10 px-3 py-2 text-sm text-rose-100">{error}</p>}
+                  {preview && <pre aria-label="Prévia da mensagem do WhatsApp" className="mt-4 whitespace-pre-wrap break-words rounded-md border border-white/15 bg-[#0d1523] p-3 font-sans text-sm text-slate-100">{preview}</pre>}
                 </div>
-
-                {message ? (
-                  <p
-                    className={cn(
-                      "mt-4 rounded-sm border px-3 py-2 text-sm",
-                      status === "success"
-                        ? "border-cyan-200/35 bg-cyan-200/10 text-cyan-100"
-                        : status === "error"
-                          ? "border-rose-400/35 bg-rose-400/10 text-rose-100"
-                          : "border-white/10 bg-[#0d1523] text-slate-300",
-                    )}
-                    role="status"
-                    aria-live="polite"
-                  >
-                    {message}
-                  </p>
-                ) : null}
               </form>
             </div>
           </Container>

@@ -10,9 +10,9 @@ const legalContent = {
     title: "Política de Privacidade",
     description: "Como os dados enviados pelo site de Denilson Junior são coletados, utilizados e protegidos.",
     sections: [
-      ["Dados coletados", "Quando você envia o formulário de contato, podemos coletar nome, e-mail e a descrição do desafio informado. Também podem ser registrados dados técnicos e eventos de navegação quando você autoriza o uso de analytics."],
+      ["Dados de contato", "Ao continuar pelo formulário, os dados preenchidos montam uma mensagem pronta para revisão e envio no WhatsApp. Também podem ser registrados dados técnicos e eventos de navegação quando você autoriza o uso de analytics."],
       ["Como os dados são utilizados", "As informações são usadas para responder ao contato, entender a necessidade apresentada, preparar propostas e melhorar a experiência do site. Não comercializamos dados pessoais."],
-      ["Armazenamento e fornecedores", "As mensagens podem ser processadas e armazenadas por serviços de infraestrutura, banco de dados e e-mail utilizados na operação do site, incluindo Supabase e Vercel, conforme suas próprias políticas e medidas de segurança."],
+      ["Armazenamento e fornecedores", "As conversas iniciadas pelo formulário seguem pelo WhatsApp e estão sujeitas à política de privacidade dessa plataforma."],
       ["Seus direitos", "Você pode solicitar acesso, correção ou exclusão dos dados enviados, além de retirar consentimentos aplicáveis, pelo e-mail juniordenilson363@gmail.com."],
       ["Prazo e atualizações", "Os dados são mantidos pelo período necessário para atender ao contato e cumprir obrigações aplicáveis. Esta política pode ser atualizada para refletir mudanças no site ou nos serviços utilizados."],
     ],
